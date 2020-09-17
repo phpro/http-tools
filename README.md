@@ -1,5 +1,7 @@
 # Example Symfony configuration
 
+## Setting up an HTTP client :
+
 ```yaml
 services:
     App\SomeClient:
@@ -53,4 +55,33 @@ services:
 
     Phpro\HttpTools\Formatter\Factory\BasicFormatterFactory: ~
 
+```
+
+
+## Setting up a transport with request handlers:
+
+```yaml
+services:
+    App\SomeClient\Transport:
+        class: Phpro\HttpTools\Transport\TransportInterface
+        stack: 
+            - App\SomeClient\Transport\JsonErrorBodyTransport
+                arguments: ['@.inner']
+            - Phpro\HttpTools\Transport\Json\JsonTransport
+                arguments:
+                    - '@App\SomeClient'
+                    - '@Http\Message\RequestFactory'
+                    - '@Phpro\HttpTools\Uri\TemplatedUriBuilder'
+
+    Phpro\HttpTools\Uri\TemplatedUriBuilder: ~
+
+    App\SomeClient\RequestHandler\ListSomething:
+        arguments:
+            - '@App\SomeClient\Transport'
+```
+
+
+## Testing in phpunit
+
+```php
 ```
