@@ -6,7 +6,7 @@
 services:
     App\SomeClient:
         factory: '@App\SomeClient\Factory'
-        aguments:
+        arguments:
             $options:
                 base_uri: 'https://someclient.com'
 
