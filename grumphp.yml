@@ -1,0 +1,15 @@
+grumphp:
+    tasks:
+        phpcsfixer2:
+            config: ".php_cs.dist"
+            config_contains_finder: true
+        psalm:
+            config: psalm.xml
+            show_info: true
+        phpunit: ~
+        composer:
+            metadata:
+                blocking: false
+    environment:
+        paths:
+            - 'tools'
