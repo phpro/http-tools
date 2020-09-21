@@ -45,7 +45,7 @@ services:
                     'X-Api-Key',
                     'X-Api-Secret',
                 ]]
-            - Phpro\HttpTools\Formatter\RemoveSensitiveHeadersFormatter
+            - Phpro\HttpTools\Formatter\RemoveSensitiveJsonKeysFormatter
                 arguments: ['@.inner', [
                     'password',
                     'oldPassword',
