@@ -251,6 +251,8 @@ class SomeTest extends TestCase
 }
 ```
 
+[More info ...](http://docs.php-http.org/en/latest/clients/mock-client.html)
+
 ### UseVcrClient
 
 This one can be used to test your request-handlers with realtime data.
@@ -281,3 +283,4 @@ class SomeTest extends TestCase
 }
 ```
 
+[More info ...](http://docs.php-http.org/en/latest/plugins/vcr.html)
