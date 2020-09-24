@@ -170,7 +170,7 @@ class ListResponse
     public function getItems(): array
     {
         // Never trust APIs!
-        return $this->data['items'] ?? [];
+        return (array) ($this->data['items'] ?? []);
     }
 }
 ```
