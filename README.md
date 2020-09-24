@@ -175,6 +175,41 @@ class ListResponse
 }
 ```
 
+## Async clients
+
+This package also provides a transport for async HTTP clients.
+The architecture can remain as is.
+A request handler will look like this:
+
+```php
+<?php
+
+use Http\Promise\Promise;
+use Phpro\HttpTools\Transport\AsyncTransportInterface;
+
+class ListSomething
+{
+    public function __construct(
+        private AsyncTransportInterface $transport
+    ) {}
+
+    public function __invoke(ListRequest $request): Promise
+    {
+        return ($this->transport)($request)->then(
+           // The success callback
+           // (assuming that the transport converts the HTTP response into an array)
+           function (array $data) {
+                return ListResponse::fromRawArray($data);
+           },
+       
+           // The failure callback
+           function (\Exception $exception) {
+               throw $exception;
+           }
+       );
+    }
+}
+``` 
 
 ## Testing HTTP clients
 
@@ -233,41 +268,4 @@ class SomeTest extends TestCase
     }
 }
 ```
-
-
-## Async clients
-
-This package also provides a transport for async HTTP clients.
-The architecture can remain as is.
-A request handler will look like this:
-
-```php
-<?php
-
-use Http\Promise\Promise;
-use Phpro\HttpTools\Transport\AsyncTransportInterface;
-
-class ListSomething
-{
-    public function __construct(
-        private AsyncTransportInterface $transport
-    ) {}
-
-    public function __invoke(ListRequest $request): Promise
-    {
-        return ($this->transport)($request)->then(
-           // The success callback
-           // (assuming that the transport converts the HTTP response into an array)
-           function (array $data) {
-                return ListResponse::fromRawArray($data);
-           },
-       
-           // The failure callback
-           function (\Exception $exception) {
-               throw $exception;
-           }
-       );
-    }
-}
-``` 
 
