@@ -47,6 +47,9 @@ $middlewares = [
 ];
 ```
 
+
+**Remember**: [There are a shitload of HTTPlug middleware available already.](http://docs.php-http.org/en/latest/plugins/) Try on of them before writing your own one!
+
 ### Logging
 
 This package contains the `php-http/logger-plugin`.
