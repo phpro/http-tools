@@ -74,6 +74,8 @@ $middlewares[] = new Http\Client\Common\Plugin\LoggerPlugin(
 ); 
 ```
 
+[More info ...](http://docs.php-http.org/en/latest/plugins/logger.html)
+
 ## Using the HTTP-Client
 
 We don't want you to use the PSR-18 client directly! Instead, we suggest you to use a request handler principle.
