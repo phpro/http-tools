@@ -269,6 +269,8 @@ class SomeTest extends TestCase
     
     protected function setUp()
     {
+        // Instead of the autodiscover client, you can use your own client factory.
+        // That way, you can e.g. add the required authentication, ...
         $this->client = AutoDiscoveredClientFactory::create([
             ...$this->useRecording(FIXTURES_DIR, new PathNamingStrategy())        
         ]);
