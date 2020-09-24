@@ -1,0 +1,20 @@
+digraph RequestHandlers {
+
+    subgraph cluster_App {
+        label="HTTP Value objects";
+
+        Response [label="Response model"];
+        Request [label="Request model"];
+    }
+
+    RequestHandler;
+    Transport
+    PSRHttpClient [label="PSR-18 HTTP Client"]
+
+    Transport -> RequestHandler
+    RequestHandler -> Transport
+    Transport -> PSRHttpClient
+    PSRHttpClient -> Transport
+    RequestHandler -> Response
+    Request -> RequestHandler
+}

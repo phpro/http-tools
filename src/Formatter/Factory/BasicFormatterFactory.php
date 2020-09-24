@@ -10,15 +10,8 @@ use Http\Message\Formatter\SimpleFormatter;
 
 final class BasicFormatterFactory
 {
-    private int $maxBodyLength;
-
-    public function __construct(int $maxBodyLength = 1000)
+    public static function create(bool $debug, int $maxBodyLength = 1000): Formatter
     {
-        $this->maxBodyLength = $maxBodyLength;
-    }
-
-    public function __invoke(bool $debug): Formatter
-    {
-        return $debug ? new SimpleFormatter() : new FullHttpMessageFormatter($this->maxBodyLength);
+        return $debug ? new SimpleFormatter() : new FullHttpMessageFormatter($maxBodyLength);
     }
 }

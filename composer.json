@@ -24,6 +24,7 @@
         "webmozart/assert": "^1.9"
     },
     "require-dev": {
+        "guzzlehttp/guzzle": "^7.0",
         "nyholm/psr7": "^1.3",
         "php-http/mock-client": "^1.4",
         "php-http/vcr-plugin": "^1.0",
@@ -31,6 +32,8 @@
         "symfony/http-client": "^5.1"
     },
     "suggest": {
+        "symfony/http-client": "If you want to use the built-in symfony/http-client tools.",
+        "guzzlehttp/guzzle": "If you want to use the built-in guzzlehttp/guzzle tools.",
         "php-http/mock-client": "For testing HTTP clients through mocking Requests and responses.",
         "php-http/vcr-plugin": "For testing HTTP clients through storing and replaying requests and responses."
     },
