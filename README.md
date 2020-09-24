@@ -135,6 +135,9 @@ class ListSomething
 
 use Phpro\HttpTools\Request\RequestInterface;
 
+// By wrapping the request in a Value Object, you can use named constructors to pass in filters and POST data.
+// You can add multiple named constructors if you want the list to behave in different ways in some cases.
+
 class ListRequest implements RequestInterface
 {
     public function method() : string
@@ -159,6 +162,10 @@ class ListRequest implements RequestInterface
         return [];
     }
 }
+
+// By wrapping the response in a Value Object, you can sanitize and normalize data.
+// You could as well lazilly throw an exception in here if some value is missing.
+// However, that's might be more of a task for a request-handler.
 
 class ListResponse
 {
