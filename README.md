@@ -10,16 +10,20 @@ Setting up an HTTP client is done by using a factory.
 The factory accepts a list of implementation specific plugins / middlewares.
 Besides that, you can send options like a base_uri or default headers.
 
-```yaml
-services:
-    App\SomeClient\HttpClient:
-        factory: ['Phpro\HttpTools\Client\Factory\SymfonyClientFactory', 'create']
-        # factory: ['Phpro\HttpTools\Client\Factory\GuzzleClientFactory', 'create']
-        # factory: ['Phpro\HttpTools\Client\Factory\AutoDiscoveredClientFactory', 'create']
-        arguments:
-            $middlewares: !tagged app.someclient.plugin
-            $options:
-                base_uri: '%env(SOME_CLIENT_BASE_URI)%'
+```php
+<?php
+
+use Phpro\HttpTools\Client\Factory\AutoDiscoveredClientFactory;
+use Phpro\HttpTools\Client\Factory\GuzzleClientFactory;
+use Phpro\HttpTools\Client\Factory\SymfonyClientFactory;
+
+$options = ['base_uri' => $_ENV['SOME_CLIENT_BASE_URI']];
+
+$httpClient = AutoDiscoveredClientFactory::create($middlewares);
+$httpClient = GuzzleClientFactory::create($guzzlePlugins, $options);
+$httpClient = SymfonyClientFactory::create($middlewares, $options);
+
+// You can always create your own factory if you want to have more control or want to use another tool!
 ```
 
 ### Configuring the client through plugins
@@ -29,19 +33,13 @@ You can use plugins for everything: logging, authentication, language specificat
 
 Examples:
 
-```yaml
-services:        
-    Phpro\HttpTools\Plugin\AcceptLanguagePlugin:
-        arguments:
-            - 'nl-BE'
-        tags:
-            - { name: 'app.someclient.plugin' }
+```php
+<?php
 
-    App\SomeClient\Plugin\Authentication\ServicePrincipal:
-        arguments:
-            - '%env(API_SECRET)%'
-        tags:
-            - { name: 'app.someclient.plugin' }
+$middlewares = [
+    new Phpro\HttpTools\Plugin\AcceptLanguagePlugin('nl-BE'),
+    new App\SomeClient\Plugin\Authentication\ServicePrincipal($_ENV['API_SECRET']),
+];
 ```
 
 ### Logging
@@ -50,37 +48,22 @@ This package contains the `php-http/logger-plugin`.
 On top of that, we've added some decorators that help you strip out sensitive information from the logs.
 You can switch from full to simple logging by specifying a debug parameter!
 
-```yaml
-    App\SomeClient\Plugin\Logger:
-        class: 'Http\Client\Common\Plugin\LoggerPlugin'
-        arguments:
-            - '@monolog.logger.someclient'
-            - '@App\SomeClient\Plugin\Logger\Formatter'
-        tags:
-            - { name: 'app.someclient.plugin', priority: 1000 }
+```php
+<?php
 
-    App\SomeClient\Plugin\Logger\Formatter:
-        class: Http\Message\Formatter
-        stack:
-            - Phpro\HttpTools\Formatter\RemoveSensitiveHeadersFormatter
-                $formattor: '@.inner'
-                $sensitiveHeaders:
-                    - 'X-Api-Key'
-                    - 'X-Api-Secret'
-                    - refreshToken
-            - Phpro\HttpTools\Formatter\RemoveSensitiveJsonKeysFormatter
-                arguments:
-                    $formattor: '@.inner'
-                    $sensitiveJsonKeyks:
-                        - password
-                        - oldPassword
-                        - refreshToken
-            - Phpro\HttpTools\Formatter\Factory\BasicFormatterFactory:
-                factory: ['Phpro\HttpTools\Formatter\Factory\BasicFormatterFactory', 'create']
-                class: Http\Message\Formatter
-                arguments:
-                    $debug: '%kernel.debug%'
-                    $maxBodyLength: 1000
+use Phpro\HttpTools\Formatter\RemoveSensitiveHeadersFormatter;
+use Phpro\HttpTools\Formatter\RemoveSensitiveJsonKeysFormatter;
+
+$middlewares[] = new Http\Client\Common\Plugin\LoggerPlugin(
+    $logger,
+    new RemoveSensitiveHeadersFormatter(
+        new RemoveSensitiveJsonKeysFormatter(
+            BasicFormatterFactory::create($debug = true, $maxBodyLength = 1000),
+            ['password', 'oldPassword', 'refreshToken']
+        ),
+        ['X-Api-Key', 'X-Api-Secret']
+    )
+); 
 ```
 
 ## Using the HTTP-Client
@@ -101,28 +84,25 @@ You might choose to create one big RequestHandler that can deal with multiple re
 
 Example implementation:
 
+```php
+<?php
+use Http\Discovery\Psr17FactoryDiscovery;
+use Phpro\HttpTools\Transport\Json\JsonTransport;
+use Phpro\HttpTools\Uri\TemplatedUriBuilder;
 
-```yaml
-services:
-    App\SomeClient\Transport:
-        class: Phpro\HttpTools\Transport\TransportInterface
-        stack: 
-            - App\SomeClient\Transport\JsonErrorBodyTransport
-                arguments: ['@.inner']
-            - Phpro\HttpTools\Transport\Json\JsonTransport
-                arguments:
-                    - '@App\SomeClient'
-                    - '@Http\Message\RequestFactory'
-                    - '@Phpro\HttpTools\Uri\TemplatedUriBuilder'
-
-    Phpro\HttpTools\Uri\TemplatedUriBuilder: ~
-
-    App\SomeClient\RequestHandler\ListSomething:
-        arguments:
-            - '@App\SomeClient\Transport'
+$transport = App\SomeClient\Transport\JsonErrorBodyTransport(
+    new JsonTransport(
+        $httpClient,
+        Psr17FactoryDiscovery::findRequestFactory(),
+        new TemplatedUriBuilder()
+    )
+);
 ```
 
+Example request handler: 
+
 ```php
+<?php
 
 use Phpro\HttpTools\Transport\TransportInterface;
 
