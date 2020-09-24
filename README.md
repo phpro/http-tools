@@ -241,7 +241,7 @@ class SomeTest extends TestCase
 {
     use UseMockClient;
     
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->client = $this->mockClient(function (Client $client): Client {
             $client->setDefaultException(new \Exception('Dont call me!'));
@@ -270,7 +270,7 @@ class SomeTest extends TestCase
 {
     use UseVcrClient;
     
-    protected function setUp()
+    protected function setUp(): void
     {
         // Instead of the autodiscover client, you can use your own client factory.
         // That way, you can e.g. add the required authentication, ...
