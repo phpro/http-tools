@@ -9,8 +9,6 @@ use Http\Client\Plugin\Vcr\NamingStrategy\PathNamingStrategy;
 use Http\Client\Plugin\Vcr\Recorder\FilesystemRecorder;
 use Http\Client\Plugin\Vcr\RecordPlugin;
 use Http\Client\Plugin\Vcr\ReplayPlugin;
-use Phpro\HttpTools\Client\Configurator\PluginsConfigurator;
-use Psr\Http\Client\ClientInterface;
 use Webmozart\Assert\Assert;
 
 trait UseVcrClient
@@ -18,7 +16,7 @@ trait UseVcrClient
     /**
      * @return [RecordPlugin, ReplayPlugin]
      */
-    private function useRecording(string $path, NamingStrategyInterface $namingStrategy = null)
+    private function useRecording(string $path, NamingStrategyInterface $namingStrategy = null): array
     {
         Assert::classExists(RecordPlugin::class, 'Could not find the VCR plugin. Please run: "composer require --dev php-http/vcr-plugin"');
 
@@ -30,13 +28,5 @@ trait UseVcrClient
             new RecordPlugin($namingStrategy, $recorder),
             new ReplayPlugin($namingStrategy, $recorder, false),
         ];
-    }
-
-    /**
-     * @param [RecordPlugin, ReplayPlugin] $recording
-     */
-    private function addRecordingToClient(ClientInterface $client, array $recording): ClientInterface
-    {
-        return PluginsConfigurator::configure($client, [...$recording]);
     }
 }

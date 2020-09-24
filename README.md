@@ -178,7 +178,58 @@ class ListResponse
 
 ## Testing HTTP clients
 
-TODO
+This tool provided some traits for unit testing your API client with PHPUnit.
+
+### UseMockClient
+
+Preferably, this one will be used to test your own middlewares and transports.
+It is also possible to test a request-handler, but you'll have to manually provide the response for it.
+
+example:
 
 ```php
+<?php
+use Http\Mock\Client;
+use \Phpro\HttpTools\Test\UseMockClient;
+
+class SomeTest extends TestCase
+{
+    use UseMockClient;
+    
+    protected function setUp()
+    {
+        $this->client = $this->mockClient(function (Client $client): Client {
+            $client->setDefaultException(new \Exception('Dont call me!'));
+            return $client;
+        });
+    }    
+}
+```
+
+### UseVcrClient
+
+This one can be used to test your request-handlers with realtime data.
+The first you use it in your test, it will do the actual HTTP request.
+The response of this request will be recorded and stored inside your project.
+The second time the test runs, it will use the recorded version.
+
+example: 
+
+```php
+<?php
+use Http\Client\Plugin\Vcr\NamingStrategy\PathNamingStrategy;
+use Phpro\HttpTools\Client\Factory\AutoDiscoveredClientFactory;
+use Phpro\HttpTools\Test\UseVcrClient;
+
+class SomeTest extends TestCase
+{
+    use UseVcrClient;
+    
+    protected function setUp()
+    {
+        $this->client = AutoDiscoveredClientFactory::create([
+            ...$this->useRecording(FIXTURES_DIR, new PathNamingStrategy())        
+        ]);
+    }
+}
 ```
