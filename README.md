@@ -243,6 +243,8 @@ class SomeTest extends TestCase
     
     protected function setUp(): void
     {
+        // You can configure the mock client through a callback.
+        // Or you can skip the callback and configure the result of this method.
         $this->client = $this->mockClient(function (Client $client): Client {
             $client->setDefaultException(new \Exception('Dont call me!'));
             return $client;
