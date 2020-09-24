@@ -95,7 +95,7 @@ use Http\Discovery\Psr17FactoryDiscovery;
 use Phpro\HttpTools\Transport\Json\JsonTransport;
 use Phpro\HttpTools\Uri\TemplatedUriBuilder;
 
-$transport = App\SomeClient\Transport\JsonErrorBodyTransport(
+$transport = App\SomeClient\Transport\MyCustomTransportWrapperForDealingWithIsErrorPropertyEg(
     new JsonTransport(
         $httpClient,
         Psr17FactoryDiscovery::findRequestFactory(),
