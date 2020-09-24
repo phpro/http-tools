@@ -175,7 +175,7 @@ class ListResponse
 }
 ```
 
-## Async clients
+## Async request handlers
 
 This package also provides a transport for async HTTP clients.
 The architecture can remain as is.
