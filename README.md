@@ -13,6 +13,7 @@ Besides that, you can send options like a base_uri or default headers.
 ```php
 <?php
 
+use Phpro\HttpTools\Client\Configurator\PluginsConfigurator;
 use Phpro\HttpTools\Client\Factory\AutoDiscoveredClientFactory;
 use Phpro\HttpTools\Client\Factory\GuzzleClientFactory;
 use Phpro\HttpTools\Client\Factory\SymfonyClientFactory;
@@ -24,6 +25,10 @@ $httpClient = GuzzleClientFactory::create($guzzlePlugins, $options);
 $httpClient = SymfonyClientFactory::create($middlewares, $options);
 
 // You can always create your own factory if you want to have more control or want to use another tool!
+
+// If you are using guzzle, you can both use guzzle and httplug plugins.
+// You can wrap additional httplug plugins like this:
+$httpClient = PluginsConfigurator::configure($httpClient, $middlewares);
 ```
 
 ### Configuring the client through plugins
@@ -121,6 +126,51 @@ class ListSomething
         return ListResponse::fromRawArray(
             ($this->transport)($request)
         );    
+    }
+}
+```
+
+```php
+<?php
+
+use Phpro\HttpTools\Request\RequestInterface;
+
+class ListRequest implements RequestInterface
+{
+    public function method() : string
+    {
+        return 'GET';
+    }
+
+    public function uri() : string
+    {
+        return '/list{?query}'; 
+    }
+
+    public function uriParameters() : array
+    {
+        return [
+            'query' => 'somequery',
+        ];
+    }
+
+    public function body() : array
+    {
+        return [];
+    }
+}
+
+class ListResponse
+{
+    public static function fromRawArray(array $data): self
+    {
+        return new self($data);    
+    }
+
+    public function getItems(): array
+    {
+        // Never trust APIs!
+        return $this->data['items'] ?? [];
     }
 }
 ```
