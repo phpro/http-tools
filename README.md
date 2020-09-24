@@ -257,6 +257,7 @@ class ListSomething
     {
         return ($this->transport)($request)->then(
            // The success callback
+           // (assuming that the transport converts the HTTP response into an array)
            function (array $data) {
                 return ListResponse::fromRawArray($data);
            },
