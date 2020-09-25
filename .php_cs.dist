@@ -3,6 +3,7 @@
 return PhpCsFixer\Config::create()
     ->setFinder(
         \Symfony\Component\Finder\Finder::create()
+            ->path('*.php')
             ->in([
                 __DIR__ . '/src',
                 __DIR__ . '/tests',
