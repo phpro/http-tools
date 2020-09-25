@@ -11,7 +11,7 @@ use Symfony\Component\HttpClient\CurlHttpClient;
 use Symfony\Component\HttpClient\HttplugClient;
 use Webmozart\Assert\Assert;
 
-final class SymfonyClientFactory
+final class SymfonyClientFactory implements FactoryInterface
 {
     /**
      * @psalm-suppress MoreSpecificImplementedParamType

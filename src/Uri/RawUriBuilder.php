@@ -20,7 +20,7 @@ final class RawUriBuilder implements UriBuilderInterface
 
     public static function createWithAutodiscoveredPsrFactories(): self
     {
-        return new self(Psr17FactoryDiscovery::findUrlFactory());
+        return new self(Psr17FactoryDiscovery::findUriFactory());
     }
 
     public function __invoke(RequestInterface $request): UriInterface

@@ -8,11 +8,13 @@ use Http\Client\Common\Plugin;
 use Http\Client\Common\PluginClient;
 use Psr\Http\Client\ClientInterface;
 use Webmozart\Assert\Assert;
+use function is_array;
+use function iterator_to_array;
 
 final class PluginsConfigurator
 {
     /**
-     * @param list<Plugin> $plugins
+     * @param iterable<Plugin> $plugins
      *
      * @return PluginClient
      */
@@ -22,7 +24,7 @@ final class PluginsConfigurator
 
         return new PluginClient(
             $client,
-            [...$plugins],
+            is_array($plugins) ? $plugins : iterator_to_array($plugins, false),
             []
         );
     }
