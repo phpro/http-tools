@@ -10,7 +10,10 @@ However, here are some default guidelines:
 composer require phpro/http-tools
 ```
 
-*Note*: You'll also need to require PSR-18 HttpClient like `symfony/http-client` or `guzzlehttp/guzzle`
+*Note*: You'll also need to require PSR-17 and PSR-18 implementations:
+
+* PSR-17: `psr/http-message-implementation` like `nyholm/psr7`
+* PSR-18: `php-http/client-implementation` like `symfony/http-client` or `guzzlehttp/guzzle`
 
 ## Setting up an HTTP client :
 
