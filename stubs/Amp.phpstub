@@ -1,0 +1,13 @@
+<?php
+namespace Amp;
+
+/**
+ * @template TReturn
+ *
+ * @param callable():(\Generator<mixed, mixed, mixed, TReturn>|TReturn) $gen
+ *
+ * @return Promise<TReturn>
+ */
+function call(callable $gen) : Promise
+{
+}

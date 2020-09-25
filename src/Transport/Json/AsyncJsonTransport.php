@@ -53,7 +53,7 @@ final class AsyncJsonTransport implements TransportInterface
      * @throws \Psr\Http\Client\ClientExceptionInterface
      * @throws \Safe\Exceptions\JsonException
      *
-     * @return Promise<array<array-key, mixed>>
+     * @return Promise<array>
      */
     public function __invoke(RequestInterface $request): Promise
     {
@@ -66,6 +66,7 @@ final class AsyncJsonTransport implements TransportInterface
             ->withBody($this->streamFactory->createStream(
                 $body = json_encode($request->body())
             ));
+
 
         return call(
             function () use ($httpRequest): array {
