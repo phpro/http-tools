@@ -226,7 +226,17 @@ class ListSomething
 
 This tool provided some traits for unit testing your API client with PHPUnit.
 
+### UseHttpFactories
+
+This trait can help you build requests and responses inside your tests without worrying what HTTP package you use:
+
+* `createRequest`
+* `createResponse`
+* `createStream`
+
 ### UseMockClient
+
+*Includes `UseHttpFactories` trait*
 
 Preferably, this one will be used to test your own middlewares and transports.
 It is also possible to test a request-handler, but you'll have to manually provide the response for it.
@@ -254,15 +264,11 @@ class SomeTest extends TestCase
 }
 ```
 
-This trait also has some methods to make it easier to construct some HTTP specific classes:
-
-* `createRequest`
-* `createResponse`
-* `createStream`
-
 [More info ...](http://docs.php-http.org/en/latest/clients/mock-client.html)
 
 ### UseVcrClient
+
+*Includes `UseHttpFactories` trait*
 
 This one can be used to test your request-handlers with realtime data.
 The first you use it in your test, it will do the actual HTTP request.
