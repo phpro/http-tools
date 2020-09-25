@@ -12,6 +12,7 @@ use Phpro\HttpTools\Client\Factory\SymfonyClientFactory;
 use Phpro\HttpTools\Test\UseVcrClient;
 use Phpro\HttpTools\Tests\Helper\Vcr\FactoryAwareNamingStrategy;
 use PHPUnit\Framework\TestCase;
+use Psr\Http\Message\RequestInterface;
 use function Safe\json_decode;
 
 /**
@@ -55,7 +56,9 @@ class FactoriesTest extends TestCase
         ];
         yield 'guzzle' => [
             'GuzzleClientFactory',
-            fn () => GuzzleClientFactory::create([]),
+            fn () => GuzzleClientFactory::create([
+                fn (callable $handler) => fn(RequestInterface $request, array $options) => $handler($request, $options),
+            ]),
         ];
         yield 'httplug' => [
             'SymfonyClientFactory',

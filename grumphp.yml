@@ -10,6 +10,11 @@ grumphp:
         composer:
             metadata:
                 blocking: false
+        clover_coverage:
+            clover_file: coverage/clover.xml
+            level: 100
+            metadata:
+                priority: -100
     environment:
         paths:
             - 'tools'
