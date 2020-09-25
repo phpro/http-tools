@@ -33,7 +33,9 @@ $httpClient = PluginsConfigurator::configure($httpClient, $middlewares);
 
 ### Configuring the client through plugins
 
-If you want to extend how an HTTP client works, we require you to use plugins!
+[Plugin](http://docs.php-http.org/en/latest/plugins/index.html)-[Middleware](http://docs.guzzlephp.org/en/stable/handlers-and-middleware.html) : Patato-Patato. 
+
+If you want to extend how an HTTP client works, we want you to use plugins!
 You can use plugins for everything: logging, authentication, language specification, ...
 
 Examples:
@@ -47,6 +49,9 @@ $middlewares = [
 ];
 ```
 
+**Built-in plugins**:
+
+- `AcceptLanguagePlugin`: Makes it possible to add an Accept-Language to a request.
 
 **Remember**: [There are a shitload of HTTPlug middleware available already.](http://docs.php-http.org/en/latest/plugins/) Try on of them before writing your own one!
 
@@ -90,7 +95,11 @@ So what does this architecture look like?
 
 
 By using this architecture, we provide an easy to extend flow with models that replace cumbersome array structures.  
-You might choose to create one big RequestHandler that can deal with multiple requests, but we suggest not to!
+
+
+You might be familiar with 1 "client" class that provides access to multiple API endpoints. We see that approach as a multi-requesthandler class.
+You are free to choose that approach, owever, we suggest using 1 request handler per API endpoint.
+This way, you can inject / mock only the things you require at that moment into your codebase.
 
 Example implementation:
 

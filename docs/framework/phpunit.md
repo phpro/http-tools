@@ -1,1 +1,0 @@
-# Using this package inside Symfony

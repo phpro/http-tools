@@ -1,1 +1,1 @@
-# Using this package inside Symfony
+# Using this package inside Magento2
