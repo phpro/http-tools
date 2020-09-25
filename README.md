@@ -227,6 +227,9 @@ class ListSomething
         private AsyncTransportInterface $transport
     ) {}
 
+    /**
+     * @return Promise<ListResponse>
+     */
     public function lazy(ListRequest $request): Promise
     {
         return call(function () use ($request) {
