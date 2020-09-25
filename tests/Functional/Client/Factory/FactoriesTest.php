@@ -57,7 +57,7 @@ class FactoriesTest extends TestCase
         yield 'guzzle' => [
             'GuzzleClientFactory',
             fn () => GuzzleClientFactory::create([
-                fn (callable $handler) => fn(RequestInterface $request, array $options) => $handler($request, $options),
+                fn (callable $handler) => fn (RequestInterface $request, array $options) => $handler($request, $options),
             ]),
         ];
         yield 'httplug' => [
