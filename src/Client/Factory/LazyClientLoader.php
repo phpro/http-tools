@@ -12,7 +12,7 @@ use Webmozart\Assert\Assert;
  * Especially useful in frameworks like Magento, which don't know the concept of factories!
  * For symfony based projects, this class might be overkill!
  */
-final class LazyFactoryLoader
+final class LazyClientLoader
 {
     /**
      * @var class-string<FactoryInterface>
