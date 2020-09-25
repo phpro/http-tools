@@ -1,0 +1,8 @@
+HTTP/1.1 200 OK
+host: 127.0.0.1:8000
+date: Fri, 25 Sep 2020 11:42:12 GMT
+connection: close
+content-type: application/json
+content-length: 18
+
+{"success": true}

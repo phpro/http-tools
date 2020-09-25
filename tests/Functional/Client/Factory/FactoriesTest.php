@@ -8,6 +8,7 @@ use Http\Client\Plugin\Vcr\NamingStrategy\PathNamingStrategy;
 use Phpro\HttpTools\Client\Configurator\PluginsConfigurator;
 use Phpro\HttpTools\Client\Factory\AutoDiscoveredClientFactory;
 use Phpro\HttpTools\Client\Factory\GuzzleClientFactory;
+use Phpro\HttpTools\Client\Factory\LazyFactoryLoader;
 use Phpro\HttpTools\Client\Factory\SymfonyClientFactory;
 use Phpro\HttpTools\Test\UseVcrClient;
 use Phpro\HttpTools\Tests\Helper\Vcr\FactoryAwareNamingStrategy;
@@ -20,6 +21,7 @@ use function Safe\json_decode;
  * @covers \Phpro\HttpTools\Client\Factory\AutoDiscoveredClientFactory
  * @covers \Phpro\HttpTools\Client\Factory\GuzzleClientFactory
  * @covers \Phpro\HttpTools\Client\Factory\SymfonyClientFactory
+ * @covers \Phpro\HttpTools\Client\Factory\LazyFactoryLoader
  * @covers \Phpro\HttpTools\Test\UseHttpFactories
  * @covers \Phpro\HttpTools\Test\UseVcrClient
  */
@@ -63,6 +65,10 @@ class FactoriesTest extends TestCase
         yield 'httplug' => [
             'SymfonyClientFactory',
             fn () => SymfonyClientFactory::create([]),
+        ];
+        yield 'lazy' => [
+            'LazyFactoryLoader',
+            fn () => (new LazyFactoryLoader(AutoDiscoveredClientFactory::class, [], []))->load()
         ];
     }
 }
