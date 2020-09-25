@@ -4,6 +4,14 @@ The goal of this package is to provide you some tools to set-up a consistent HTT
 The HTTP client implementation you want to use is just a small implementation detail and doesn't matter.
 However, here are some default guidelines:
 
+## Installation
+
+```
+composer require phpro/http-tools
+```
+
+*Note*: You'll also need to require PSR-18 HttpClient like `symfony/http-client` or `guzzlehttp/guzzle`
+
 ## Setting up an HTTP client :
 
 Setting up an HTTP client is done by using a factory.
@@ -30,6 +38,8 @@ $httpClient = SymfonyClientFactory::create($middlewares, $options);
 // You can wrap additional httplug plugins like this:
 $httpClient = PluginsConfigurator::configure($httpClient, $middlewares);
 ```
+
+**Note:** This package does not download a specific HTTP implementation. You can choose whatever package you want, but you'll have to manually add it to composer.
 
 ### Configuring the client through plugins
 

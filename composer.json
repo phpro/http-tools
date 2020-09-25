@@ -1,6 +1,7 @@
 {
     "name": "phpro/http-tools",
     "description": "HTTP tools for developing more consistent HTTP implementations.",
+    "keywords": ["PSR-7", "PSR-18", "PSR-17", "HTTP", "Client"],
     "type": "library",
     "license": "MIT",
     "authors": [
