@@ -209,13 +209,17 @@ class ListResponse
 
 This package also provides a transport for async HTTP clients.
 The architecture can remain as is.
-A request handler will look like this:
+A request handler can be implemented in a lazy or awaiting state.
+
+We use the Promise component from [Amp](https://amphp.org/), to make it fully integrateable with fully Async codebases.  
 
 ```php
 <?php
 
-use Http\Promise\Promise;
+use Amp\Promise;
 use Phpro\HttpTools\Transport\AsyncTransportInterface;
+use function Amp\call;
+use function Amp\Promise\wait;
 
 class ListSomething
 {
@@ -223,23 +227,23 @@ class ListSomething
         private AsyncTransportInterface $transport
     ) {}
 
-    public function __invoke(ListRequest $request): Promise
+    public function lazy(ListRequest $request): Promise
     {
-        return ($this->transport)($request)->then(
-           // The success callback
-           // (assuming that the transport converts the HTTP response into an array)
-           function (array $data) {
-                return ListResponse::fromRawArray($data);
-           },
-       
-           // The failure callback
-           function (\Exception $exception) {
-               throw $exception;
-           }
-       );
+        return call(function () use ($request) {
+            $data = yield ($this->transport)($request);
+
+            return ListResponse::fromRawArray($data);  
+        });
+    }
+    
+    public function await(ListRequest $request): ListResponse
+    {
+        return wait($this->lazy($request));
     }
 }
 ``` 
+
+[More info ...](http://docs.php-http.org/en/latest/components/promise.html)
 
 ## Testing HTTP clients
 

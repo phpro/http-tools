@@ -13,6 +13,7 @@
     "require": {
         "php": "^7.4",
         "ext-json": "*",
+        "amphp/amp": "^2.5",
         "league/uri": "^6.3",
         "php-http/client-implementation": "^2.2",
         "php-http/httplug": "^2.2",

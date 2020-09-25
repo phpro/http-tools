@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Phpro\HttpTools\Transport;
 
-use Http\Promise\Promise;
+use Amp\Promise;
 use Phpro\HttpTools\Request\RequestInterface;
 
 interface AsyncTransportInterface
