@@ -101,9 +101,8 @@ use Phpro\HttpTools\Transport\Json\JsonTransport;
 use Phpro\HttpTools\Uri\TemplatedUriBuilder;
 
 $transport = App\SomeClient\Transport\MyCustomTransportWrapperForDealingWithIsErrorPropertyEg(
-    new JsonTransport(
+    JsonTransport::createWithAutodiscoveredPsrFactories(
         $httpClient,
-        Psr17FactoryDiscovery::findRequestFactory(),
         new TemplatedUriBuilder()
     )
 );
@@ -254,6 +253,12 @@ class SomeTest extends TestCase
     }    
 }
 ```
+
+This trait also has some methods to make it easier to construct some HTTP specific classes:
+
+* `createRequest`
+* `createResponse`
+* `createStream`
 
 [More info ...](http://docs.php-http.org/en/latest/clients/mock-client.html)
 
