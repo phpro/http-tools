@@ -9,8 +9,8 @@ However, here are some default guidelines:
 Choosing what HTTP package you want to us is all up to you.
 We do require a PSR implementations in order to install this package:
 
-* PSR-7: `psr/http-message-implementation` like `nyholm/psr7` or `php-http/message`
-* PSR-17: `psr/http-factory-implementation` like `nyholm/psr7` or `php-http/message`
+* PSR-7: `psr/http-message-implementation` like `nyholm/psr7` or `guzzlehttp/psr7`
+* PSR-17: `psr/http-factory-implementation` like `nyholm/psr7` or `guzzlehttp/psr7`
 * PSR-18: `psr/http-client-implementation` like `symfony/http-client` or `guzzlehttp/guzzle`
 
 ## Installation
