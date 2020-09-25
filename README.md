@@ -21,9 +21,11 @@ composer require phpro/http-tools
 
 ## Setting up an HTTP client :
 
-Setting up an HTTP client is done by using a factory.
+You can choose whatever HTTP client you want.
+However, this package provides some convenient factories that make the configuration a bit easier. 
+
 The factory accepts a list of implementation specific plugins / middlewares.
-Besides that, you can send options like a base_uri or default headers.
+Besides that, you can configure implementation-specific options like a base_uri or default headers.
 
 ```php
 <?php
@@ -39,12 +41,12 @@ $httpClient = AutoDiscoveredClientFactory::create($middlewares);
 $httpClient = GuzzleClientFactory::create($guzzlePlugins, $options);
 $httpClient = SymfonyClientFactory::create($middlewares, $options);
 
-// You can always create your own factory if you want to have more control or want to use another tool!
-
 // If you are using guzzle, you can both use guzzle and httplug plugins.
 // You can wrap additional httplug plugins like this:
 $httpClient = PluginsConfigurator::configure($httpClient, $middlewares);
 ```
+
+You can always create your own factory if you want to have more control or want to use another tool!
 
 **Note:** This package does not download a specific HTTP implementation. You can choose whatever package you want, but you'll have to manually add it to composer.
 
@@ -211,6 +213,10 @@ class ListResponse
     }
 }
 ```
+
+This example is rather easy and might seem like overkill at first.
+The true power will be visible once you create multiple named constructors and conditional porperty accessors inside the request models.
+The response models, if crafted carefully, will improve the stability of your integration!
 
 ## Async request handlers
 
