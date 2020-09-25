@@ -24,6 +24,7 @@
         "psr/http-factory-implementation": "^1.0",
         "psr/http-message-implementation": "^1.0",
         "psr/log": "^1.1",
+        "psr/http-message": "^1.0.1",
         "thecodingmachine/safe": "^1.2",
         "webmozart/assert": "^1.9"
     },
