@@ -13,6 +13,8 @@ use Webmozart\Assert\Assert;
 
 trait UseVcrClient
 {
+    use UseHttpFactories;
+
     /**
      * @return [RecordPlugin, ReplayPlugin]
      */

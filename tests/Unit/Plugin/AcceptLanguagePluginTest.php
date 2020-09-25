@@ -13,8 +13,9 @@ use Psr\Http\Client\ClientInterface;
 
 /**
  * @covers \Phpro\HttpTools\Plugin\AcceptLanguagePlugin
+ * @covers \Phpro\HttpTools\Test\UseHttpFactories
+ * @covers \Phpro\HttpTools\Test\UseMockClient
  *
- * @uses \Phpro\HttpTools\Test\UseMockClient
  * @uses \Phpro\HttpTools\Client\Configurator\PluginsConfigurator
  */
 class AcceptLanguagePluginTest extends TestCase

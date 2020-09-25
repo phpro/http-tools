@@ -1,0 +1,65 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Phpro\HttpTools\Tests\Functional\Client\Factory;
+
+use Http\Client\Plugin\Vcr\NamingStrategy\PathNamingStrategy;
+use Phpro\HttpTools\Client\Configurator\PluginsConfigurator;
+use Phpro\HttpTools\Client\Factory\AutoDiscoveredClientFactory;
+use Phpro\HttpTools\Client\Factory\GuzzleClientFactory;
+use Phpro\HttpTools\Client\Factory\SymfonyClientFactory;
+use Phpro\HttpTools\Test\UseVcrClient;
+use Phpro\HttpTools\Tests\Helper\Vcr\FactoryAwareNamingStrategy;
+use PHPUnit\Framework\TestCase;
+use function Safe\json_decode;
+
+/**
+ * @covers \Phpro\HttpTools\Client\Configurator\PluginsConfigurator
+ * @covers \Phpro\HttpTools\Client\Factory\AutoDiscoveredClientFactory
+ * @covers \Phpro\HttpTools\Client\Factory\GuzzleClientFactory
+ * @covers \Phpro\HttpTools\Client\Factory\SymfonyClientFactory
+ * @covers \Phpro\HttpTools\Test\UseHttpFactories
+ * @covers \Phpro\HttpTools\Test\UseVcrClient
+ */
+class FactoriesTest extends TestCase
+{
+    use UseVcrClient;
+
+    /**
+     * @test
+     * @dataProvider provideFactories
+     */
+    public function it_can_use_http_factories(string $factoryName, callable $factory): void
+    {
+        $client = PluginsConfigurator::configure($factory(), [
+            ...$this->useRecording(
+                FIXTURES_DIR.'/functional/client-factory',
+                new FactoryAwareNamingStrategy($factoryName, new PathNamingStrategy())
+            ),
+        ]);
+
+        $response = $client->sendRequest(
+            $this->createRequest('GET', 'http://127.0.0.1:8000/success.json')
+        );
+
+        self::assertSame(200, $response->getStatusCode());
+        self::assertSame(['success' => true], json_decode($response->getBody()->__toString(), true));
+    }
+
+    public function provideFactories()
+    {
+        yield 'autodiscover' => [
+            'AutoDiscoveredClientFactory',
+            fn () => AutoDiscoveredClientFactory::create([]),
+        ];
+        yield 'guzzle' => [
+            'GuzzleClientFactory',
+            fn () => GuzzleClientFactory::create([]),
+        ];
+        yield 'httplug' => [
+            'SymfonyClientFactory',
+            fn () => SymfonyClientFactory::create([]),
+        ];
+    }
+}

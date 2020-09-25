@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Phpro\HttpTools\Tests\Unit\Uri;
 
-use Http\Discovery\Psr17FactoryDiscovery;
 use Phpro\HttpTools\Tests\Helper\Request\SampleRequest;
 use Phpro\HttpTools\Uri\RawUriBuilder;
 use PHPUnit\Framework\TestCase;
@@ -19,7 +18,7 @@ class RawUriBuilderTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->uriBuilder = new RawUriBuilder(Psr17FactoryDiscovery::findUrlFactory());
+        $this->uriBuilder = RawUriBuilder::createWithAutodiscoveredPsrFactories();
     }
 
     /** @test */

@@ -48,5 +48,11 @@
         "psr-4": {
             "Phpro\\HttpTools\\Tests\\": "tests"
         }
+    },
+    "scripts": {
+        "functional-testserver": [
+            "Composer\\Config::disableProcessTimeout",
+            "php -S 127.0.0.1:8000 -t tests/Fixtures/functional/server"
+        ]
     }
 }

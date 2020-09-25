@@ -12,10 +12,11 @@ use Phpro\HttpTools\Uri\RawUriBuilder;
 use PHPUnit\Framework\TestCase;
 
 /**
+ * @covers \Phpro\HttpTools\Test\UseHttpFactories
+ * @covers \Phpro\HttpTools\Test\UseMockClient
  * @covers \Phpro\HttpTools\Transport\Json\JsonTransport
  *
  * @uses \Phpro\HttpTools\Uri\RawUriBuilder
- * @uses \Phpro\HttpTools\Test\UseMockClient
  */
 class JsonTransportTest extends TestCase
 {

@@ -8,5 +8,8 @@ use Phpro\HttpTools\Request\RequestInterface;
 
 interface TransportInterface
 {
-    public function __invoke(RequestInterface $request): array;
+    /**
+     * @return mixed Feel free to use any return type you please!
+     */
+    public function __invoke(RequestInterface $request);
 }

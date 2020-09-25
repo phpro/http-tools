@@ -12,6 +12,6 @@ final class BasicFormatterFactory
 {
     public static function create(bool $debug, int $maxBodyLength = 1000): Formatter
     {
-        return $debug ? new SimpleFormatter() : new FullHttpMessageFormatter($maxBodyLength);
+        return $debug ? new FullHttpMessageFormatter($maxBodyLength) : new SimpleFormatter();
     }
 }
