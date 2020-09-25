@@ -77,8 +77,9 @@ services:
             - Phpro\HttpTools\Transport\Json\JsonTransport
                 arguments:
                     - '@App\SomeClient'
-                    - '@Http\Message\RequestFactory'
                     - '@Phpro\HttpTools\Uri\TemplatedUriBuilder'
+                    - '@Http\Message\RequestFactory'
+                    - '@Http\Message\StreamFactory'
 
     Phpro\HttpTools\Uri\TemplatedUriBuilder: ~
 
