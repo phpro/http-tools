@@ -4,19 +4,20 @@ The goal of this package is to provide you some tools to set-up a consistent HTT
 The HTTP client implementation you want to use is just a small implementation detail and doesn't matter.
 However, here are some default guidelines:
 
-## Installation
+## Prerequisites
 
-
-*Prerequisites*: You'll also need to require PSR-17 and PSR-18 implementations:
+Choosing what HTTP package you want to us is all up to you.
+We do require a PSR implementations in order to install this package:
 
 * PSR-7: `psr/http-message-implementation` like `nyholm/psr7` or `php-http/message`
 * PSR-17: `psr/http-factory-implementation` like `nyholm/psr7` or `php-http/message`
 * PSR-18: `psr/http-client-implementation` like `symfony/http-client` or `guzzlehttp/guzzle`
 
-```
+## Installation
+
+```bash
 composer require phpro/http-tools
 ```
-
 
 ## Setting up an HTTP client :
 
