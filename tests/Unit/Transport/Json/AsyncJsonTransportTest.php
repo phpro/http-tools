@@ -5,11 +5,14 @@ declare(strict_types=1);
 namespace Phpro\HttpTools\Tests\Unit\Transport\Json;
 
 use Http\Mock\Client;
+use Phpro\HttpTools\Client\Factory\SymfonyClientFactory;
 use Phpro\HttpTools\Test\UseMockClient;
 use Phpro\HttpTools\Tests\Helper\Request\SampleRequest;
 use Phpro\HttpTools\Transport\Json\AsyncJsonTransport;
 use Phpro\HttpTools\Uri\RawUriBuilder;
 use PHPUnit\Framework\TestCase;
+use Psr\Http\Client\ClientExceptionInterface;
+use RuntimeException;
 use function Amp\Promise\wait;
 use function Safe\json_encode;
 
@@ -19,6 +22,7 @@ use function Safe\json_encode;
  * @covers \Phpro\HttpTools\Transport\Json\AsyncJsonTransport
  *
  * @uses \Phpro\HttpTools\Uri\RawUriBuilder
+ * @uses \Phpro\HttpTools\Async\HttplugPromiseAdapter
  */
 class AsyncJsonTransportTest extends TestCase
 {
@@ -55,5 +59,21 @@ class AsyncJsonTransportTest extends TestCase
         self::assertSame(json_encode($request->body()), $sentRequest->getBody()->__toString());
         self::assertSame(['application/json'], $sentRequest->getHeader('Content-Type'));
         self::assertSame(['application/json'], $sentRequest->getHeader('Accept'));
+    }
+
+    /** @test */
+    public function it_can_handle_failure(): void
+    {
+        $request = new SampleRequest('GET', '/some-endpoint', [], ['hello' => 'world']);
+        $this->client->addException(
+            $exception = new class('could not load endpoint...')
+                extends RuntimeException implements ClientExceptionInterface
+                {}
+        );
+
+        $this->expectException(ClientExceptionInterface::class);
+        $this->expectExceptionMessage($exception->getMessage());
+
+        wait(($this->transport)($request));
     }
 }

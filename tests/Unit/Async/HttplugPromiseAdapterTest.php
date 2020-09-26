@@ -1,0 +1,63 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Phpro\HttpTools\Tests\Unit\Async;
+
+use Amp\Promise;
+use Amp\Success;
+use Http\Promise\FulfilledPromise;
+use Http\Promise\RejectedPromise;
+use Phpro\HttpTools\Async\HttplugPromiseAdapter;
+use Phpro\HttpTools\Test\UseHttpFactories;
+use PHPUnit\Framework\TestCase;
+use Psr\Http\Client\ClientExceptionInterface;
+use function Amp\call;
+use function Amp\Promise\wait;
+
+/**
+ * @covers \Phpro\HttpTools\Async\HttplugPromiseAdapter
+ *
+ * @uses Phpro\HttpTools\Test\UseHttpFactories
+ */
+class HttplugPromiseAdapterTest extends TestCase
+{
+    use UseHttpFactories;
+
+    /** @test */
+    public function it_can_wrap_successfull_promises(): void
+    {
+        $response = $this->createResponse(200);
+        $success = new FulfilledPromise($response);
+        $promise = HttplugPromiseAdapter::adapt($success);
+
+        self::assertInstanceOf(Promise::class, $promise);
+        $promise->onResolve(fn ($throwable, $result) => $result);
+        $actual = wait($promise);
+
+        self::assertSame($response, $actual);
+    }
+
+    /** @test */
+    public function it_can_wrap_failing_promises(): void
+    {
+        $error = new class('nope') extends \RuntimeException implements ClientExceptionInterface {};
+        $success = new RejectedPromise($error);
+        $promise = HttplugPromiseAdapter::adapt($success);
+
+        self::assertInstanceOf(Promise::class, $promise);
+
+        $result = wait(call(static function () use ($promise, $error) {
+            try {
+                yield $promise;
+                self::assertFalse(true, 'The promise did not fail!');
+            } catch (ClientExceptionInterface $actual) {
+                self::assertSame($error, $actual);
+            }
+
+            return 'ok';
+        }));
+
+        self::assertSame('ok', $result);
+    }
+}

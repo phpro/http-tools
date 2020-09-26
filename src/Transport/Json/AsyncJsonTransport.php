@@ -4,19 +4,21 @@ declare(strict_types=1);
 
 namespace Phpro\HttpTools\Transport\Json;
 
+use Amp\Deferred;
+use Amp\Loop;
 use Amp\Promise;
+use Generator;
 use Http\Client\HttpAsyncClient;
 use Http\Discovery\Psr17FactoryDiscovery;
+use Phpro\HttpTools\Async\HttplugPromiseAdapter;
 use Phpro\HttpTools\Request\RequestInterface;
 use Phpro\HttpTools\Transport\TransportInterface;
 use Phpro\HttpTools\Uri\UriBuilderInterface;
 use Psr\Http\Message\RequestFactoryInterface;
-use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamFactoryInterface;
-use Webmozart\Assert\Assert;
+use function Amp\call;
 use function Safe\json_decode;
 use function Safe\json_encode;
-use function Amp\call;
 
 final class AsyncJsonTransport implements TransportInterface
 {
@@ -67,11 +69,11 @@ final class AsyncJsonTransport implements TransportInterface
                 $body = json_encode($request->body())
             ));
 
+        $httpPromise = $this->client->sendAsyncRequest($httpRequest);
 
         return call(
-            function () use ($httpRequest): array {
-                $response = $this->client->sendAsyncRequest($httpRequest)->wait();
-                Assert::isInstanceOf($response, ResponseInterface::class);
+            static function() use ($httpPromise): Generator {
+                $response = yield HttplugPromiseAdapter::adapt($httpPromise);
 
                 return (array) json_decode((string) $response->getBody(), true);
             }
