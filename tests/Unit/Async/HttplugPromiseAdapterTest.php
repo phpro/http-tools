@@ -13,7 +13,6 @@ use Phpro\HttpTools\Async\HttplugPromiseAdapter;
 use Phpro\HttpTools\Test\UseHttpFactories;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Client\ClientExceptionInterface;
-use RuntimeException;
 
 /**
  * @covers \Phpro\HttpTools\Async\HttplugPromiseAdapter
@@ -41,8 +40,7 @@ class HttplugPromiseAdapterTest extends TestCase
     /** @test */
     public function it_can_wrap_failing_promises(): void
     {
-        $error = new class('nope') extends RuntimeException implements ClientExceptionInterface {
-        };
+        $error = $this->createEmptyHttpClientException('nope');
         $success = new RejectedPromise($error);
         $promise = HttplugPromiseAdapter::adapt($success);
 

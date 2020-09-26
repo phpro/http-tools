@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace Phpro\HttpTools\Test;
 
 use Http\Discovery\Psr17FactoryDiscovery;
+use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
+use RuntimeException;
 
 trait UseHttpFactories
 {
@@ -24,5 +26,11 @@ trait UseHttpFactories
     private function createStream(string $content): StreamInterface
     {
         return Psr17FactoryDiscovery::findStreamFactory()->createStream($content);
+    }
+
+    private function createEmptyHttpClientException(string $message): ClientExceptionInterface
+    {
+        return new class($message) extends RuntimeException implements ClientExceptionInterface {
+        };
     }
 }

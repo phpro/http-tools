@@ -272,6 +272,7 @@ This trait can help you build requests and responses inside your tests without w
 * `createRequest`
 * `createResponse`
 * `createStream`
+* `createEmptyHttpClientException`
 
 ### UseMockClient
 
