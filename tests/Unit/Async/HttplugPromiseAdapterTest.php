@@ -4,21 +4,21 @@ declare(strict_types=1);
 
 namespace Phpro\HttpTools\Tests\Unit\Async;
 
+use function Amp\call;
 use Amp\Promise;
-use Amp\Success;
+use function Amp\Promise\wait;
 use Http\Promise\FulfilledPromise;
 use Http\Promise\RejectedPromise;
 use Phpro\HttpTools\Async\HttplugPromiseAdapter;
 use Phpro\HttpTools\Test\UseHttpFactories;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Client\ClientExceptionInterface;
-use function Amp\call;
-use function Amp\Promise\wait;
+use RuntimeException;
 
 /**
  * @covers \Phpro\HttpTools\Async\HttplugPromiseAdapter
  *
- * @uses Phpro\HttpTools\Test\UseHttpFactories
+ * @uses \Phpro\HttpTools\Test\UseHttpFactories
  */
 class HttplugPromiseAdapterTest extends TestCase
 {
@@ -41,7 +41,8 @@ class HttplugPromiseAdapterTest extends TestCase
     /** @test */
     public function it_can_wrap_failing_promises(): void
     {
-        $error = new class('nope') extends \RuntimeException implements ClientExceptionInterface {};
+        $error = new class('nope') extends RuntimeException implements ClientExceptionInterface {
+        };
         $success = new RejectedPromise($error);
         $promise = HttplugPromiseAdapter::adapt($success);
 

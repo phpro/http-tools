@@ -9,8 +9,9 @@ use Amp\Loop;
 use Amp\Promise as AmpPromise;
 use Http\Promise\Promise as HttpPromise;
 use Psr\Http\Message\ResponseInterface;
+use Throwable;
 
-class HttplugPromiseAdapter
+final class HttplugPromiseAdapter
 {
     /**
      * @return AmpPromise<ResponseInterface>
@@ -20,11 +21,12 @@ class HttplugPromiseAdapter
         /** @var Deferred<ResponseInterface> $deferred */
         $deferred = new Deferred();
         $httpPromise->then(
-            static function(ResponseInterface $response) use ($deferred) {
+            static function (ResponseInterface $response) use ($deferred) {
                 $deferred->resolve($response);
+
                 return $response;
             },
-            static function(\Throwable $exception) use ($deferred) {
+            static function (Throwable $exception) use ($deferred): void {
                 $deferred->fail($exception);
                 throw $exception;
             },

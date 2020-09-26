@@ -6,10 +6,10 @@ namespace Phpro\HttpTools\Client\Configurator;
 
 use Http\Client\Common\Plugin;
 use Http\Client\Common\PluginClient;
-use Psr\Http\Client\ClientInterface;
-use Webmozart\Assert\Assert;
 use function is_array;
 use function iterator_to_array;
+use Psr\Http\Client\ClientInterface;
+use Webmozart\Assert\Assert;
 
 final class PluginsConfigurator
 {

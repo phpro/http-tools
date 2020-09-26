@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Phpro\HttpTools\Tests\Unit\Transport\Json;
 
+use function Amp\Promise\wait;
 use Http\Mock\Client;
-use Phpro\HttpTools\Client\Factory\SymfonyClientFactory;
 use Phpro\HttpTools\Test\UseMockClient;
 use Phpro\HttpTools\Tests\Helper\Request\SampleRequest;
 use Phpro\HttpTools\Transport\Json\AsyncJsonTransport;
@@ -13,7 +13,6 @@ use Phpro\HttpTools\Uri\RawUriBuilder;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Client\ClientExceptionInterface;
 use RuntimeException;
-use function Amp\Promise\wait;
 use function Safe\json_encode;
 
 /**
@@ -66,9 +65,8 @@ class AsyncJsonTransportTest extends TestCase
     {
         $request = new SampleRequest('GET', '/some-endpoint', [], ['hello' => 'world']);
         $this->client->addException(
-            $exception = new class('could not load endpoint...')
-                extends RuntimeException implements ClientExceptionInterface
-                {}
+            $exception = new class('could not load endpoint...') extends RuntimeException implements ClientExceptionInterface {
+            }
         );
 
         $this->expectException(ClientExceptionInterface::class);

@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace Phpro\HttpTools\Transport\Json;
 
-use Amp\Deferred;
-use Amp\Loop;
+use function Amp\call;
 use Amp\Promise;
 use Generator;
 use Http\Client\HttpAsyncClient;
@@ -16,7 +15,6 @@ use Phpro\HttpTools\Transport\TransportInterface;
 use Phpro\HttpTools\Uri\UriBuilderInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;
-use function Amp\call;
 use function Safe\json_decode;
 use function Safe\json_encode;
 
@@ -72,7 +70,7 @@ final class AsyncJsonTransport implements TransportInterface
         $httpPromise = $this->client->sendAsyncRequest($httpRequest);
 
         return call(
-            static function() use ($httpPromise): Generator {
+            static function () use ($httpPromise): Generator {
                 $response = yield HttplugPromiseAdapter::adapt($httpPromise);
 
                 return (array) json_decode((string) $response->getBody(), true);
