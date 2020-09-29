@@ -20,7 +20,8 @@ services:
     #
     # Configuring plugins:
     #
-    Phpro\HttpTools\Plugin\AcceptLanguagePlugin:
+    App\SomeClient\Plugin\AcceptLanguagePlugin:
+        class: Phpro\HttpTools\Plugin\AcceptLanguagePlugin:
         arguments:
             - 'nl-BE'
         tags:
@@ -47,15 +48,15 @@ services:
         class: Http\Message\Formatter
         stack:
             - Phpro\HttpTools\Formatter\RemoveSensitiveHeadersFormatter
-                $formattor: '@.inner'
+                $formatter: '@.inner'
                 $sensitiveHeaders:
                     - 'X-Api-Key'
                     - 'X-Api-Secret'
                     - refreshToken
             - Phpro\HttpTools\Formatter\RemoveSensitiveJsonKeysFormatter
                 arguments:
-                    $formattor: '@.inner'
-                    $sensitiveJsonKeyks:
+                    $formatter: '@.inner'
+                    $sensitiveJsonKeys:
                         - password
                         - oldPassword
                         - refreshToken
