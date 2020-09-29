@@ -21,7 +21,7 @@ services:
     # Configuring plugins:
     #
     App\SomeClient\Plugin\AcceptLanguagePlugin:
-        class: Phpro\HttpTools\Plugin\AcceptLanguagePlugin:
+        class: Phpro\HttpTools\Plugin\AcceptLanguagePlugin
         arguments:
             - 'nl-BE'
         tags:
