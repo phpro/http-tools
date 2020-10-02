@@ -17,15 +17,15 @@ class RemoveSensitiveJsonKeysFormatter implements HttpFormatter
     /**
      * @var non-empty-list<string>
      */
-    private array $sensitiveJsonKeyks;
+    private array $sensitiveJsonKeys;
 
     /**
-     * @param non-empty-list<string> $sensitiveJsonKeyks
+     * @param non-empty-list<string> $sensitiveJsonKeys
      */
-    public function __construct(HttpFormatter $formatter, array $sensitiveJsonKeyks)
+    public function __construct(HttpFormatter $formatter, array $sensitiveJsonKeys)
     {
         $this->formatter = $formatter;
-        $this->sensitiveJsonKeyks = $sensitiveJsonKeyks;
+        $this->sensitiveJsonKeys = $sensitiveJsonKeys;
     }
 
     public function formatRequest(RequestInterface $request): string
@@ -45,7 +45,7 @@ class RemoveSensitiveJsonKeysFormatter implements HttpFormatter
     private function removeCredentials(string $info): string
     {
         return (string) array_reduce(
-            $this->sensitiveJsonKeyks,
+            $this->sensitiveJsonKeys,
             /** @psalm-suppress InvalidReturnStatement, InvalidReturnType */
             fn (string $sensitiveData, string $jsonKey): string => preg_replace(
                 '{"('.preg_quote($jsonKey, '{').')":\s*"([^"]*)"}i',
