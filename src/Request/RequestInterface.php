@@ -18,5 +18,5 @@ interface RequestInterface
 
     public function uriParameters(): array;
 
-    public function body(): array;
+    public function body(): ?array;
 }

@@ -58,7 +58,7 @@ final class JsonTransport implements TransportInterface
             ->withAddedHeader('Content-Type', 'application/json')
             ->withAddedHeader('Accept', 'application/json')
             ->withBody($this->streamFactory->createStream(
-                $body = json_encode($request->body())
+                null !== $request->body() ? json_encode($request->body()) : ''
             ));
 
         $response = $this->client->sendRequest($httpRequest);
