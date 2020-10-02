@@ -64,7 +64,7 @@ final class AsyncJsonTransport implements TransportInterface
             ->withAddedHeader('Content-Type', 'application/json')
             ->withAddedHeader('Accept', 'application/json')
             ->withBody($this->streamFactory->createStream(
-                $body = json_encode($request->body())
+                null !== $request->body() ? json_encode($request->body()) : ''
             ));
 
         $httpPromise = $this->client->sendAsyncRequest($httpRequest);

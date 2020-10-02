@@ -11,9 +11,9 @@ class SampleRequest implements RequestInterface
     private string $method;
     private string $uri;
     private array $uriParameters;
-    private array $body;
+    private ?array $body;
 
-    public function __construct(string $method, string $uri, array $uriParameters, array $body)
+    public function __construct(string $method, string $uri, array $uriParameters, ?array $body)
     {
         $this->method = $method;
         $this->uri = $uri;
@@ -41,7 +41,7 @@ class SampleRequest implements RequestInterface
         return $this->uriParameters;
     }
 
-    public function body(): array
+    public function body(): ?array
     {
         return $this->body;
     }
