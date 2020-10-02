@@ -14,6 +14,9 @@ use Psr\Http\Message\StreamFactoryInterface;
 use function Safe\json_decode;
 use function Safe\json_encode;
 
+/**
+ * @implements TransportInterface<array>
+ */
 final class JsonTransport implements TransportInterface
 {
     private ClientInterface $client;

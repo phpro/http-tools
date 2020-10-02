@@ -11,14 +11,17 @@ use Http\Client\HttpAsyncClient;
 use Http\Discovery\Psr17FactoryDiscovery;
 use Phpro\HttpTools\Async\HttplugPromiseAdapter;
 use Phpro\HttpTools\Request\RequestInterface;
-use Phpro\HttpTools\Transport\TransportInterface;
+use Phpro\HttpTools\Transport\AsyncTransportInterface;
 use Phpro\HttpTools\Uri\UriBuilderInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;
 use function Safe\json_decode;
 use function Safe\json_encode;
 
-final class AsyncJsonTransport implements TransportInterface
+/**
+ * @implements AsyncTransportInterface<array>
+ */
+final class AsyncJsonTransport implements AsyncTransportInterface
 {
     private HttpAsyncClient $client;
     private UriBuilderInterface $uriBuilder;
