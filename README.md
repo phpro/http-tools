@@ -146,6 +146,9 @@ use Phpro\HttpTools\Transport\TransportInterface;
 class ListSomething
 {
     public function __construct(
+        /**
+         * TransportInterface<array, array>
+         */
         private TransportInterface $transport
     ) {}
 
@@ -170,6 +173,9 @@ use Phpro\HttpTools\Request\RequestInterface;
 // By wrapping the request in a Value Object, you can use named constructors to pass in filters and POST data.
 // You can add multiple named constructors if you want the list to behave in different ways in some cases.
 
+/**
+ * @implements RequestInterface<array>
+ */
 class ListRequest implements RequestInterface
 {
     public function method() : string
@@ -237,6 +243,9 @@ use function Amp\Promise\wait;
 class ListSomething
 {
     public function __construct(
+        /**
+         * AsyncTransportInterface<array, array>
+         */
         private AsyncTransportInterface $transport
     ) {}
 

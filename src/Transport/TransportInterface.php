@@ -6,10 +6,16 @@ namespace Phpro\HttpTools\Transport;
 
 use Phpro\HttpTools\Request\RequestInterface;
 
+/**
+ * @template RequestType
+ * @template ResponseType
+ */
 interface TransportInterface
 {
     /**
-     * @return mixed Feel free to use any return type you please!
+     * @param RequestInterface<RequestType> $request
+     *
+     * @return ResponseType
      */
     public function __invoke(RequestInterface $request);
 }

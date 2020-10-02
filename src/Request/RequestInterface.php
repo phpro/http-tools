@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Phpro\HttpTools\Request;
 
 /**
+ * @template BodyType
  * @psalm-immutable
  */
 interface RequestInterface
@@ -18,5 +19,8 @@ interface RequestInterface
 
     public function uriParameters(): array;
 
-    public function body(): ?array;
+    /**
+     * @return BodyType
+     */
+    public function body();
 }
