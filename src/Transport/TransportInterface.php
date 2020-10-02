@@ -7,12 +7,15 @@ namespace Phpro\HttpTools\Transport;
 use Phpro\HttpTools\Request\RequestInterface;
 
 /**
- * @template R
+ * @template RequestType
+ * @template ResponseType
  */
 interface TransportInterface
 {
     /**
-     * @return R
+     * @param RequestInterface<RequestType> $request
+     *
+     * @return ResponseType
      */
     public function __invoke(RequestInterface $request);
 }

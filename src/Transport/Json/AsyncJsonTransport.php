@@ -19,7 +19,7 @@ use function Safe\json_decode;
 use function Safe\json_encode;
 
 /**
- * @implements AsyncTransportInterface<array>
+ * @implements AsyncTransportInterface<array|null, array>
  */
 final class AsyncJsonTransport implements AsyncTransportInterface
 {
@@ -53,6 +53,8 @@ final class AsyncJsonTransport implements AsyncTransportInterface
     }
 
     /**
+     * @param RequestInterface<array|null> $request
+     *
      * @throws \Psr\Http\Client\ClientExceptionInterface
      * @throws \Safe\Exceptions\JsonException
      *

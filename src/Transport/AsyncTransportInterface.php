@@ -8,12 +8,15 @@ use Amp\Promise;
 use Phpro\HttpTools\Request\RequestInterface;
 
 /**
- * @template R
+ * @template RequestType
+ * @template ResponseType
  */
 interface AsyncTransportInterface
 {
     /**
-     * @return Promise<R>
+     * @param RequestInterface<RequestType> $request
+     *
+     * @return Promise<ResponseType>
      */
     public function __invoke(RequestInterface $request): Promise;
 }

@@ -15,7 +15,7 @@ use function Safe\json_decode;
 use function Safe\json_encode;
 
 /**
- * @implements TransportInterface<array>
+ * @implements TransportInterface<array|null, array>
  */
 final class JsonTransport implements TransportInterface
 {
@@ -49,6 +49,8 @@ final class JsonTransport implements TransportInterface
     }
 
     /**
+     * @param RequestInterface<array|null> $request
+     *
      * @throws \Psr\Http\Client\ClientExceptionInterface
      * @throws \Safe\Exceptions\JsonException
      */
