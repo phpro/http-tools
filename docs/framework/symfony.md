@@ -40,38 +40,37 @@ services:
         class: 'Http\Client\Common\Plugin\LoggerPlugin'
         arguments:
             - '@monolog.logger.someclient'
-            - '@App\SomeClient\Plugin\Logger\Formatter'
+            - '@app.http.logger_formatter'
         tags:
             - { name: 'app.someclient.plugin', priority: 1000 }
 
-    App\SomeClient\Plugin\Logger\Formatter:
-        class: Http\Message\Formatter
+    app.http.logger_formatter:
         stack:
-            - Phpro\HttpTools\Formatter\RemoveSensitiveHeadersFormatter
+            - Phpro\HttpTools\Formatter\RemoveSensitiveHeadersFormatter:
                 $formatter: '@.inner'
                 $sensitiveHeaders:
                     - 'X-Api-Key'
                     - 'X-Api-Secret'
+            - Phpro\HttpTools\Formatter\RemoveSensitiveJsonKeysFormatter:
+                $formatter: '@.inner'
+                $sensitiveJsonKeys:
+                    - password
+                    - oldPassword
                     - refreshToken
-            - Phpro\HttpTools\Formatter\RemoveSensitiveJsonKeysFormatter
-                arguments:
-                    $formatter: '@.inner'
-                    $sensitiveJsonKeys:
-                        - password
-                        - oldPassword
-                        - refreshToken
-            - Phpro\HttpTools\Formatter\Factory\BasicFormatterFactory:
-                factory: ['Phpro\HttpTools\Formatter\Factory\BasicFormatterFactory', 'create']
-                class: Http\Message\Formatter
-                arguments:
-                    $debug: '%kernel.debug%'
-                    $maxBodyLength: 1000
+            - '@app.http.logger_formatter.base'
+
+    app.http.logger_formatter.base:
+        factory: ['Phpro\HttpTools\Formatter\Factory\BasicFormatterFactory', 'create']
+        class: Http\Message\Formatter
+        arguments:
+            $debug: '%kernel.debug%'
+            $maxBodyLength: 1000
 
     #
     # Setting up the transport
     #
     App\SomeClient\Transport:
-        class: Phpro\HttpTools\Transport\TransportInterface
+        # class: Phpro\HttpTools\Transport\TransportInterface
         stack: 
             - App\SomeClient\Transport\JsonErrorBodyTransport
                 arguments: ['@.inner']
