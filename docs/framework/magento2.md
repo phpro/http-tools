@@ -3,7 +3,7 @@
 ## Configuration via di.xml
 1. Define and configure your custom plugins/middlewares or implement some of [HTTPlug](http://docs.php-http.org/en/latest/plugins/)
 2. Use `Phpro\HttpTools\Client\Factory\LazyClientLoader` to configure your preferred HTTP client (`AutoDiscoveredClientFactory`, `GuzzleClientFactory`, `SymfonyClientFactory`, ...) and define options such as base_uri, default headers, ...
-3. Always create your own _Transport_ class (as kind of decorator) because Magento don't know the concept of factories or Symfony stack). Inside your custom _Transport_ you can use the built-in `JsonTransport`
+3. Always create your own _Transport_ class as decorator. Magento don't know the concept of factories or stack in its DI component. Inside your custom _Transport_ you can use the built-in `JsonTransport`
 4. Last but not least, create and configure your _Request Handler(s)_ to transform _Request Value Object(s)_ to _Response Value Object(s)_
 
 Example etc/di.xml file
