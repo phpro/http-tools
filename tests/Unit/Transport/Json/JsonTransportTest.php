@@ -5,14 +5,15 @@ declare(strict_types=1);
 namespace Phpro\HttpTools\Tests\Unit\Transport\Json;
 
 use Http\Mock\Client;
+use Phpro\HttpTools\Test\UseHttpToolsFactories;
 use Phpro\HttpTools\Test\UseMockClient;
-use Phpro\HttpTools\Tests\Helper\Request\SampleRequest;
 use Phpro\HttpTools\Transport\Json\JsonTransport;
 use Phpro\HttpTools\Uri\RawUriBuilder;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Phpro\HttpTools\Test\UseHttpFactories
+ * @covers \Phpro\HttpTools\Test\UseHttpToolsFactories
  * @covers \Phpro\HttpTools\Test\UseMockClient
  * @covers \Phpro\HttpTools\Transport\Json\JsonTransport
  *
@@ -21,6 +22,7 @@ use PHPUnit\Framework\TestCase;
 class JsonTransportTest extends TestCase
 {
     use UseMockClient;
+    use UseHttpToolsFactories;
 
     private JsonTransport $transport;
     private Client $client;
@@ -37,7 +39,7 @@ class JsonTransportTest extends TestCase
     /** @test */
     public function it_can_send_and_receive_json(): void
     {
-        $request = new SampleRequest('GET', '/some-endpoint', [], ['hello' => 'world']);
+        $request = $this->createToolsRequest('GET', '/some-endpoint', [], ['hello' => 'world']);
         $this->client->addResponse(
             $this->createResponse(200)
                 ->withAddedHeader('Content-Type', 'application/json')
@@ -58,7 +60,7 @@ class JsonTransportTest extends TestCase
     /** @test */
     public function it_can_send_with_empty_body(): void
     {
-        $request = new SampleRequest('GET', '/some-endpoint', [], null);
+        $request = $this->createToolsRequest('GET', '/some-endpoint', [], null);
         $this->client->addResponse(
             $this->createResponse(200)
                 ->withAddedHeader('Content-Type', 'application/json')

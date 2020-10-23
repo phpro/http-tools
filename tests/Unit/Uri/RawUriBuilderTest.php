@@ -4,16 +4,19 @@ declare(strict_types=1);
 
 namespace Phpro\HttpTools\Tests\Unit\Uri;
 
-use Phpro\HttpTools\Tests\Helper\Request\SampleRequest;
+use Phpro\HttpTools\Test\UseHttpToolsFactories;
 use Phpro\HttpTools\Uri\RawUriBuilder;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\UriInterface;
 
 /**
  * @covers \Phpro\HttpTools\Uri\RawUriBuilder
+ * @covers \Phpro\HttpTools\Test\UseHttpToolsFactories
  */
 class RawUriBuilderTest extends TestCase
 {
+    use UseHttpToolsFactories;
+
     private RawUriBuilder $uriBuilder;
 
     protected function setUp(): void
@@ -24,7 +27,7 @@ class RawUriBuilderTest extends TestCase
     /** @test */
     public function it_can_build_a_raw_uri(): void
     {
-        $request = SampleRequest::createWithUri('/hello/world', []);
+        $request = $this->createToolsRequest('GET', '/hello/world', []);
         $uri = ($this->uriBuilder)($request);
 
         self::assertInstanceOf(UriInterface::class, $uri);

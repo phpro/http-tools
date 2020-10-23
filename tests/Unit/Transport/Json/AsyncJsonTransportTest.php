@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Phpro\HttpTools\Tests\Unit\Transport\Json;
 
+use Phpro\HttpTools\Test\UseHttpToolsFactories;
 use function Amp\Promise\wait;
 use Http\Mock\Client;
 use Phpro\HttpTools\Test\UseMockClient;
-use Phpro\HttpTools\Tests\Helper\Request\SampleRequest;
 use Phpro\HttpTools\Transport\Json\AsyncJsonTransport;
 use Phpro\HttpTools\Uri\RawUriBuilder;
 use PHPUnit\Framework\TestCase;
@@ -16,6 +16,7 @@ use function Safe\json_encode;
 
 /**
  * @covers \Phpro\HttpTools\Test\UseHttpFactories
+ * @covers \Phpro\HttpTools\Test\UseHttpToolsFactories
  * @covers \Phpro\HttpTools\Test\UseMockClient
  * @covers \Phpro\HttpTools\Transport\Json\AsyncJsonTransport
  *
@@ -25,6 +26,7 @@ use function Safe\json_encode;
 class AsyncJsonTransportTest extends TestCase
 {
     use UseMockClient;
+    use UseHttpToolsFactories;
 
     private AsyncJsonTransport $transport;
     private Client $client;
@@ -41,7 +43,7 @@ class AsyncJsonTransportTest extends TestCase
     /** @test */
     public function it_can_send_and_receive_json(): void
     {
-        $request = new SampleRequest('GET', '/some-endpoint', [], ['hello' => 'world']);
+        $request = $this->createToolsRequest('GET', '/some-endpoint', [], ['hello' => 'world']);
         $this->client->addResponse(
             $this->createResponse(200)
                 ->withAddedHeader('Content-Type', 'application/json')
@@ -62,7 +64,7 @@ class AsyncJsonTransportTest extends TestCase
     /** @test */
     public function it_can_send_with_empty_body(): void
     {
-        $request = new SampleRequest('GET', '/some-endpoint', [], null);
+        $request = $this->createToolsRequest('GET', '/some-endpoint', [], null);
         $this->client->addResponse(
             $this->createResponse(200)
                 ->withAddedHeader('Content-Type', 'application/json')
@@ -83,7 +85,7 @@ class AsyncJsonTransportTest extends TestCase
     /** @test */
     public function it_can_handle_failure(): void
     {
-        $request = new SampleRequest('GET', '/some-endpoint', [], ['hello' => 'world']);
+        $request = $this->createToolsRequest('GET', '/some-endpoint', [], ['hello' => 'world']);
         $this->client->addException(
             $exception = $this->createEmptyHttpClientException('could not load endpoint...')
         );
