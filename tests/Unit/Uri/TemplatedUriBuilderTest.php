@@ -4,16 +4,19 @@ declare(strict_types=1);
 
 namespace Phpro\HttpTools\Tests\Unit\Uri;
 
-use Phpro\HttpTools\Tests\Helper\Request\SampleRequest;
+use Phpro\HttpTools\Test\UseHttpToolsFactories;
 use Phpro\HttpTools\Uri\TemplatedUriBuilder;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\UriInterface;
 
 /**
  * @covers \Phpro\HttpTools\Uri\TemplatedUriBuilder
+ * @covers \Phpro\HttpTools\Test\UseHttpToolsFactories
  */
 class TemplatedUriBuilderTest extends TestCase
 {
+    use UseHttpToolsFactories;
+
     private TemplatedUriBuilder $uriBuilder;
 
     protected function setUp(): void
@@ -24,7 +27,7 @@ class TemplatedUriBuilderTest extends TestCase
     /** @test */
     public function it_can_build_a_templated_uri(): void
     {
-        $request = SampleRequest::createWithUri('/hello/{name}', ['name' => 'world']);
+        $request = $this->createToolsRequest('GET', '/hello/{name}', ['name' => 'world']);
         $uri = ($this->uriBuilder)($request);
 
         self::assertInstanceOf(UriInterface::class, $uri);
@@ -34,7 +37,7 @@ class TemplatedUriBuilderTest extends TestCase
     /** @test */
     public function it_can_build_a_templated_uri_with_default_params(): void
     {
-        $request = SampleRequest::createWithUri('/hello/{default}', ['name' => 'world']);
+        $request = $this->createToolsRequest('GET', '/hello/{default}', ['name' => 'world']);
         $uri = ($this->uriBuilder)($request);
 
         self::assertInstanceOf(UriInterface::class, $uri);

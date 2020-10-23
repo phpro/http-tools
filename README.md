@@ -283,6 +283,19 @@ This trait can help you build requests and responses inside your tests without w
 * `createStream`
 * `createEmptyHttpClientException`
 
+### UseHttpToolsFactories
+
+This trait can help you build HTTP tools specific objects in unit tests.
+It could be hande to e.g. test transports.
+
+* `createToolsRequest`
+
+Example:
+
+```php
+$request = $this->createToolsRequest('GET', '/some-endpoint', [], ['hello' => 'world']);
+```
+
 ### UseMockClient
 
 *Includes `UseHttpFactories` trait*
