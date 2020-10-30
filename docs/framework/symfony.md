@@ -85,9 +85,17 @@ services:
 
 
     #
-    # Registering a Request Handler
+    # Registering a single Request Handler
     #
     App\SomeClient\RequestHandler\ListSomething:
         arguments:
             - '@App\SomeClient\Transport'  
+
+    #
+    # Or register all Request Handlers at once
+    #
+    App\SomeClient\RequestHandler\:
+        resource: '../../RequestHandler/*'
+        bind:
+            $transport: '@App\SomeClient\Transport'
 ```
