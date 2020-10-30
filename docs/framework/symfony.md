@@ -96,7 +96,6 @@ services:
     #
     App\SomeClient\RequestHandler\:
         resource: '../../RequestHandler/*'
-        public: true
         bind:
             $transport: '@App\SomeClient\Transport'
 ```
