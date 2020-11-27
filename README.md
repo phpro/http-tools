@@ -1,3 +1,8 @@
+![Github Actions](https://github.com/phpro/http-tools/workflows/GrumPHP/badge.svg?branch=master)
+[![Installs](https://img.shields.io/packagist/dt/phpro/http-tools.svg)](https://packagist.org/packages/phpro/http-tools/stats)
+[![Packagist](https://img.shields.io/packagist/v/phpro/http-tools.svg)](https://packagist.org/packages/phpro/http-tools)
+
+
 # HTTP-Tools
 
 The goal of this package is to provide you some tools to set-up a consistent HTTP integration.
