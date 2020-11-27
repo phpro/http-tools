@@ -1,4 +1,4 @@
-# HTTP-Tools - Experimental (!)
+# HTTP-Tools
 
 The goal of this package is to provide you some tools to set-up a consistent HTTP integration.
 The HTTP client implementation you want to use is just a small implementation detail and doesn't matter.
