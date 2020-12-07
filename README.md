@@ -129,12 +129,11 @@ Example implementation:
 
 ```php
 <?php
-use Http\Discovery\Psr17FactoryDiscovery;
-use Phpro\HttpTools\Transport\Json\JsonTransport;
+use Phpro\HttpTools\Transport\Factory\JsonTransportFactory;
 use Phpro\HttpTools\Uri\TemplatedUriBuilder;
 
 $transport = App\SomeClient\Transport\MyCustomTransportWrapperForDealingWithIsErrorPropertyEg(
-    JsonTransport::createWithAutodiscoveredPsrFactories(
+    JsonTransportFactory::createWithAutodiscoveredPsrFactories(
         $httpClient,
         new TemplatedUriBuilder()
     )
