@@ -56,10 +56,6 @@ final class AsyncEncodedTransport implements AsyncTransportInterface
         $this->requestFactory = $requestFactory;
     }
 
-    /**
-     * @param EncoderInterface<RequestType> $encoder
-     * @param DecoderInterface<ResponseType> $decoder
-     */
     public static function createWithAutodiscoveredPsrFactories(
         HttpAsyncClient $client,
         UriBuilderInterface $uriBuilder,

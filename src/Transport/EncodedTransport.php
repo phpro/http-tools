@@ -52,10 +52,6 @@ final class EncodedTransport implements TransportInterface
         $this->requestFactory = $requestFactory;
     }
 
-    /**
-     * @param EncoderInterface<RequestType> $encoder
-     * @param DecoderInterface<ResponseType> $decoder
-     */
     public static function createWithAutodiscoveredPsrFactories(
         ClientInterface $client,
         UriBuilderInterface $uriBuilder,
