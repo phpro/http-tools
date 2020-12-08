@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Phpro\HttpTools\Transport\Factory;
+namespace Phpro\HttpTools\Transport\Presets;
 
 use Http\Client\HttpAsyncClient;
 use Phpro\HttpTools\Encoding\Json\JsonDecoder;
@@ -14,7 +14,7 @@ use Phpro\HttpTools\Transport\TransportInterface;
 use Phpro\HttpTools\Uri\UriBuilderInterface;
 use Psr\Http\Client\ClientInterface;
 
-final class JsonTransportFactory
+final class JsonPreset
 {
     /**
      * @return TransportInterface<array|null, array>

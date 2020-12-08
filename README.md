@@ -131,11 +131,11 @@ Example implementation:
 
 ```php
 <?php
-use Phpro\HttpTools\Transport\Factory\JsonTransportFactory;
+use Phpro\HttpTools\Transport\Presets\JsonPreset;
 use Phpro\HttpTools\Uri\TemplatedUriBuilder;
 
 $transport = App\SomeClient\Transport\MyCustomTransportWrapperForDealingWithIsErrorPropertyEg(
-    JsonTransportFactory::sync(
+    JsonPreset::sync(
         $httpClient,
         new TemplatedUriBuilder()
     )

@@ -37,15 +37,15 @@ This package contains some frequently used encoders / decoders for you:
 | `RawEncoder` | `EncoderInterface<string>` | Adds raw string as request body |
 | `RawDecoder` | `DecoderInterface<string>` | Returns the raw PSR-7 body string as response result |
 
-## Built-in transport configurations:
+## Built-in transport presets:
 
 We've composed some of the encodings above into pre-configured transports:
 
 
-| Factory | RequestType | ResponseType |
+| Preset | RequestType | ResponseType |
 | --- | --- | --- |
-| `JsonTransportFactory::sync()` | `?array` | `array` |
-| `JsonTransportFactory::async()` | `?array` | `Promise<array>`> |
+| `JsonPreset::sync()` | `?array` | `array` |
+| `JsonPreset::async()` | `?array` | `Promise<array>`> |
 
 
 ## Creating your own configuration

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Phpro\HttpTools\Tests\Unit\Transport\Factory;
+namespace Phpro\HttpTools\Tests\Unit\Transport\Presets;
 
 use Phpro\HttpTools\Test\UseHttpToolsFactories;
 use Phpro\HttpTools\Test\UseMockClient;
-use Phpro\HttpTools\Transport\Factory\JsonTransportFactory;
+use Phpro\HttpTools\Transport\Presets\JsonPreset;
 use Phpro\HttpTools\Uri\RawUriBuilder;
 use PHPUnit\Framework\TestCase;
 
@@ -14,7 +14,7 @@ use function Amp\Promise\wait;
 use function Safe\json_encode;
 
 /**
- * @covers \Phpro\HttpTools\Transport\Factory\JsonTransportFactory
+ * @covers \Phpro\HttpTools\Transport\Presets\JsonPreset
  * @covers \Phpro\HttpTools\Encoding\Json\JsonEncoder
  * @covers \Phpro\HttpTools\Encoding\Json\JsonDecoder
  * @covers \Phpro\HttpTools\Transport\EncodedTransport
@@ -25,7 +25,7 @@ use function Safe\json_encode;
  * @uses \Phpro\HttpTools\Test\UseHttpFactories
  * @uses \Phpro\HttpTools\Async\HttplugPromiseAdapter
  */
-final class JsonTransportFactoryTest extends TestCase
+final class JsonPresetTest extends TestCase
 {
     use UseMockClient;
     use UseHttpToolsFactories;
@@ -33,7 +33,7 @@ final class JsonTransportFactoryTest extends TestCase
     /** @test */
     public function it_can_create_sync_transport(): void
     {
-        $transport = JsonTransportFactory::sync(
+        $transport = JsonPreset::sync(
             $client = $this->mockClient(),
             RawUriBuilder::createWithAutodiscoveredPsrFactories()
         );
@@ -57,7 +57,7 @@ final class JsonTransportFactoryTest extends TestCase
     /** @test */
     public function it_can_create_async_transport(): void
     {
-        $transport = JsonTransportFactory::async(
+        $transport = JsonPreset::async(
             $client = $this->mockClient(),
             RawUriBuilder::createWithAutodiscoveredPsrFactories()
         );
