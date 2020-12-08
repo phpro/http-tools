@@ -14,18 +14,23 @@ The Decoder classes are responsible for converting the payload of a PSR-7 Respon
 By splitting the Encoding into 2 components, you can compose any encoding component in a transport. 
 Examples:
 
-| `TransportInterface<?array, array>` | `JsonEncoder` | `JsonDecoder` |
-| `TransportInterface<string, string>` | `RawEncoder` | `RawStringEncoder` |
-| `TransportInterface<array, string>` | `JsonEncoder` | `RawStringEncoder` |
-| `TransportInterface<null, string>` | `EmptyBodyEncoder` | `RawStringEncoder` |
+
+| Transport<RequestType, ResponseType> | Encoder<DataType> | Decoder<DataType> |
+| --- | --- | --- |
+| `TransportInterface<?array, array>` | `JsonEncoder<?array>` | `JsonDecoder<array>` |
+| `TransportInterface<string, string>` | `RawEncoder<string>` | `RawStringEncoder<string>` |
+| `TransportInterface<array, string>` | `JsonEncoder<?array>` | `RawStringEncoder<string>` |
+| `TransportInterface<null, string>` | `EmptyBodyEncoder<null>` | `RawStringEncoder<string>` |
 
 
 ### Built-in encodings
 
 This package contains some frequently used encoders / decoders for you:
 
+| Class | EncodingType<DataType> | Action |
+| --- | --- | --- |
 | `EmptyBodyEncoder` | `EncoderInterface<null>` | Creates epmty request body | 
-| `JsonEncoder` | `EncoderInterface<array|null>` | Adds json body and headers to request |
+| `JsonEncoder` | `EncoderInterface<?array>` | Adds json body and headers to request |
 | `JsonDecoder` | `DecoderInterface<array>` | Converts json response body to array |
 | `StreamEncoder` | `EncoderInterface<StreamInterface>` | Adds PSR-7 Stream as request body |
 | `StreamDecoder` | `DecoderInterface<StreamInterface>` | Returns the PSR-7 Stream as response result |
@@ -36,10 +41,11 @@ This package contains some frequently used encoders / decoders for you:
 
 We've composed some of the encodings above into pre-configured transports:
 
-| Factory | Request payload | Response payload
-| --- | --- |
-| `JsonTransportFactory::sync()` | `array|null` | `array` |
-| `JsonTransportFactory::async()` | `array|null` | `Promise<array>`> |
+
+| Factory | RequestType | ResponseType |
+| --- | --- | --- |
+| `JsonTransportFactory::sync()` | `?array` | `array` |
+| `JsonTransportFactory::async()` | `?array` | `Promise<array>`> |
 
 
 ## Creating your own configuration
