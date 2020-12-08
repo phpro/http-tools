@@ -16,7 +16,7 @@ use function Safe\json_encode;
  * @covers \Phpro\HttpTools\Formatter\RemoveSensitiveJsonKeysFormatter
  * @covers \Phpro\HttpTools\Test\UseHttpFactories
  */
-class RemoveSensitiveJsonKeysFormatterTest extends TestCase
+final class RemoveSensitiveJsonKeysFormatterTest extends TestCase
 {
     use UseHttpFactories;
 

@@ -25,7 +25,7 @@ use function Safe\json_decode;
  * @covers \Phpro\HttpTools\Test\UseHttpFactories
  * @covers \Phpro\HttpTools\Test\UseVcrClient
  */
-class FactoriesTest extends TestCase
+final class FactoriesTest extends TestCase
 {
     use UseVcrClient;
 

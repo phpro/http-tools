@@ -19,7 +19,7 @@ use Psr\Http\Client\ClientExceptionInterface;
  *
  * @uses \Phpro\HttpTools\Test\UseHttpFactories
  */
-class HttplugPromiseAdapterTest extends TestCase
+final class HttplugPromiseAdapterTest extends TestCase
 {
     use UseHttpFactories;
 

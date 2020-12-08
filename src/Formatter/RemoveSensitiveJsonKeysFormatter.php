@@ -10,7 +10,7 @@ use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use function Safe\preg_replace;
 
-class RemoveSensitiveJsonKeysFormatter implements HttpFormatter
+final class RemoveSensitiveJsonKeysFormatter implements HttpFormatter
 {
     private HttpFormatter $formatter;
 

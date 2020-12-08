@@ -25,7 +25,7 @@ use function Safe\json_encode;
  * @uses \Phpro\HttpTools\Test\UseHttpFactories
  * @uses \Phpro\HttpTools\Async\HttplugPromiseAdapter
  */
-class JsonTransportFactoryTest extends TestCase
+final class JsonTransportFactoryTest extends TestCase
 {
     use UseMockClient;
     use UseHttpToolsFactories;

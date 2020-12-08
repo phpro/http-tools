@@ -23,7 +23,7 @@ use PHPUnit\Framework\TestCase;
  * @uses \Phpro\HttpTools\Encoding\Raw\RawEncoder
  * @uses \Phpro\HttpTools\Encoding\Raw\RawDecoder
  */
-class EncodedTransportTest extends TestCase
+final class EncodedTransportTest extends TestCase
 {
     use UseMockClient;
     use UseHttpToolsFactories;

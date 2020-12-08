@@ -8,7 +8,7 @@ use Http\Message\Formatter as HttpFormatter;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
-class CallbackFormatter implements HttpFormatter
+final class CallbackFormatter implements HttpFormatter
 {
     /**
      * @var callable(MessageInterface): string

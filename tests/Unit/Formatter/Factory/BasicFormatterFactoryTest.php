@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * @covers \Phpro\HttpTools\Formatter\Factory\BasicFormatterFactory
  */
-class BasicFormatterFactoryTest extends TestCase
+final class BasicFormatterFactoryTest extends TestCase
 {
     /** @test */
     public function it_creates_a_simple_formatter_when_not_in_debug_mode(): void

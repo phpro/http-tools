@@ -14,7 +14,7 @@ use Psr\Http\Message\MessageInterface;
  * @covers \Phpro\HttpTools\Formatter\RemoveSensitiveHeadersFormatter
  * @covers \Phpro\HttpTools\Test\UseHttpFactories
  */
-class RemoveSensitiveHeaderKeysFormatterTest extends TestCase
+final class RemoveSensitiveHeaderKeysFormatterTest extends TestCase
 {
     use UseHttpFactories;
 

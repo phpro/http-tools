@@ -26,7 +26,7 @@ use Psr\Http\Client\ClientExceptionInterface;
  * @uses \Phpro\HttpTools\Encoding\Raw\RawEncoder
  * @uses \Phpro\HttpTools\Encoding\Raw\RawDecoder
  */
-class AsyncEncodedTransportTest extends TestCase
+final class AsyncEncodedTransportTest extends TestCase
 {
     use UseMockClient;
     use UseHttpToolsFactories;

@@ -7,7 +7,7 @@ namespace Phpro\HttpTools\Tests\Helper\Vcr;
 use Http\Client\Plugin\Vcr\NamingStrategy\NamingStrategyInterface;
 use Psr\Http\Message\RequestInterface;
 
-class FactoryAwareNamingStrategy implements NamingStrategyInterface
+final class FactoryAwareNamingStrategy implements NamingStrategyInterface
 {
     private string $forFactory;
     private NamingStrategyInterface $namingStrategy;
