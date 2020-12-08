@@ -135,7 +135,7 @@ use Phpro\HttpTools\Transport\Factory\JsonTransportFactory;
 use Phpro\HttpTools\Uri\TemplatedUriBuilder;
 
 $transport = App\SomeClient\Transport\MyCustomTransportWrapperForDealingWithIsErrorPropertyEg(
-    JsonTransportFactory::createWithAutodiscoveredPsrFactories(
+    JsonTransportFactory::sync(
         $httpClient,
         new TemplatedUriBuilder()
     )
