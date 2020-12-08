@@ -7,14 +7,20 @@ digraph RequestHandlers {
         Request [label="Request model"];
     }
 
-    RequestHandler;
+    Encoder [label="Encode HTTP data"]
+    Decoder [label="Decode HTTP data"]
     Transport
+    RequestHandler;
     PSRHttpClient [label="PSR-18 HTTP Client"]
+
+    {rank = same; Decoder Encoder }
 
     Transport -> RequestHandler
     RequestHandler -> Transport
-    Transport -> PSRHttpClient
-    PSRHttpClient -> Transport
+    Transport -> Encoder
+    Encoder -> PSRHttpClient
+    Decoder -> Transport
+    PSRHttpClient -> Decoder
     RequestHandler -> Response
     Request -> RequestHandler
 }

@@ -15,9 +15,4 @@ interface EncoderInterface
      * @param DataType $data
      */
     public function __invoke(RequestInterface $request, $data): RequestInterface;
-
-    /**
-     * @return self<DataType>
-     */
-    public static function createWithAutodiscoveredPsrFactories(): self;
 }

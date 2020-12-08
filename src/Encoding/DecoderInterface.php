@@ -15,9 +15,4 @@ interface DecoderInterface
      * @return DataType
      */
     public function __invoke(ResponseInterface $response);
-
-    /**
-     * @return self<DataType>
-     */
-    public static function createWithAutodiscoveredPsrFactories(): self;
 }
