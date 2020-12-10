@@ -16,7 +16,7 @@ trait UseVcrClient
     use UseHttpFactories;
 
     /**
-     * @return [RecordPlugin, ReplayPlugin]
+     * @return array{RecordPlugin, ReplayPlugin}
      */
     private function useRecording(string $path, NamingStrategyInterface $namingStrategy = null): array
     {

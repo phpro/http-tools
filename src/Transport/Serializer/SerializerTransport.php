@@ -2,12 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Phpro\HttpTools\Transport;
+namespace Phpro\HttpTools\Transport\Serializer;
 
 use Phpro\HttpTools\Request\Request;
 use Phpro\HttpTools\Request\RequestInterface;
 use Phpro\HttpTools\Serializer\SerializerException;
 use Phpro\HttpTools\Serializer\SerializerInterface;
+use Phpro\HttpTools\Transport\TransportInterface;
 
 /**
  * @template RequestType
@@ -60,7 +61,7 @@ final class SerializerTransport implements TransportInterface
         }
 
         return $this->serializer->deserialize(
-            $result = ($this->transport)(
+            ($this->transport)(
                 new Request(
                     $request->method(),
                     $request->uri(),
