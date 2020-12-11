@@ -10,7 +10,7 @@ use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use function Safe\preg_replace;
 
-class RemoveSensitiveHeadersFormatter implements HttpFormatter
+final class RemoveSensitiveHeadersFormatter implements HttpFormatter
 {
     private HttpFormatter $formatter;
 

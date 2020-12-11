@@ -13,7 +13,7 @@ use Psr\Http\Message\UriInterface;
  * @covers \Phpro\HttpTools\Uri\RawUriBuilder
  * @covers \Phpro\HttpTools\Test\UseHttpToolsFactories
  */
-class RawUriBuilderTest extends TestCase
+final class RawUriBuilderTest extends TestCase
 {
     use UseHttpToolsFactories;
 

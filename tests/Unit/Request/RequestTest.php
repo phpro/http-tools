@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * @covers \Phpro\HttpTools\Test\UseHttpToolsFactories
  */
-class RequestTest extends TestCase
+final class RequestTest extends TestCase
 {
     use UseHttpToolsFactories;
 

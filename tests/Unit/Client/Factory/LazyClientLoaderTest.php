@@ -17,7 +17,7 @@ use stdClass;
  * @uses \Phpro\HttpTools\Client\Configurator\PluginsConfigurator
  * @uses \Phpro\HttpTools\Client\Factory\AutoDiscoveredClientFactory
  */
-class LazyClientLoaderTest extends TestCase
+final class LazyClientLoaderTest extends TestCase
 {
     /** @test */
     public function it_can_not_load_invalid_class(): void
