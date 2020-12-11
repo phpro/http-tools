@@ -46,7 +46,8 @@ We've composed some of the encodings above into pre-configured transports:
 | --- | --- | --- |
 | `JsonPreset::sync()` | `?array` | `array` |
 | `JsonPreset::async()` | `?array` | `Promise<array>`> |
-
+| `RawPreset::sync()` | `string` | `string` |
+| `RawPreset::async()` | `string` | `Promise<string>`> |
 
 ## Creating your own configuration
 
@@ -79,3 +80,23 @@ AsyncEncodedTransport::createWithAutodiscoveredPsrFactories(
 );
 ```
 
+## Other transports
+
+### SerializerTransport
+
+This transport allows you to use an external serializer to handle request serialization and response deserialization.
+You can use the symfony/serializer component or any other serializer you please.
+
+However, you do need to specify what output type the transport will deserialize to. (e.g. inside a request handler)
+
+```php
+use Phpro\HttpTools\Serializer\SymfonySerializer;
+use Phpro\HttpTools\Transport\Serializer\SerializerTransport;
+
+$transport = new SerializerTransport(
+    new SymfonySerializer($theSymfonySerializer, 'json'),
+    RawPreset::sync($client, $uriBuilder)
+);
+
+$transport->withOutputType(SomeResponse::class);
+```
