@@ -11,13 +11,6 @@ use Phpro\HttpTools\Test\UseMockClient;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Client\ClientInterface;
 
-/**
- * @covers \Phpro\HttpTools\Plugin\AcceptLanguagePlugin
- * @covers \Phpro\HttpTools\Test\UseHttpFactories
- * @covers \Phpro\HttpTools\Test\UseMockClient
- *
- * @uses \Phpro\HttpTools\Client\Configurator\PluginsConfigurator
- */
 final class AcceptLanguagePluginTest extends TestCase
 {
     use UseMockClient;

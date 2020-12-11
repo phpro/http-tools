@@ -8,10 +8,6 @@ use Phpro\HttpTools\Encoding\Raw\EmptyBodyEncoder;
 use Phpro\HttpTools\Test\UseHttpFactories;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \Phpro\HttpTools\Encoding\Raw\EmptyBodyEncoder
- * @uses \Phpro\HttpTools\Test\UseHttpFactories
- */
 final class EmptyBodyEncoderTest extends TestCase
 {
     use UseHttpFactories;

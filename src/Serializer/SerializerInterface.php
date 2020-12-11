@@ -13,6 +13,7 @@ interface SerializerInterface
 
     /**
      * @template C
+     *
      * @param class-string<C> $class
      *
      * @return C

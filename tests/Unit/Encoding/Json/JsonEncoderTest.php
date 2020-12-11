@@ -9,10 +9,6 @@ use Phpro\HttpTools\Test\UseHttpFactories;
 use PHPUnit\Framework\TestCase;
 use function Safe\json_encode;
 
-/**
- * @covers \Phpro\HttpTools\Encoding\Json\JsonEncoder
- * @uses \Phpro\HttpTools\Test\UseHttpFactories
- */
 final class JsonEncoderTest extends TestCase
 {
     use UseHttpFactories;

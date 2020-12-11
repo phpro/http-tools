@@ -12,10 +12,6 @@ use Psr\Http\Message\MessageInterface;
 use function Safe\json_decode;
 use function Safe\json_encode;
 
-/**
- * @covers \Phpro\HttpTools\Formatter\RemoveSensitiveJsonKeysFormatter
- * @covers \Phpro\HttpTools\Test\UseHttpFactories
- */
 final class RemoveSensitiveJsonKeysFormatterTest extends TestCase
 {
     use UseHttpFactories;

@@ -14,11 +14,6 @@ use Phpro\HttpTools\Test\UseHttpFactories;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Client\ClientExceptionInterface;
 
-/**
- * @covers \Phpro\HttpTools\Async\HttplugPromiseAdapter
- *
- * @uses \Phpro\HttpTools\Test\UseHttpFactories
- */
 final class HttplugPromiseAdapterTest extends TestCase
 {
     use UseHttpFactories;

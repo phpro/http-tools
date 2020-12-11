@@ -8,10 +8,6 @@ use Phpro\HttpTools\Encoding\Json\JsonDecoder;
 use Phpro\HttpTools\Test\UseHttpFactories;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \Phpro\HttpTools\Encoding\Json\JsonDecoder
- * @uses \Phpro\HttpTools\Test\UseHttpFactories
- */
 final class JsonDecoderTest extends TestCase
 {
     use UseHttpFactories;

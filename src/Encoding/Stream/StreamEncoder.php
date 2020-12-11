@@ -13,7 +13,8 @@ use Psr\Http\Message\StreamInterface;
  */
 final class StreamEncoder implements EncoderInterface
 {
-    public static function createWithAutodiscoveredPsrFactories(): self {
+    public static function createWithAutodiscoveredPsrFactories(): self
+    {
         return new self();
     }
 

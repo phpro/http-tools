@@ -4,30 +4,17 @@ declare(strict_types=1);
 
 namespace Phpro\HttpTools\Tests\Unit\Transport\Presets;
 
+use function Amp\Promise\wait;
 use Phpro\HttpTools\Test\UseHttpToolsFactories;
 use Phpro\HttpTools\Test\UseMockClient;
 use Phpro\HttpTools\Transport\Presets\RawPreset;
 use Phpro\HttpTools\Uri\RawUriBuilder;
 use PHPUnit\Framework\TestCase;
 
-use function Amp\Promise\wait;
-
-/**
- * @covers \Phpro\HttpTools\Transport\Presets\RawPreset
- * @covers \Phpro\HttpTools\Encoding\Raw\RawEncoder
- * @covers \Phpro\HttpTools\Encoding\Raw\RawDecoder
- * @covers \Phpro\HttpTools\Transport\EncodedTransport
- * @covers \Phpro\HttpTools\Transport\AsyncEncodedTransport
- * @covers \Phpro\HttpTools\Uri\RawUriBuilder
- * @uses \Phpro\HttpTools\Test\UseHttpToolsFactories
- * @uses \Phpro\HttpTools\Test\UseMockClient
- * @uses \Phpro\HttpTools\Test\UseHttpFactories
- * @uses \Phpro\HttpTools\Async\HttplugPromiseAdapter
- */
 final class RawPresetTest extends TestCase
 {
-    use UseMockClient;
     use UseHttpToolsFactories;
+    use UseMockClient;
 
     /** @test */
     public function it_can_create_sync_transport(): void
@@ -41,7 +28,7 @@ final class RawPresetTest extends TestCase
 
         $client->addResponse(
             $this->createResponse(200)
-                 ->withBody($this->createStream(
+                ->withBody($this->createStream(
                      $expectedResponse = 'world'
                  )
              )
@@ -66,7 +53,7 @@ final class RawPresetTest extends TestCase
 
         $client->addResponse(
             $this->createResponse(200)
-                 ->withBody($this->createStream(
+                ->withBody($this->createStream(
                      $expectedResponse = 'world'
                  )
             )

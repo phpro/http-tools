@@ -6,7 +6,7 @@ namespace Phpro\HttpTools\Serializer;
 
 use Symfony\Component\Serializer\SerializerInterface as SymfonySerializerInterface;
 
-class SymfonySerializer implements SerializerInterface
+final class SymfonySerializer implements SerializerInterface
 {
     private SymfonySerializerInterface $serializer;
     private string $format;
@@ -27,6 +27,7 @@ class SymfonySerializer implements SerializerInterface
 
     /**
      * @template C
+     *
      * @param class-string<C> $class
      *
      * @return C

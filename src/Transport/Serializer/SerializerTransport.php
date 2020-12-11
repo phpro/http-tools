@@ -41,6 +41,7 @@ final class SerializerTransport implements TransportInterface
 
     /**
      * @template NewResponseType of object
+     *
      * @param class-string<NewResponseType> $output
      *
      * @return SerializerTransport<RequestType, NewResponseType>

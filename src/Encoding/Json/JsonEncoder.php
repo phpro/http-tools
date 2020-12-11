@@ -19,11 +19,11 @@ final class JsonEncoder implements EncoderInterface
 
     public function __construct(StreamFactoryInterface $streamFactory)
     {
-
         $this->streamFactory = $streamFactory;
     }
 
-    public static function createWithAutodiscoveredPsrFactories(): self {
+    public static function createWithAutodiscoveredPsrFactories(): self
+    {
         return new self(
             Psr17FactoryDiscovery::findStreamFactory()
         );

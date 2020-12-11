@@ -16,15 +16,6 @@ use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
 use function Safe\json_decode;
 
-/**
- * @covers \Phpro\HttpTools\Client\Configurator\PluginsConfigurator
- * @covers \Phpro\HttpTools\Client\Factory\AutoDiscoveredClientFactory
- * @covers \Phpro\HttpTools\Client\Factory\GuzzleClientFactory
- * @covers \Phpro\HttpTools\Client\Factory\LazyClientLoader
- * @covers \Phpro\HttpTools\Client\Factory\SymfonyClientFactory
- * @covers \Phpro\HttpTools\Test\UseHttpFactories
- * @covers \Phpro\HttpTools\Test\UseVcrClient
- */
 final class FactoriesTest extends TestCase
 {
     use UseVcrClient;
