@@ -9,10 +9,6 @@ use Phpro\HttpTools\Request\RequestInterface;
 use Phpro\HttpTools\Test\UseHttpToolsFactories;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \Phpro\HttpTools\Test\UseHttpToolsFactories
- * @covers \Phpro\HttpTools\Request\Request
- */
 final class RequestTest extends TestCase
 {
     use UseHttpToolsFactories;

@@ -8,10 +8,6 @@ use Phpro\HttpTools\Encoding\Stream\StreamEncoder;
 use Phpro\HttpTools\Test\UseHttpFactories;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \Phpro\HttpTools\Encoding\Stream\StreamEncoder
- * @uses \Phpro\HttpTools\Test\UseHttpFactories
- */
 final class StreamEncoderTest extends TestCase
 {
     use UseHttpFactories;

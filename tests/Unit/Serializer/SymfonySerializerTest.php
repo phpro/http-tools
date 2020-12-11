@@ -8,16 +8,12 @@ use Phpro\HttpTools\Serializer\SerializerInterface;
 use Phpro\HttpTools\Serializer\SymfonySerializer;
 use Phpro\HttpTools\Tests\Helper\Model\SomeValueObject;
 use PHPUnit\Framework\TestCase;
+use function Safe\json_encode;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 
-use function Safe\json_encode;
-
-/**
- * @covers Phpro\HttpTools\Serializer\SymfonySerializer
- */
-class SymfonySerializerTest extends TestCase
+final class SymfonySerializerTest extends TestCase
 {
     private SymfonySerializer $serializer;
 

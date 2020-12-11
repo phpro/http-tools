@@ -11,12 +11,6 @@ use Phpro\HttpTools\Client\Factory\LazyClientLoader;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
-/**
- * @covers \Phpro\HttpTools\Client\Factory\LazyClientLoader
- *
- * @uses \Phpro\HttpTools\Client\Configurator\PluginsConfigurator
- * @uses \Phpro\HttpTools\Client\Factory\AutoDiscoveredClientFactory
- */
 final class LazyClientLoaderTest extends TestCase
 {
     /** @test */

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Phpro\HttpTools\Tests\Helper\Model;
 
-class SomeValueObject
+final class SomeValueObject
 {
     public string $x;
     public string $y;

@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Phpro\HttpTools\Transport;
 
-use Phpro\HttpTools\Encoding\DecoderInterface;
-use Phpro\HttpTools\Encoding\EncoderInterface;
 use function Amp\call;
 use Amp\Promise;
 use Generator;
 use Http\Client\HttpAsyncClient;
 use Http\Discovery\Psr17FactoryDiscovery;
 use Phpro\HttpTools\Async\HttplugPromiseAdapter;
+use Phpro\HttpTools\Encoding\DecoderInterface;
+use Phpro\HttpTools\Encoding\EncoderInterface;
 use Phpro\HttpTools\Request\RequestInterface;
 use Phpro\HttpTools\Uri\UriBuilderInterface;
 use Psr\Http\Message\RequestFactoryInterface;

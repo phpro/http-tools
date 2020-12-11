@@ -10,10 +10,6 @@ use Phpro\HttpTools\Tests\Helper\Formatter\CallbackFormatter;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\MessageInterface;
 
-/**
- * @covers \Phpro\HttpTools\Formatter\RemoveSensitiveHeadersFormatter
- * @covers \Phpro\HttpTools\Test\UseHttpFactories
- */
 final class RemoveSensitiveHeaderKeysFormatterTest extends TestCase
 {
     use UseHttpFactories;

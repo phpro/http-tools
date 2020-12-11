@@ -21,7 +21,8 @@ final class EmptyBodyEncoder implements EncoderInterface
         $this->streamFactory = $streamFactory;
     }
 
-    public static function createWithAutodiscoveredPsrFactories(): self {
+    public static function createWithAutodiscoveredPsrFactories(): self
+    {
         return new self(
             Psr17FactoryDiscovery::findStreamFactory()
         );

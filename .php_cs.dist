@@ -3,7 +3,7 @@
 return PhpCsFixer\Config::create()
     ->setFinder(
         \Symfony\Component\Finder\Finder::create()
-            ->path('*.php')
+            ->name('*.php')
             ->in([
                 __DIR__ . '/src',
                 __DIR__ . '/tests',
@@ -67,6 +67,7 @@ return PhpCsFixer\Config::create()
         'php_unit_strict' => false,
         'php_unit_test_annotation' => false,
         'php_unit_test_class_requires_covers' => false,
+        'php_unit_method_casing' => ['case' => 'snake_case'],
         'phpdoc_add_missing_param_annotation' => true,
         'phpdoc_order' => true,
         'phpdoc_types_order' => ['null_adjustment' => 'always_last'],

@@ -20,13 +20,10 @@ use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 
-/**
- * @covers \Phpro\HttpTools\Transport\Serializer\SerializerTransport
- */
 final class SerializerTransportTest extends TestCase
 {
-    use UseMockClient;
     use UseHttpToolsFactories;
+    use UseMockClient;
 
     private SerializerTransport $transport;
     private Client $client;
@@ -58,8 +55,7 @@ final class SerializerTransportTest extends TestCase
 
         $this->client->on(
             new CallbackRequestMatcher(
-                fn (RequestInterface $httpRequest): bool
-                    => (string) $httpRequest->getBody() === $jsonData
+                fn (RequestInterface $httpRequest): bool => (string) $httpRequest->getBody() === $jsonData
             ),
             $this->createResponse()->withBody($this->createStream($jsonData))
         );

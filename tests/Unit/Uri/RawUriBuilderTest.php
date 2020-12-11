@@ -9,10 +9,6 @@ use Phpro\HttpTools\Uri\RawUriBuilder;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\UriInterface;
 
-/**
- * @covers \Phpro\HttpTools\Uri\RawUriBuilder
- * @covers \Phpro\HttpTools\Test\UseHttpToolsFactories
- */
 final class RawUriBuilderTest extends TestCase
 {
     use UseHttpToolsFactories;

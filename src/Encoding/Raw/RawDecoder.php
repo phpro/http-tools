@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Phpro\HttpTools\Encoding\Raw;
 
 use Phpro\HttpTools\Encoding\DecoderInterface;
-use Phpro\HttpTools\Encoding\Json\JsonDecoder;
 use Psr\Http\Message\ResponseInterface;
 
 /**

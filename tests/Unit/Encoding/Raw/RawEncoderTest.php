@@ -8,10 +8,6 @@ use Phpro\HttpTools\Encoding\Raw\RawEncoder;
 use Phpro\HttpTools\Test\UseHttpFactories;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \Phpro\HttpTools\Encoding\Raw\RawEncoder
- * @uses \Phpro\HttpTools\Test\UseHttpFactories
- */
 final class RawEncoderTest extends TestCase
 {
     use UseHttpFactories;

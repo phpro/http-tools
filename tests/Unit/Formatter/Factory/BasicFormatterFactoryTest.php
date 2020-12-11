@@ -9,9 +9,6 @@ use Http\Message\Formatter\SimpleFormatter;
 use Phpro\HttpTools\Formatter\Factory\BasicFormatterFactory;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \Phpro\HttpTools\Formatter\Factory\BasicFormatterFactory
- */
 final class BasicFormatterFactoryTest extends TestCase
 {
     /** @test */

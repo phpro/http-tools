@@ -13,20 +13,10 @@ use Phpro\HttpTools\Transport\EncodedTransport;
 use Phpro\HttpTools\Uri\RawUriBuilder;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \Phpro\HttpTools\Test\UseHttpFactories
- * @covers \Phpro\HttpTools\Test\UseHttpToolsFactories
- * @covers \Phpro\HttpTools\Test\UseMockClient
- * @covers \Phpro\HttpTools\Transport\EncodedTransport
- *
- * @uses \Phpro\HttpTools\Uri\RawUriBuilder
- * @uses \Phpro\HttpTools\Encoding\Raw\RawEncoder
- * @uses \Phpro\HttpTools\Encoding\Raw\RawDecoder
- */
 final class EncodedTransportTest extends TestCase
 {
-    use UseMockClient;
     use UseHttpToolsFactories;
+    use UseMockClient;
 
     private EncodedTransport $transport;
     private Client $client;
