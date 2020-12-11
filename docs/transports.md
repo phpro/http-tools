@@ -100,3 +100,9 @@ $transport = new SerializerTransport(
 
 $transport->withOutputType(SomeResponse::class);
 ```
+
+If you want to use symfony/validator, you might need to:
+
+```bash
+composer require symfony/serializer
+```

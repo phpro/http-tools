@@ -40,6 +40,7 @@
     },
     "suggest": {
         "symfony/http-client": "If you want to use the built-in symfony/http-client tools.",
+        "symfony/serializer": "If you want to use symfony serializer to handle request serialization and response deserialization.",
         "guzzlehttp/guzzle": "If you want to use the built-in guzzlehttp/guzzle tools.",
         "php-http/mock-client": "For testing HTTP clients through mocking Requests and responses.",
         "php-http/vcr-plugin": "For testing HTTP clients through storing and replaying requests and responses."
