@@ -3,7 +3,7 @@
 ## Configuration via di.xml
 1. Define and configure your custom plugins/middlewares or implement some of [HTTPlug](http://docs.php-http.org/en/latest/plugins/)
 2. Use `Phpro\HttpTools\Client\Factory\LazyClientLoader` to configure your preferred HTTP client (`AutoDiscoveredClientFactory`, `GuzzleClientFactory`, `SymfonyClientFactory`, ...) and define options such as base_uri, default headers, ...
-3. Always create your own _Transport_ class as decorator. Magento don't know the concept of factories or stack in its DI component. Inside your custom _Transport_ you can use the built-in `JsonTransport`
+3. Always create your own _Transport_ class as decorator. Magento don't know the concept of factories or stack in its DI component. Inside your custom _Transport_ you can use the built-in transports like e.g. `JsonPreset`
 4. Last but not least, create and configure your _Request Handler(s)_ to transform _Request Value Object(s)_ to _Response Value Object(s)_
 
 Example etc/di.xml file
@@ -64,6 +64,7 @@ Example etc/di.xml file
 ```
 
 ## Example Transport
+
 ```php
 <?php
 declare(strict_types=1);
@@ -72,7 +73,7 @@ namespace Mage\OpenWeather\Http;
 
 use Phpro\HttpTools\Client\Factory\LazyClientLoader;
 use Phpro\HttpTools\Request\RequestInterface;
-use Phpro\HttpTools\Transport\Json\JsonTransport;
+use Phpro\HttpTools\Transport\Presets\JsonPreset;
 use Phpro\HttpTools\Transport\TransportInterface;
 use Phpro\HttpTools\Uri\TemplatedUriBuilder;
 
@@ -87,7 +88,7 @@ class Transport implements TransportInterface
         LazyClientLoader $clientLoader,
         TemplatedUriBuilder $uriBuilder
     ) {
-        $this->jsonTransport = JsonTransport::createWithAutodiscoveredPsrFactories(
+        $this->jsonTransport = JsonPreset::sync(
             $clientLoader->load(),
             $uriBuilder
         );

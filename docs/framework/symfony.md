@@ -70,16 +70,11 @@ services:
     # Setting up the transport
     #
     App\SomeClient\Transport:
-        # class: Phpro\HttpTools\Transport\TransportInterface
-        stack: 
-            - App\SomeClient\Transport\JsonErrorBodyTransport
-                arguments: ['@.inner']
-            - Phpro\HttpTools\Transport\Json\JsonTransport
-                arguments:
-                    - '@App\SomeClient'
-                    - '@Phpro\HttpTools\Uri\TemplatedUriBuilder'
-                    - '@Http\Message\RequestFactory'
-                    - '@Http\Message\StreamFactory'
+        class: Phpro\HttpTools\Transport\TransportInterface
+        factory: ['Phpro\HttpTools\Transport\Presets\JsonPreset', 'sync']
+        arguments:
+            - '@App\SomeClient'
+            - '@Phpro\HttpTools\Uri\TemplatedUriBuilder'
 
     Phpro\HttpTools\Uri\TemplatedUriBuilder: ~
 
