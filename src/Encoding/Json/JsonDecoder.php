@@ -20,6 +20,10 @@ final class JsonDecoder implements DecoderInterface
 
     public function __invoke(ResponseInterface $response): array
     {
-        return (array) json_decode((string) $response->getBody(), true);
+        if (!$responseBody = (string) $response->getBody()) {
+            return [];
+        }
+
+        return (array) json_decode($responseBody, true);
     }
 }

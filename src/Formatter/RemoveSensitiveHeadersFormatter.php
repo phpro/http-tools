@@ -44,7 +44,7 @@ final class RemoveSensitiveHeadersFormatter implements HttpFormatter
 
     private function removeCredentials(string $info): string
     {
-        return (string) array_reduce(
+        return array_reduce(
             $this->sensitiveHeaders,
             /** @psalm-suppress InvalidReturnStatement, InvalidReturnType */
             fn (string $sensitiveData, string $header): string => preg_replace(
