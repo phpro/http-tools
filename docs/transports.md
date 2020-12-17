@@ -36,6 +36,7 @@ This package contains some frequently used encoders / decoders for you:
 | `StreamDecoder` | `DecoderInterface<StreamInterface>` | Returns the PSR-7 Stream as response result |
 | `RawEncoder` | `EncoderInterface<string>` | Adds raw string as request body |
 | `RawDecoder` | `DecoderInterface<string>` | Returns the raw PSR-7 body string as response result |
+| `ResponseDecoder` | `DecoderInterface<ResponseInterface>` | Returns the received PSR-7 response as result |
 
 ## Built-in transport presets:
 
@@ -45,9 +46,9 @@ We've composed some of the encodings above into pre-configured transports:
 | Preset | RequestType | ResponseType |
 | --- | --- | --- |
 | `JsonPreset::sync()` | `?array` | `array` |
-| `JsonPreset::async()` | `?array` | `Promise<array>`> |
+| `JsonPreset::async()` | `?array` | `Promise<array>` |
 | `RawPreset::sync()` | `string` | `string` |
-| `RawPreset::async()` | `string` | `Promise<string>`> |
+| `RawPreset::async()` | `string` | `Promise<string>` |
 
 ## Creating your own configuration
 
