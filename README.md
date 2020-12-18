@@ -276,6 +276,15 @@ class ListSomething
 
 [More info ...](http://docs.php-http.org/en/latest/components/promise.html)
 
+
+## SDK
+
+In some situations, writing request handlers might be overkill.
+This package also provides some tools to compose a more generic API client instead.
+However, our primary suggestion is to create specific request handlers instead!
+
+[More information on creating SDKs](docs/sdk.md)
+
 ## Testing HTTP clients
 
 This tool provided some traits for unit testing your API client with PHPUnit.

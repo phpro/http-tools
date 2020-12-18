@@ -22,4 +22,14 @@ final class JsonDecoderTest extends TestCase
 
         self::assertSame(['hello' => 'world'], $decoded);
     }
+
+    /** @test */
+    public function it_can_decode_empty_body_to_empty_array(): void
+    {
+        $decoder = JsonDecoder::createWithAutodiscoveredPsrFactories();
+        $response = $this->createResponse()->withBody($this->createStream(''));
+        $decoded = $decoder($response);
+
+        self::assertSame([], $decoded);
+    }
 }
