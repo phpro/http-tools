@@ -232,7 +232,7 @@ The response models, if crafted carefully, will improve the stability of your in
 
 ## Async request handlers
 
-This package also provides a transport for async HTTP clients.
+This package also provides transports for async HTTP clients.
 The architecture can remain as is.
 A request handler can be implemented in a lazy or awaiting state.
 
@@ -242,7 +242,7 @@ We use the Promise component from [Amp](https://amphp.org/), to make it fully in
 <?php
 
 use Amp\Promise;
-use Phpro\HttpTools\Transport\AsyncTransportInterface;
+use Phpro\HttpTools\Transport\TransportInterface;
 use function Amp\call;
 use function Amp\Promise\wait;
 
@@ -250,9 +250,9 @@ class ListSomething
 {
     public function __construct(
         /**
-         * AsyncTransportInterface<array, array>
+         * TransportInterface<array, Promise<array>>
          */
-        private AsyncTransportInterface $transport
+        private TransportInterface $transport
     ) {}
 
     /**

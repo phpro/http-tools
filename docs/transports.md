@@ -58,9 +58,9 @@ This transport takes a configurable encoder and decoder.
 ### Sync
 
 ```php
-use Phpro\HttpTools\Transport\EncodedTransport;
+use Phpro\HttpTools\Transport\EncodedTransportFactory;
 
-EncodedTransport::createWithAutodiscoveredPsrFactories(
+EncodedTransportFactory::sync(
     $client,
     $uriBuilder,
     $encoder,
@@ -71,9 +71,9 @@ EncodedTransport::createWithAutodiscoveredPsrFactories(
 ### Async
 
 ```php
-use Phpro\HttpTools\Transport\AsyncEncodedTransport;
+use Phpro\HttpTools\Transport\EncodedTransportFactory;
 
-AsyncEncodedTransport::createWithAutodiscoveredPsrFactories(
+EncodedTransportFactory::async(
     $client,
     $uriBuilder,
     $encoder,
