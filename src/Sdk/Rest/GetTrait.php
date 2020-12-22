@@ -20,10 +20,10 @@ trait GetTrait
     /**
      * @return ResponseType
      */
-    public function get()
+    public function get(array $uriParameters = [])
     {
         /** @var RequestInterface<array|null> $request */
-        $request = new Request('GET', $this->path(), [], null);
+        $request = new Request('GET', $this->path(), $uriParameters, null);
 
         return $this->transport()($request);
     }

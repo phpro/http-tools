@@ -44,8 +44,8 @@ final class GetTest extends TestCase
         $this->client->on(
             new CallbackRequestMatcher(
                 static fn (RequestInterface $request) => 'GET' === $request->getMethod()
-                        && '/users' === (string) $request->getUri()
-                        && '' === (string) $request->getBody()
+                    && '/users' === (string) $request->getUri()
+                    && '' === (string) $request->getBody()
             ),
             $this->createResponse()
                 ->withBody(
@@ -54,6 +54,28 @@ final class GetTest extends TestCase
         );
 
         $actual = $this->resource->get();
+
+        self::assertSame($responseData, $actual);
+    }
+
+    /** @test */
+    public function it_can_get_a_resource_with_query_params(): void
+    {
+        $responseData = [['id' => 1], ['id' => 2]];
+
+        $this->client->on(
+            new CallbackRequestMatcher(
+                static fn (RequestInterface $request) => 'GET' === $request->getMethod()
+                     && '/users?param1=value1' === (string) $request->getUri()
+                     && '' === (string) $request->getBody()
+            ),
+            $this->createResponse()
+                ->withBody(
+                     $this->createStream(json_encode($responseData))
+                 )
+        );
+
+        $actual = $this->resource->get(['param1' => 'value1']);
 
         self::assertSame($responseData, $actual);
     }
