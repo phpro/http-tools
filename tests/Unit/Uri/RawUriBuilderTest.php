@@ -29,4 +29,14 @@ final class RawUriBuilderTest extends TestCase
         self::assertInstanceOf(UriInterface::class, $uri);
         self::assertSame($request->uri(), $uri->__toString());
     }
+
+    /** @test */
+    public function it_can_build_a_raw_uri_with_query_params(): void
+    {
+        $request = $this->createToolsRequest('GET', '/hello/world', ['param1' => 'value1']);
+        $uri = ($this->uriBuilder)($request);
+
+        self::assertInstanceOf(UriInterface::class, $uri);
+        self::assertSame('/hello/world?param1=value1', $uri->__toString());
+    }
 }

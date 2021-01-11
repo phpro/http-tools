@@ -25,6 +25,12 @@ final class RawUriBuilder implements UriBuilderInterface
 
     public function __invoke(RequestInterface $request): UriInterface
     {
-        return $this->uriFactory->createUri($request->uri());
+        $uri = $this->uriFactory->createUri($request->uri());
+
+        if (!$request->uriParameters()) {
+            return $uri;
+        }
+
+        return $uri->withQuery(http_build_query($request->uriParameters()));
     }
 }
