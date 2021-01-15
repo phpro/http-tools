@@ -112,10 +112,10 @@ So what does this architecture look like?
 
 ![Architecture](docs/assets/request-handlers.png)
 
-* **Models**: Request / Response value objects that can be used as wrapper around raw arrays.
-* **RequestHandler**: Transform a request into a response model by using a transport. You could add error handling in there as well.
-* **Transport**: Transforms a Request model into a PSR-7 HTTP request and asks a response through the actual HTTP client.
-* **Encoding**: A transport can take encoders / decoders that are responsible for converting the value objects data to HTTP payloads and visa versa.
+* **Models**: Request / Response value objects that can be used as wrapper around the outgoging or incoming data (arrays, objects, strings, ...).
+* **RequestHandler**: Transform a request data model into a response data model by using a transport. You could add error handling in there as well.
+* **Transport**: Transforms a Request data model into a PSR-7 HTTP request and asks for a response through the actual HTTP client.
+* **Encoding**: A transport can take encoders / decoders that are responsible for converting the value objects data to e.g. JSON payloads and visa versa.
 * **HTTP-Client**: Whichever PSR-18 HTTP client you want to use: guzzle, curl, symfony/http-client, ...
 
 [More information on Transports and Encodings](docs/transports.md)
