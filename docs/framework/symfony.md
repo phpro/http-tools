@@ -94,3 +94,35 @@ services:
         bind:
             $transport: '@App\SomeClient\Transport'
 ```
+
+You can conditionally enable vcr by setting this up in `config/packages/test/services.yaml`.
+Or any other env where you wish to use recorded responses by using the correct package path.
+
+```yaml
+services:
+    Http\Client\Plugin\Vcr\NamingStrategy\PathNamingStrategy:
+        class: Http\Client\Plugin\Vcr\NamingStrategy\PathNamingStrategy
+
+    Http\Client\Plugin\Vcr\Recorder\FilesystemRecorder:
+        class: Http\Client\Plugin\Vcr\Recorder\FilesystemRecorder
+        arguments: ['Tests/_fixtures']
+
+    Http\Client\Plugin\Vcr\RecordPlugin:
+        class: Http\Client\Plugin\Vcr\RecordPlugin
+        arguments:
+            - '@Http\Client\Plugin\Vcr\NamingStrategy\PathNamingStrategy'
+            - '@Http\Client\Plugin\Vcr\Recorder\FilesystemRecorder'
+        tags:
+            - { name: 'app.someclient.plugin', priority: 1000 }
+            - { name: 'app.otherclient.plugin', priority: 1000 }
+
+    Http\Client\Plugin\Vcr\ReplayPlugin:
+        class: Http\Client\Plugin\Vcr\ReplayPlugin
+        arguments:
+            - '@Http\Client\Plugin\Vcr\NamingStrategy\PathNamingStrategy'
+            - '@Http\Client\Plugin\Vcr\Recorder\FilesystemRecorder'
+            - false
+        tags:
+            - { name: 'app.someclient.plugin', priority: 1000 }
+            - { name: 'app.otherclient.plugin', priority: 1000 }
+```
