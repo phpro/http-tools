@@ -95,8 +95,10 @@ services:
             $transport: '@App\SomeClient\Transport'
 ```
 
-You can conditionally enable vcr by setting this up in `config/packages/test/services.yaml`.
+If you are using the Symfony container inside functional tests.
+You could make the VCR testing part of your dependency container by setting this up in `config/packages/test/services.yaml`.
 Or any other env where you wish to use recorded responses by using the correct package path.
+This way, you could also use the recordings as mocks for your frontend e.g.
 
 ```yaml
 services:
