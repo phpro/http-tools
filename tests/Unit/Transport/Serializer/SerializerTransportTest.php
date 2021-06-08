@@ -6,7 +6,6 @@ namespace Phpro\HttpTools\Tests\Unit\Transport\Serializer;
 
 use Http\Message\RequestMatcher\CallbackRequestMatcher;
 use Http\Mock\Client;
-use Phpro\HttpTools\Serializer\SerializerException;
 use Phpro\HttpTools\Serializer\SymfonySerializer;
 use Phpro\HttpTools\Test\UseHttpToolsFactories;
 use Phpro\HttpTools\Test\UseMockClient;
@@ -65,17 +64,6 @@ final class SerializerTransportTest extends TestCase
 
         self::assertEquals($valueObject, $result);
     }
-
-//    /** @test */
-//    public function it_can_not_serialize_requests_if_the_output_value_is_not_known(): void
-//    {
-//        $valueObject = new SomeValueObject('Hello', 'World');
-//        $request = $this->createToolsRequest('GET', '/', [], $valueObject);
-//
-//        $this->expectException(SerializerException::class);
-//        $this->expectExceptionMessage(SerializerException::noDeserializeTypeSpecified()->getMessage());
-//        ($this->transport)($request);
-//    }
 
     /** @test */
     public function it_can_handle_requests_without_request_object(): void
