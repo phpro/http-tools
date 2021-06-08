@@ -76,4 +76,44 @@ final class SerializerTransportTest extends TestCase
         $this->expectExceptionMessage(SerializerException::noDeserializeTypeSpecified()->getMessage());
         ($this->transport)($request);
     }
+
+    /** @test */
+    public function it_can_handle_requests_without_request_object(): void
+    {
+        $valueObject = new SomeValueObject('Hello', 'World');
+        $jsonData = \Safe\json_encode($data = ['x' => 'Hello', 'y' => 'World']);
+        $request = $this->createToolsRequest('GET', '/', [], null);
+
+        $this->client->on(
+            new CallbackRequestMatcher(
+                fn (RequestInterface $httpRequest): bool => (string) $httpRequest->getBody() === $jsonData
+            ),
+            $this->createResponse()->withBody($this->createStream($jsonData))
+        );
+
+        $transport = $this->transport->withOutputType(SomeValueObject::class);
+        $result = $transport($request);
+
+        self::assertEquals($valueObject, $result);
+    }
+
+    /** @test */
+    public function it_can_handle_requests_without_response_type(): void
+    {
+        $valueObject = new SomeValueObject('Hello', 'World');
+        $jsonData = \Safe\json_encode($data = ['x' => 'Hello', 'y' => 'World']);
+        $request = $this->createToolsRequest('GET', '/', [], $valueObject);
+
+        $this->client->on(
+            new CallbackRequestMatcher(
+                fn (RequestInterface $httpRequest): bool => (string) $httpRequest->getBody() === $jsonData
+            ),
+            $this->createResponse()->withBody($this->createStream($jsonData))
+        );
+
+        $transport = $this->transport;
+        $result = $transport($request);
+
+        self::assertEquals($valueObject, $result);
+    }
 }
