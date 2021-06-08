@@ -66,27 +66,27 @@ final class SerializerTransportTest extends TestCase
         self::assertEquals($valueObject, $result);
     }
 
-    /** @test */
-    public function it_can_not_serialize_requests_if_the_output_value_is_not_known(): void
-    {
-        $valueObject = new SomeValueObject('Hello', 'World');
-        $request = $this->createToolsRequest('GET', '/', [], $valueObject);
-
-        $this->expectException(SerializerException::class);
-        $this->expectExceptionMessage(SerializerException::noDeserializeTypeSpecified()->getMessage());
-        ($this->transport)($request);
-    }
+//    /** @test */
+//    public function it_can_not_serialize_requests_if_the_output_value_is_not_known(): void
+//    {
+//        $valueObject = new SomeValueObject('Hello', 'World');
+//        $request = $this->createToolsRequest('GET', '/', [], $valueObject);
+//
+//        $this->expectException(SerializerException::class);
+//        $this->expectExceptionMessage(SerializerException::noDeserializeTypeSpecified()->getMessage());
+//        ($this->transport)($request);
+//    }
 
     /** @test */
     public function it_can_handle_requests_without_request_object(): void
     {
         $valueObject = new SomeValueObject('Hello', 'World');
         $jsonData = \Safe\json_encode($data = ['x' => 'Hello', 'y' => 'World']);
-        $request = $this->createToolsRequest('GET', '/', [], null);
+        $request = $this->createToolsRequest('GET', '/', []);
 
         $this->client->on(
             new CallbackRequestMatcher(
-                fn (RequestInterface $httpRequest): bool => (string) $httpRequest->getBody() === $jsonData
+                fn (RequestInterface $httpRequest): bool => '' === (string) $httpRequest->getBody()
             ),
             $this->createResponse()->withBody($this->createStream($jsonData))
         );
@@ -114,6 +114,6 @@ final class SerializerTransportTest extends TestCase
         $transport = $this->transport;
         $result = $transport($request);
 
-        self::assertEquals($valueObject, $result);
+        self::assertEquals(null, $result);
     }
 }
