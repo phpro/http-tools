@@ -8,7 +8,7 @@ use Phpro\HttpTools\Serializer\SerializerInterface;
 use Phpro\HttpTools\Serializer\SymfonySerializer;
 use Phpro\HttpTools\Tests\Helper\Model\SomeValueObject;
 use PHPUnit\Framework\TestCase;
-use function Safe\json_encode;
+use Psl\Json;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
@@ -39,16 +39,22 @@ final class SymfonySerializerTest extends TestCase
     {
         $valueObject = new SomeValueObject('Hello', 'World');
 
-        self::assertSame(json_encode(['x' => 'Hello', 'y' => 'World']), $this->serializer->serialize($valueObject));
+        self::assertSame(
+            Json\encode(['x' => 'Hello', 'y' => 'World']),
+            $this->serializer->serialize($valueObject)
+        );
     }
 
     /** @test */
     public function it_can_deserialize_string_to_value_object(): void
     {
-        $data = json_encode(['x' => 'Hello', 'y' => 'World']);
+        $data = Json\encode(['x' => 'Hello', 'y' => 'World']);
 
         $result = $this->serializer->deserialize($data, SomeValueObject::class);
 
-        self::assertEquals(new SomeValueObject('Hello', 'World'), $result);
+        self::assertEquals(
+            new SomeValueObject('Hello', 'World'),
+            $result
+        );
     }
 }

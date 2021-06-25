@@ -7,7 +7,7 @@ namespace Phpro\HttpTools\Tests\Unit\Encoding\Json;
 use Phpro\HttpTools\Encoding\Json\JsonEncoder;
 use Phpro\HttpTools\Test\UseHttpFactories;
 use PHPUnit\Framework\TestCase;
-use function Safe\json_encode;
+use Psl\Json;
 
 final class JsonEncoderTest extends TestCase
 {
@@ -24,7 +24,7 @@ final class JsonEncoderTest extends TestCase
 
         self::assertSame($request->getMethod(), $actual->getMethod());
         self::assertSame($request->getUri(), $actual->getUri());
-        self::assertSame(json_encode(['hello' => 'world']), (string) $actual->getBody());
+        self::assertSame(Json\encode(['hello' => 'world']), (string) $actual->getBody());
         self::assertSame(['application/json'], $actual->getHeader('Accept'));
         self::assertSame(['application/json'], $actual->getHeader('Content-Type'));
     }

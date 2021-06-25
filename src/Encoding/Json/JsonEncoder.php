@@ -6,9 +6,9 @@ namespace Phpro\HttpTools\Encoding\Json;
 
 use Http\Discovery\Psr17FactoryDiscovery;
 use Phpro\HttpTools\Encoding\EncoderInterface;
+use Psl\Json;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\StreamFactoryInterface;
-use function Safe\json_encode;
 
 /**
  * @implements EncoderInterface<array|null>
@@ -38,7 +38,7 @@ final class JsonEncoder implements EncoderInterface
             ->withAddedHeader('Content-Type', 'application/json')
             ->withAddedHeader('Accept', 'application/json')
             ->withBody($this->streamFactory->createStream(
-                null !== $data ? json_encode($data) : ''
+                null !== $data ? Json\encode($data) : ''
             ));
     }
 }

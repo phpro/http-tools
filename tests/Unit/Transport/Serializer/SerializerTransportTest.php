@@ -15,6 +15,7 @@ use Phpro\HttpTools\Transport\Presets\RawPreset;
 use Phpro\HttpTools\Transport\Serializer\SerializerTransport;
 use Phpro\HttpTools\Uri\RawUriBuilder;
 use PHPUnit\Framework\TestCase;
+use Psl\Json;
 use Psr\Http\Message\RequestInterface;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
@@ -50,7 +51,7 @@ final class SerializerTransportTest extends TestCase
     public function it_can_serialize_request_and_deserialize_response_body_and_transport_it(): void
     {
         $valueObject = new SomeValueObject('Hello', 'World');
-        $jsonData = \Safe\json_encode($data = ['x' => 'Hello', 'y' => 'World']);
+        $jsonData = Json\encode($data = ['x' => 'Hello', 'y' => 'World']);
         $request = $this->createToolsRequest('GET', '/', [], $valueObject);
 
         $this->client->on(

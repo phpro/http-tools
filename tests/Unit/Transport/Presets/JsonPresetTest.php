@@ -10,7 +10,7 @@ use Phpro\HttpTools\Test\UseMockClient;
 use Phpro\HttpTools\Transport\Presets\JsonPreset;
 use Phpro\HttpTools\Uri\RawUriBuilder;
 use PHPUnit\Framework\TestCase;
-use function Safe\json_encode;
+use Psl\Json;
 
 final class JsonPresetTest extends TestCase
 {
@@ -30,7 +30,7 @@ final class JsonPresetTest extends TestCase
         $client->addResponse(
             $this->createResponse(200)
                 ->withBody($this->createStream(
-                     json_encode($expectedResponse = ['world']))
+                     Json\encode($expectedResponse = ['world']))
                  )
         );
 
@@ -38,7 +38,7 @@ final class JsonPresetTest extends TestCase
         $lastRequest = $client->getLastRequest();
 
         self::assertSame($actualResponse, $expectedResponse);
-        self::assertSame(json_encode($expectedRequest), (string) $lastRequest->getBody());
+        self::assertSame(Json\encode($expectedRequest), (string) $lastRequest->getBody());
     }
 
     /** @test */
@@ -54,7 +54,7 @@ final class JsonPresetTest extends TestCase
         $client->addResponse(
             $this->createResponse(200)
                 ->withBody($this->createStream(
-                     json_encode($expectedResponse = ['world']))
+                     Json\encode($expectedResponse = ['world']))
                  )
         );
 
@@ -62,6 +62,6 @@ final class JsonPresetTest extends TestCase
         $lastRequest = $client->getLastRequest();
 
         self::assertSame($actualResponse, $expectedResponse);
-        self::assertSame(json_encode($expectedRequest), (string) $lastRequest->getBody());
+        self::assertSame(Json\encode($expectedRequest), (string) $lastRequest->getBody());
     }
 }
