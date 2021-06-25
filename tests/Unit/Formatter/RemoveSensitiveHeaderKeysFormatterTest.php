@@ -33,9 +33,11 @@ final class RemoveSensitiveHeaderKeysFormatterTest extends TestCase
     public function it_can_remove_sensitive_keys_from_request(array $headers, array $expected): void
     {
         $request = $this->createRequest('GET', 'something');
+
         foreach ($headers as $name => $value) {
             $request = $request->withAddedHeader($name, $value);
         }
+
         $formatted = $this->formatter->formatRequest($request);
 
         self::assertSame($this->formatHeaders($expected), $formatted);
@@ -48,15 +50,17 @@ final class RemoveSensitiveHeaderKeysFormatterTest extends TestCase
     public function it_can_remove_sensitive_keys_from_response(array $headers, array $expected): void
     {
         $response = $this->createResponse(200);
+
         foreach ($headers as $name => $value) {
             $response = $response->withAddedHeader($name, $value);
         }
+
         $formatted = $this->formatter->formatResponse($response);
 
         self::assertSame($this->formatHeaders($expected), $formatted);
     }
 
-    public function provideJsonExpectations()
+    public function provideJsonExpectations(): iterable
     {
         yield 'sample1' => [
             [
