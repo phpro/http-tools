@@ -7,7 +7,6 @@ namespace Phpro\HttpTools\Formatter;
 use Http\Message\Formatter as HttpFormatter;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use function Safe\preg_replace;
 
 final class RemoveSensitiveQueryStringsFormatter implements HttpFormatter
 {
@@ -44,18 +43,20 @@ final class RemoveSensitiveQueryStringsFormatter implements HttpFormatter
         $uri = $request->getUri();
         $query = $uri->getQuery();
 
+        $result = [];
+        parse_str($query, $result);
+
         foreach ($this->sensitiveKeys as $key) {
-            /** @var string $query */
-            $query = preg_replace(
-                sprintf('/(%1$s\=)[a-zA-Z0-9. ]+/', $key),
-                '$1xxxx',
-                $query
-            );
+            if (!array_key_exists($key, $result)) {
+                continue;
+            }
+
+            $result[$key] = 'xxxx';
         }
 
         return $this->formatter->formatRequest(
             $request->withUri(
-                $uri->withQuery($query)
+                $uri->withQuery(http_build_query($result))
             )
         );
     }
