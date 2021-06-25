@@ -49,7 +49,7 @@ use Phpro\HttpTools\Transport\TransportInterface;
 final class MyClient
 {
     /**
-     * @var UsersResouce<ResultType>
+     * @var UsersResource<ResultType>
      * @psalm-readonly
      */
     public $users;
@@ -59,7 +59,7 @@ final class MyClient
      */
     public function __construct(TransportInterface $transport)
     {
-        $this->users = new UsersResouce($transport);
+        $this->users = new UsersResource($transport);
     }
 }
 ```

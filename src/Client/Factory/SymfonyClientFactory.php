@@ -20,7 +20,10 @@ final class SymfonyClientFactory implements FactoryInterface
      */
     public static function create(iterable $middlewares, array $options = []): ClientInterface
     {
-        Assert::classExists(CurlHttpClient::class, 'Could not find symfony HTTP client. Please run: "composer require symfony/http-client:^5.1"');
+        Assert::classExists(
+            CurlHttpClient::class,
+            'Could not find symfony HTTP client. Please run: "composer require symfony/http-client:^5.1"'
+        );
 
         return PluginsConfigurator::configure(
             new HttplugClient(

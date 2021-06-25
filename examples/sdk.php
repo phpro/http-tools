@@ -41,7 +41,7 @@ $transport = JsonPreset::sync($client, new TemplatedUriBuilder());
  * @template ResultType
  * @extends HttpResource<ResultType>
  */
-final class UsersResouce extends HttpResource
+final class UsersResource extends HttpResource
 {
     use CreateTrait;
     use DeleteTrait;
@@ -62,17 +62,17 @@ final class UsersResouce extends HttpResource
 final class Sdk
 {
     /**
-     * @var UsersResouce<ResultType>
+     * @var UsersResource<ResultType>
      * @psalm-readonly
      */
-    public $users;
+    public UsersResource $users;
 
     /**
      * @param TransportInterface<array|null, ResultType> $transport
      */
     public function __construct(TransportInterface $transport)
     {
-        $this->users = new UsersResouce($transport);
+        $this->users = new UsersResource($transport);
     }
 }
 

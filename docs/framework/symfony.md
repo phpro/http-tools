@@ -78,7 +78,6 @@ services:
 
     Phpro\HttpTools\Uri\TemplatedUriBuilder: ~
 
-
     #
     # Registering a single Request Handler
     #
