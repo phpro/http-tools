@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Phpro\HttpTools\Tests\Helper\Formatter;
 
 use Http\Message\Formatter as HttpFormatter;
+use Psr\Http\Message\MessageInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
