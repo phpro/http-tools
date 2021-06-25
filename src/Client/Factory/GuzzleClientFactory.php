@@ -19,13 +19,19 @@ final class GuzzleClientFactory implements FactoryInterface
     public static function create(iterable $middlewares, array $options = []): ClientInterface
     {
         Assert::allIsCallable($middlewares);
-        Assert::classExists(Client::class, 'Could not find guzzle client. Please run: "composer require guzzlehttp/guzzle:^7.0"');
+        Assert::classExists(
+            Client::class,
+            'Could not find guzzle client. Please run: "composer require guzzlehttp/guzzle:^7.0"'
+        );
 
         $stack = HandlerStack::create();
+
         foreach ($middlewares as $middleware) {
             $stack->push($middleware);
         }
 
-        return new Client(array_merge($options, ['handler' => $stack]));
+        return new Client(
+            array_merge($options, ['handler' => $stack])
+        );
     }
 }

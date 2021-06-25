@@ -37,6 +37,7 @@ final class LazyClientLoader
         if (!$this->loaded) {
             /** @psalm-suppress DocblockTypeContradiction */
             Assert::subclassOf($this->factory, FactoryInterface::class);
+
             $this->loaded = ($this->factory)::create($this->middlewares, $this->options);
         }
 
