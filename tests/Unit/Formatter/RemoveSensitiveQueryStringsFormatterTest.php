@@ -46,7 +46,7 @@ final class RemoveSensitiveQueryStringsFormatterTest extends TestCase
      */
     public function it_can_format_a_response(): void
     {
-        $response = $this->createResponse(200);
+        $response = $this->createResponse();
 
         self::assertIsString(
             $this->formatter->formatResponse($response)
