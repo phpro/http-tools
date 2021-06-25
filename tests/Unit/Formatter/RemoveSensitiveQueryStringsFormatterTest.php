@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace Phpro\HttpTools\Tests\Unit\Formatter;
 
+use Http\Message\Formatter\SimpleFormatter;
 use Phpro\HttpTools\Formatter\RemoveSensitiveQueryStringsFormatter;
 use Phpro\HttpTools\Test\UseHttpFactories;
-use Phpro\HttpTools\Tests\Helper\Formatter\CallbackFormatter;
 use PHPUnit\Framework\TestCase;
-use Psr\Http\Message\MessageInterface;
 
 final class RemoveSensitiveQueryStringsFormatterTest extends TestCase
 {
@@ -19,9 +18,7 @@ final class RemoveSensitiveQueryStringsFormatterTest extends TestCase
     protected function setUp(): void
     {
         $this->formatter = new RemoveSensitiveQueryStringsFormatter(
-            new CallbackFormatter(
-                fn (MessageInterface $message): string => $message->getBody()->__toString()
-            ),
+            new SimpleFormatter(),
             ['apiKey', 'token']
         );
     }
