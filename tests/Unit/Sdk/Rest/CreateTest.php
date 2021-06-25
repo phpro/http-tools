@@ -12,8 +12,8 @@ use Phpro\HttpTools\Test\UseMockClient;
 use Phpro\HttpTools\Transport\Presets\JsonPreset;
 use Phpro\HttpTools\Uri\RawUriBuilder;
 use PHPUnit\Framework\TestCase;
+use Psl\Json;
 use Psr\Http\Message\RequestInterface;
-use function Safe\json_encode;
 
 final class CreateTest extends TestCase
 {
@@ -46,11 +46,11 @@ final class CreateTest extends TestCase
             new CallbackRequestMatcher(
                 static fn (RequestInterface $request) => 'POST' === $request->getMethod()
                         && '/users' === (string) $request->getUri()
-                        && (string) $request->getBody() === json_encode($requestData)
+                        && (string) $request->getBody() === Json\encode($requestData)
             ),
             $this->createResponse()
                 ->withBody(
-                     $this->createStream(json_encode($responseData))
+                     $this->createStream(Json\encode($responseData))
                  )
         );
 

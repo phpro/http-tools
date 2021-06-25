@@ -13,8 +13,8 @@ use Phpro\HttpTools\Client\Factory\SymfonyClientFactory;
 use Phpro\HttpTools\Test\UseVcrClient;
 use Phpro\HttpTools\Tests\Helper\Vcr\FactoryAwareNamingStrategy;
 use PHPUnit\Framework\TestCase;
+use Psl\Json;
 use Psr\Http\Message\RequestInterface;
-use function Safe\json_decode;
 
 final class FactoriesTest extends TestCase
 {
@@ -38,7 +38,7 @@ final class FactoriesTest extends TestCase
         );
 
         self::assertSame(200, $response->getStatusCode());
-        self::assertSame(['success' => true], json_decode($response->getBody()->__toString(), true));
+        self::assertSame(['success' => true], Json\decode($response->getBody()->__toString(), true));
     }
 
     public function provideFactories()

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Phpro\HttpTools\Encoding\Json;
 
 use Phpro\HttpTools\Encoding\DecoderInterface;
+use Psl\Json;
 use Psr\Http\Message\ResponseInterface;
-use function Safe\json_decode;
 
 /**
  * @implements DecoderInterface<array>
@@ -24,6 +24,6 @@ final class JsonDecoder implements DecoderInterface
             return [];
         }
 
-        return (array) json_decode($responseBody, true);
+        return (array) Json\decode($responseBody, true);
     }
 }

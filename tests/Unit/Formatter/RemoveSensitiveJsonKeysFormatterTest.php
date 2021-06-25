@@ -8,9 +8,8 @@ use Phpro\HttpTools\Formatter\RemoveSensitiveJsonKeysFormatter;
 use Phpro\HttpTools\Test\UseHttpFactories;
 use Phpro\HttpTools\Tests\Helper\Formatter\CallbackFormatter;
 use PHPUnit\Framework\TestCase;
+use Psl\Json;
 use Psr\Http\Message\MessageInterface;
-use function Safe\json_decode;
-use function Safe\json_encode;
 
 final class RemoveSensitiveJsonKeysFormatterTest extends TestCase
 {
@@ -33,10 +32,13 @@ final class RemoveSensitiveJsonKeysFormatterTest extends TestCase
     public function it_can_remove_sensitive_json_keys_from_request(array $content, array $expected): void
     {
         $request = $this->createRequest('GET', 'something')
-            ->withBody($this->createStream(json_encode($content)));
+            ->withBody(
+                $this->createStream(Json\encode($content))
+            );
+
         $formatted = $this->formatter->formatRequest($request);
 
-        self::assertSame($expected, json_decode($formatted, true));
+        self::assertSame($expected, Json\decode($formatted, true));
     }
 
     /**
@@ -46,10 +48,13 @@ final class RemoveSensitiveJsonKeysFormatterTest extends TestCase
     public function it_can_remove_sensitive_json_keys_from_response(array $content, array $expected): void
     {
         $response = $this->createResponse(200)
-            ->withBody($this->createStream(json_encode($content)));
+            ->withBody(
+                $this->createStream(Json\encode($content))
+            );
+
         $formatted = $this->formatter->formatResponse($response);
 
-        self::assertSame($expected, json_decode($formatted, true));
+        self::assertSame($expected, Json\decode($formatted, true));
     }
 
     public function provideJsonExpectations()

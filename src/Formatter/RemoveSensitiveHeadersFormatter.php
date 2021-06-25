@@ -6,9 +6,9 @@ namespace Phpro\HttpTools\Formatter;
 
 use Http\Message\Formatter as HttpFormatter;
 use function preg_quote;
+use Psl\Regex;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use function Safe\preg_replace;
 
 final class RemoveSensitiveHeadersFormatter implements HttpFormatter
 {
@@ -47,10 +47,10 @@ final class RemoveSensitiveHeadersFormatter implements HttpFormatter
         return array_reduce(
             $this->sensitiveHeaders,
             /** @psalm-suppress InvalidReturnStatement, InvalidReturnType */
-            fn (string $sensitiveData, string $header): string => preg_replace(
+            fn (string $sensitiveData, string $header): string => Regex\replace(
+                $sensitiveData,
                 '{^('.preg_quote($header, '{').')\:(.*)}im',
                 '$1: xxxx',
-                $sensitiveData
             ),
             $info
         );
