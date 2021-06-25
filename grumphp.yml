@@ -6,6 +6,7 @@ grumphp:
         psalm:
             config: psalm.xml
             show_info: true
+            no_cache: true
         phpunit: ~
         composer:
             metadata:
