@@ -76,6 +76,7 @@ $middlewares = [
 **Built-in plugins**:
 
 - `AcceptLanguagePlugin`: Makes it possible to add an Accept-Language to a request.
+- `CallbackPlugin`: Makes it possible to promote a simple `callable` into a real `Plugin`.
 
 **Remember**: [There are a shitload of HTTPlug middleware available already.](http://docs.php-http.org/en/latest/plugins/) Try on of them before writing your own one!
 
