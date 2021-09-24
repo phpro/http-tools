@@ -6,7 +6,6 @@ namespace Phpro\HttpTools\Transport\Serializer;
 
 use Phpro\HttpTools\Request\Request;
 use Phpro\HttpTools\Request\RequestInterface;
-use Phpro\HttpTools\Serializer\SerializerException;
 use Phpro\HttpTools\Serializer\SerializerInterface;
 use Phpro\HttpTools\Transport\TransportInterface;
 
@@ -57,20 +56,19 @@ final class SerializerTransport implements TransportInterface
 
     public function __invoke(RequestInterface $request)
     {
-        if (!$this->outputType) {
-            throw SerializerException::noDeserializeTypeSpecified();
+        $response = ($this->transport)(
+            new Request(
+                $request->method(),
+                $request->uri(),
+                $request->uriParameters(),
+                null === $request->body() ? '' : $this->serializer->serialize($request->body())
+            )
+        );
+
+        if (null === $this->outputType) {
+            return;
         }
 
-        return $this->serializer->deserialize(
-            ($this->transport)(
-                new Request(
-                    $request->method(),
-                    $request->uri(),
-                    $request->uriParameters(),
-                    $this->serializer->serialize($request->body())
-                )
-            ),
-            $this->outputType
-        );
+        return $this->serializer->deserialize($response, $this->outputType);
     }
 }
