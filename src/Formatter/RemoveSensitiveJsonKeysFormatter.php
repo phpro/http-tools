@@ -6,9 +6,9 @@ namespace Phpro\HttpTools\Formatter;
 
 use Http\Message\Formatter as HttpFormatter;
 use function preg_quote;
+use Psl\Regex;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use function Safe\preg_replace;
 
 final class RemoveSensitiveJsonKeysFormatter implements HttpFormatter
 {
@@ -47,10 +47,10 @@ final class RemoveSensitiveJsonKeysFormatter implements HttpFormatter
         return array_reduce(
             $this->sensitiveJsonKeys,
             /** @psalm-suppress InvalidReturnStatement, InvalidReturnType */
-            fn (string $sensitiveData, string $jsonKey): string => preg_replace(
-                '{"('.preg_quote($jsonKey, '{').')":\s*"([^"]*)"}i',
+            fn (string $sensitiveData, string $jsonKey): string => Regex\replace(
+                $sensitiveData,
+                '{"('.preg_quote($jsonKey, '{').')"\:\s*"([^"]*)"}i',
                 '"$1": "xxxx"',
-                $sensitiveData
             ),
             $info
         );

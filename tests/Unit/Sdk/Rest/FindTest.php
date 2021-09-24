@@ -12,8 +12,8 @@ use Phpro\HttpTools\Test\UseMockClient;
 use Phpro\HttpTools\Transport\Presets\JsonPreset;
 use Phpro\HttpTools\Uri\RawUriBuilder;
 use PHPUnit\Framework\TestCase;
+use Psl\Json;
 use Psr\Http\Message\RequestInterface;
-use function Safe\json_encode;
 
 final class FindTest extends TestCase
 {
@@ -49,7 +49,7 @@ final class FindTest extends TestCase
             ),
             $this->createResponse()
                 ->withBody(
-                     $this->createStream(json_encode($responseData))
+                     $this->createStream(Json\encode($responseData))
                  )
         );
 

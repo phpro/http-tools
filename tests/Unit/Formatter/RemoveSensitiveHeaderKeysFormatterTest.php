@@ -61,13 +61,13 @@ final class RemoveSensitiveHeaderKeysFormatterTest extends TestCase
         yield 'sample1' => [
             [
                 'Hello' => 'World',
-                'Hello' => 'Toon',
+                'Hi' => 'Toon',
                 'X-API-Key' => 'secret',
                 'X-API-Secret' => 'also-secret',
             ],
             [
                 'Hello' => 'World',
-                'Hello' => 'Toon',
+                'Hi' => 'Toon',
                 'X-API-Key' => 'xxxx',
                 'X-API-Secret' => 'xxxx',
             ],
