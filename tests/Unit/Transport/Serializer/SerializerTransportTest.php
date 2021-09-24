@@ -70,7 +70,7 @@ final class SerializerTransportTest extends TestCase
     public function it_can_handle_requests_without_request_object(): void
     {
         $valueObject = new SomeValueObject('Hello', 'World');
-        $jsonData = \Safe\json_encode($data = ['x' => 'Hello', 'y' => 'World']);
+        $jsonData = Json\encode($data = ['x' => 'Hello', 'y' => 'World']);
         $request = $this->createToolsRequest('GET', '/', []);
 
         $this->client->on(
@@ -90,7 +90,7 @@ final class SerializerTransportTest extends TestCase
     public function it_can_handle_requests_without_response_type(): void
     {
         $valueObject = new SomeValueObject('Hello', 'World');
-        $jsonData = \Safe\json_encode($data = ['x' => 'Hello', 'y' => 'World']);
+        $jsonData = Json\encode($data = ['x' => 'Hello', 'y' => 'World']);
         $request = $this->createToolsRequest('GET', '/', [], $valueObject);
 
         $this->client->on(

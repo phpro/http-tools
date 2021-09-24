@@ -9,9 +9,10 @@
     <projectFiles>
         <directory name="src" />
         <directory name="examples" />
+        <directory name="static-analysis" />
         <ignoreFiles>
-            <directory name="vendor" />
             <directory name="tests" />
+            <directory name="vendor" />
         </ignoreFiles>
     </projectFiles>
     <stubs>
