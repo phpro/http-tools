@@ -34,9 +34,9 @@
         "php-http/mock-client": "^1.4",
         "php-http/vcr-plugin": "^1.0",
         "phpro/grumphp-shim": "^1.2",
-        "symfony/http-client": "^5.1",
-        "symfony/property-access": "^5.2",
-        "symfony/serializer": "^5.2"
+        "symfony/http-client": "^5.1 || ^6.0",
+        "symfony/property-access": "^5.2 || ^6.0",
+        "symfony/serializer": "^5.2 || ^6.0"
     },
     "suggest": {
         "symfony/http-client": "If you want to use the built-in symfony/http-client tools.",
