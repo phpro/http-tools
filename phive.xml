@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phive xmlns="https://phar.io/phive">
-  <phar name="psalm" version="4.3.1" installed="4.3.1" location="./tools/psalm.phar" copy="true"/>
-  <phar name="phpunit" version="^9.3.9" installed="9.3.9" location="./tools/phpunit.phar" copy="true"/>
-  <phar name="php-cs-fixer" version="^2.17.0" installed="2.17.1" location="./tools/php-cs-fixer.phar" copy="true"/>
+  <phar name="psalm" version="4.13.1" installed="4.13.1" location="./tools/psalm.phar" copy="true"/>
+  <phar name="phpunit" version="^9.5" installed="9.5.10" location="./tools/phpunit.phar" copy="true"/>
+  <phar name="php-cs-fixer" version="^3.3" installed="3.3.2" location="./tools/php-cs-fixer.phar" copy="true"/>
 </phive>
