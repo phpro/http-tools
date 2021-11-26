@@ -13,7 +13,7 @@ namespace Phpro\HttpTools\Request;
 final class Request implements RequestInterface
 {
     /**
-     * @var 'POST'|'GET'|'PUT'|'PATCH'|'DELETE'
+     * @var 'DELETE'|'GET'|'PATCH'|'POST'|'PUT'
      */
     private string $method;
     private string $uri;
@@ -25,7 +25,7 @@ final class Request implements RequestInterface
     private $body;
 
     /**
-     * @param 'POST'|'GET'|'PUT'|'PATCH'|'DELETE' $method
+     * @param 'DELETE'|'GET'|'PATCH'|'POST'|'PUT' $method
      * @param RequestType $body
      */
     public function __construct(string $method, string $uri, array $uriParameters, $body)
@@ -37,7 +37,7 @@ final class Request implements RequestInterface
     }
 
     /**
-     * @return 'POST'|'GET'|'PUT'|'PATCH'|'DELETE'
+     * @return 'DELETE'|'GET'|'PATCH'|'POST'|'PUT'
      */
     public function method(): string
     {

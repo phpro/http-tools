@@ -75,7 +75,6 @@ final class CallbackTransport implements TransportInterface
         if ($httpResponse instanceof HttpPromise) {
             return call(
                 function () use ($httpResponse): Generator {
-                    /** @var PsrResponseInterface $response */
                     $response = yield HttplugPromiseAdapter::adapt($httpResponse);
 
                     return ($this->responseConverter)($response);
