@@ -12,7 +12,7 @@ trait UseHttpToolsFactories
     /**
      * @template B
      *
-     * @param 'POST'|'GET'|'PUT'|'PATCH'|'DELETE' $method
+     * @param 'DELETE'|'GET'|'PATCH'|'POST'|'PUT' $method
      * @param B $body
      *
      * @return RequestInterface<B>

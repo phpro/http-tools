@@ -11,7 +11,7 @@ namespace Phpro\HttpTools\Request;
 interface RequestInterface
 {
     /**
-     * @return 'POST'|'GET'|'PUT'|'PATCH'|'DELETE'
+     * @return 'DELETE'|'GET'|'PATCH'|'POST'|'PUT'
      */
     public function method(): string;
 

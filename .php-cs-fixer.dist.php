@@ -1,14 +1,14 @@
 <?php
 
-return PhpCsFixer\Config::create()
+return (new PhpCsFixer\Config())
     ->setFinder(
-        \Symfony\Component\Finder\Finder::create()
-            ->name('*.php')
+        PhpCsFixer\Finder::create()
             ->in([
                 __DIR__ . '/examples',
                 __DIR__ . '/src',
                 __DIR__ . '/tests',
             ])
+            ->name('*.php')
     )
     ->setRiskyAllowed(true)
     ->setRules([
@@ -17,7 +17,7 @@ return PhpCsFixer\Config::create()
         'array_indentation' => true,
         'array_syntax' => ['syntax' => 'short'],
         'backtick_to_shell_exec' => true,
-        'blank_line_before_return' => true,
+        'blank_line_before_statement' => ['statements' => ['return']],
         'class_keyword_remove' => false,
         'combine_consecutive_issets' => true,
         'combine_consecutive_unsets' => true,
@@ -49,7 +49,7 @@ return PhpCsFixer\Config::create()
         'no_blank_lines_before_namespace' => false,
         'no_null_property_initialization' => true,
         'no_php4_constructor' => true,
-        'no_short_echo_tag' => false,
+        'echo_tag_syntax' => ['format'=> 'long'],
         'no_superfluous_elseif' => true,
         'no_unreachable_default_argument_value' => true,
         'no_useless_else' => true,
@@ -63,7 +63,7 @@ return PhpCsFixer\Config::create()
         'php_unit_mock' => false,
         'php_unit_namespaced' => false,
         'php_unit_no_expectation_annotation' => false,
-        'php_unit_ordered_covers' => true,
+        'phpdoc_order_by_value' => ['annotations' => ['covers']],
         'php_unit_set_up_tear_down_visibility' => true,
         'php_unit_strict' => false,
         'php_unit_test_annotation' => false,
@@ -73,7 +73,7 @@ return PhpCsFixer\Config::create()
         'phpdoc_order' => true,
         'phpdoc_types_order' => ['null_adjustment' => 'always_last'],
         'pow_to_exponentiation' => true,
-        'psr0' => true,
+        'psr_autoloading' => ['dir' => 'src'],
         'random_api_migration' => false,
         'simplified_null_return' => true,
         'static_lambda' => false,

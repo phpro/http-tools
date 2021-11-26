@@ -8,7 +8,6 @@
 >
     <projectFiles>
         <directory name="src" />
-        <directory name="examples" />
         <directory name="static-analysis" />
         <ignoreFiles>
             <directory name="tests" />
