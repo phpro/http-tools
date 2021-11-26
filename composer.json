@@ -14,7 +14,7 @@
         "php": "^8.0",
         "ext-json": "*",
         "amphp/amp": "^2.5",
-        "azjezz/psl": "^1.9",
+        "azjezz/psl": "~1.9.1",
         "league/uri": "^6.3",
         "php-http/client-common": "^2.3",
         "php-http/discovery": "^1.12",
