@@ -27,8 +27,8 @@ trait UseVcrClient
         $namingStrategy ??= new PathNamingStrategy();
 
         return [
-            new RecordPlugin($namingStrategy, $recorder),
             new ReplayPlugin($namingStrategy, $recorder, false),
+            new RecordPlugin($namingStrategy, $recorder),
         ];
     }
 }
