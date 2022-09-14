@@ -59,6 +59,9 @@
         }
     },
     "autoload": {
+        "files": [
+            "src/functions.php"
+        ],
         "psr-4": {
             "Phpro\\HttpTools\\": "src"
         }

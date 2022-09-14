@@ -10,7 +10,7 @@ use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\StreamFactoryInterface;
 
 /**
- * @implements EncoderInterface<string>
+ * @implements EncoderInterface<string|null>
  */
 final class RawEncoder implements EncoderInterface
 {
@@ -29,10 +29,10 @@ final class RawEncoder implements EncoderInterface
     }
 
     /**
-     * @param string $data
+     * @param string|null $data
      */
     public function __invoke(RequestInterface $request, $data): RequestInterface
     {
-        return $request->withBody($this->streamFactory->createStream($data));
+        return $request->withBody($this->streamFactory->createStream($data ?? ''));
     }
 }
