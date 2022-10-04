@@ -50,8 +50,8 @@ final class UpdateTest extends TestCase
             ),
             $this->createResponse()
                 ->withBody(
-                     $this->createStream(Json\encode($responseData))
-                 )
+                    $this->createStream(Json\encode($responseData))
+                )
         );
 
         $actual = $this->resource->update('1', $requestData);

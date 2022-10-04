@@ -49,8 +49,8 @@ final class GetTest extends TestCase
             ),
             $this->createResponse()
                 ->withBody(
-                     $this->createStream(Json\encode($responseData))
-                 )
+                    $this->createStream(Json\encode($responseData))
+                )
         );
 
         $actual = $this->resource->get();
@@ -71,8 +71,8 @@ final class GetTest extends TestCase
             ),
             $this->createResponse()
                 ->withBody(
-                     $this->createStream(Json\encode($responseData))
-                 )
+                    $this->createStream(Json\encode($responseData))
+                )
         );
 
         $actual = $this->resource->get(['param1' => 'value1']);

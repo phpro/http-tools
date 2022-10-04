@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Phpro\HttpTools\Formatter;
 
 use Http\Message\Formatter as HttpFormatter;
+
 use function preg_quote;
+
 use Psl\Regex;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;

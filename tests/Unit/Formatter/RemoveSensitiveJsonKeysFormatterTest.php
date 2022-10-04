@@ -27,6 +27,7 @@ final class RemoveSensitiveJsonKeysFormatterTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider provideJsonExpectations
      */
     public function it_can_remove_sensitive_json_keys_from_request(array $content, array $expected): void
@@ -43,6 +44,7 @@ final class RemoveSensitiveJsonKeysFormatterTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider provideJsonExpectations
      */
     public function it_can_remove_sensitive_json_keys_from_response(array $content, array $expected): void

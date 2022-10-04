@@ -13,6 +13,7 @@ use Psr\Http\Message\RequestInterface as PsrRequestInterface;
 
 /**
  * @template RequestType
+ *
  * @implements RequestConverterInterface<RequestType>
  */
 final class EncodingRequestConverter implements RequestConverterInterface

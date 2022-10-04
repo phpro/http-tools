@@ -10,6 +10,7 @@
         <directory name="src" />
         <directory name="static-analysis" />
         <ignoreFiles>
+            <directory name="examples" />
             <directory name="tests" />
             <directory name="vendor" />
         </ignoreFiles>

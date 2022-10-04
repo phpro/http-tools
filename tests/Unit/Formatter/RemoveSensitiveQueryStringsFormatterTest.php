@@ -25,6 +25,7 @@ final class RemoveSensitiveQueryStringsFormatterTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider provideJsonExpectations
      */
     public function it_can_remove_sensitive_query_strings_from_request(

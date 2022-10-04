@@ -50,8 +50,8 @@ final class PatchTest extends TestCase
             ),
             $this->createResponse()
                 ->withBody(
-                     $this->createStream(Json\encode($responseData))
-                 )
+                    $this->createStream(Json\encode($responseData))
+                )
         );
 
         $actual = $this->resource->patch('1', $requestData);

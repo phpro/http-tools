@@ -48,8 +48,8 @@ final class DeleteTest extends TestCase
             ),
             $this->createResponse()
                 ->withBody(
-                     $this->createStream('')
-                 )
+                    $this->createStream('')
+                )
         );
 
         $actual = $this->resource->delete('1');

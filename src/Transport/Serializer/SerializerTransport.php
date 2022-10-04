@@ -12,6 +12,7 @@ use Phpro\HttpTools\Transport\TransportInterface;
 /**
  * @template RequestType
  * @template ResponseType
+ *
  * @implements TransportInterface<RequestType, ResponseType>
  */
 final class SerializerTransport implements TransportInterface

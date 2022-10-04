@@ -28,6 +28,7 @@ final class RemoveSensitiveHeaderKeysFormatterTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider provideJsonExpectations
      */
     public function it_can_remove_sensitive_keys_from_request(array $headers, array $expected): void
@@ -45,6 +46,7 @@ final class RemoveSensitiveHeaderKeysFormatterTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider provideJsonExpectations
      */
     public function it_can_remove_sensitive_keys_from_response(array $headers, array $expected): void

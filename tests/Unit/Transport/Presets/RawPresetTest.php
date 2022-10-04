@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Phpro\HttpTools\Tests\Unit\Transport\Presets;
 
 use function Amp\Promise\wait;
+
 use Phpro\HttpTools\Test\UseHttpToolsFactories;
 use Phpro\HttpTools\Test\UseMockClient;
 use Phpro\HttpTools\Transport\Presets\RawPreset;
@@ -29,9 +30,9 @@ final class RawPresetTest extends TestCase
         $client->addResponse(
             $this->createResponse(200)
                 ->withBody($this->createStream(
-                     $expectedResponse = 'world'
-                 )
-             )
+                    $expectedResponse = 'world'
+                )
+                )
         );
 
         $actualResponse = $transport($request);
@@ -54,9 +55,9 @@ final class RawPresetTest extends TestCase
         $client->addResponse(
             $this->createResponse(200)
                 ->withBody($this->createStream(
-                     $expectedResponse = 'world'
-                 )
-            )
+                    $expectedResponse = 'world'
+                )
+                )
         );
 
         $actualResponse = wait($transport($request));

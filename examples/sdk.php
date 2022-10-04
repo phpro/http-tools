@@ -39,6 +39,7 @@ $transport = JsonPreset::sync($client, new TemplatedUriBuilder());
 
 /**
  * @template ResultType
+ *
  * @extends HttpResource<ResultType>
  */
 final class UsersResource extends HttpResource
@@ -63,6 +64,7 @@ final class Sdk
 {
     /**
      * @var UsersResource<ResultType>
+     *
      * @psalm-readonly
      */
     public UsersResource $users;
