@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Phpro\HttpTools\Tests\Unit\Formatter;
 
+use Http\Message\Formatter;
 use Phpro\HttpTools\Formatter\RemoveSensitiveJsonKeysFormatter;
 use Phpro\HttpTools\Test\UseHttpFactories;
 use Phpro\HttpTools\Tests\Helper\Formatter\CallbackFormatter;
@@ -79,6 +80,44 @@ final class RemoveSensitiveJsonKeysFormatterTest extends TestCase
             );
 
         $formatted = $this->formatter->formatResponseForRequest($response, $request);
+
+        self::assertSame($expected, Json\decode($formatted, true));
+    }
+
+    /**
+     * @test
+     *
+     * @dataProvider provideJsonExpectations
+     */
+    public function it_can_remove_sensitive_json_keys_from_response_with_request_context_if_base_method_does_not_exist(
+        array $content,
+        array $expected
+    ): void {
+        $request = $this->createRequest('GET', 'something')
+            ->withBody(
+                $this->createStream(Json\encode($content))
+            );
+
+        $response = $this->createResponse(200)
+            ->withBody(
+                $this->createStream(Json\encode($content))
+            );
+
+        $baseFormatter = $this->getMockBuilder(Formatter::class)
+            ->onlyMethods(['formatResponse', 'formatRequest'])
+            ->getMock();
+
+        $baseFormatter
+            ->method('formatResponse')
+            ->with($response)
+            ->willReturn(Json\encode($expected));
+
+        $formatter = new RemoveSensitiveJsonKeysFormatter(
+            $baseFormatter,
+            ['password', 'refreshToken']
+        );
+
+        $formatted = $formatter->formatResponseForRequest($response, $request);
 
         self::assertSame($expected, Json\decode($formatted, true));
     }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Phpro\HttpTools\Tests\Unit\Formatter;
 
+use Http\Message\Formatter;
 use Http\Message\Formatter\SimpleFormatter;
 use Phpro\HttpTools\Formatter\RemoveSensitiveQueryStringsFormatter;
 use Phpro\HttpTools\Test\UseHttpFactories;
@@ -65,6 +66,35 @@ final class RemoveSensitiveQueryStringsFormatterTest extends TestCase
 
         self::assertIsString(
             $this->formatter->formatResponseForRequest($response, $request)
+        );
+    }
+
+    /**
+     * @test
+     *
+     * @dataProvider provideJsonExpectations
+     */
+    public function it_can_format_a_response_with_request_context_if_base_method_does_not_exist(): void
+    {
+        $request = $this->createRequest('GET', '/something');
+        $response = $this->createResponse();
+
+        $baseFormatter = $this->getMockBuilder(Formatter::class)
+            ->onlyMethods(['formatResponse', 'formatRequest'])
+            ->getMock();
+
+        $baseFormatter
+            ->method('formatResponse')
+            ->with($response)
+            ->willReturn($response->getBody()->__toString());
+
+        $formatter = new RemoveSensitiveQueryStringsFormatter(
+            $baseFormatter,
+            ['apiKey', 'token']
+        );
+
+        self::assertIsString(
+            $formatter->formatResponseForRequest($response, $request)
         );
     }
 
