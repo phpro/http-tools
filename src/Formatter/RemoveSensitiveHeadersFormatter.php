@@ -52,6 +52,7 @@ final class RemoveSensitiveHeadersFormatter implements HttpFormatter
         }
 
         return $this->removeCredentials(
+            /** @psalm-suppress MixedArgument */
             $this->formatter->formatResponseForRequest($response, $request)
         );
     }
