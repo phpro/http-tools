@@ -59,6 +59,30 @@ final class RemoveSensitiveJsonKeysFormatterTest extends TestCase
         self::assertSame($expected, Json\decode($formatted, true));
     }
 
+    /**
+     * @test
+     *
+     * @dataProvider provideJsonExpectations
+     */
+    public function it_can_remove_sensitive_json_keys_from_response_with_request_context(
+        array $content,
+        array $expected
+    ): void {
+        $request = $this->createRequest('GET', 'something')
+            ->withBody(
+                $this->createStream(Json\encode($content))
+            );
+
+        $response = $this->createResponse(200)
+            ->withBody(
+                $this->createStream(Json\encode($content))
+            );
+
+        $formatted = $this->formatter->formatResponseForRequest($response, $request);
+
+        self::assertSame($expected, Json\decode($formatted, true));
+    }
+
     public function provideJsonExpectations()
     {
         yield 'sample1' => [

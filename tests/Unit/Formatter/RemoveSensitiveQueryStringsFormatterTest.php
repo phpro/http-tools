@@ -53,6 +53,21 @@ final class RemoveSensitiveQueryStringsFormatterTest extends TestCase
         );
     }
 
+    /**
+     * @test
+     *
+     * @dataProvider provideJsonExpectations
+     */
+    public function it_can_format_a_response_with_request_context(): void
+    {
+        $request = $this->createRequest('GET', '/something');
+        $response = $this->createResponse();
+
+        self::assertIsString(
+            $this->formatter->formatResponseForRequest($response, $request)
+        );
+    }
+
     public function provideJsonExpectations(): iterable
     {
         yield 'regular' => [

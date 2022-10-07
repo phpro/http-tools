@@ -62,6 +62,32 @@ final class RemoveSensitiveHeaderKeysFormatterTest extends TestCase
         self::assertSame($this->formatHeaders($expected), $formatted);
     }
 
+    /**
+     * @test
+     *
+     * @dataProvider provideJsonExpectations
+     */
+    public function it_can_remove_sensitive_keys_from_response_with_request_context(
+        array $headers,
+        array $expected
+    ): void {
+        $request = $this->createRequest('GET', 'something');
+
+        foreach ($headers as $name => $value) {
+            $request = $request->withAddedHeader($name, $value);
+        }
+
+        $response = $this->createResponse(200);
+
+        foreach ($headers as $name => $value) {
+            $response = $response->withAddedHeader($name, $value);
+        }
+
+        $formatted = $this->formatter->formatResponseForRequest($response, $request);
+
+        self::assertSame($this->formatHeaders($expected), $formatted);
+    }
+
     public function provideJsonExpectations(): iterable
     {
         yield 'sample1' => [

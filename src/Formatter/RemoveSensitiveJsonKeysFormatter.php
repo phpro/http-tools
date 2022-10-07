@@ -37,10 +37,22 @@ final class RemoveSensitiveJsonKeysFormatter implements HttpFormatter
         );
     }
 
+    /** @psalm-suppress DeprecatedMethod */
     public function formatResponse(ResponseInterface $response): string
     {
         return $this->removeCredentials(
             $this->formatter->formatResponse($response)
+        );
+    }
+
+    public function formatResponseForRequest(ResponseInterface $response, RequestInterface $request): string
+    {
+        if (!method_exists($this->formatter, 'formatResponseForRequest')) {
+            return $this->formatResponse($response);
+        }
+
+        return $this->removeCredentials(
+            $this->formatter->formatResponseForRequest($response, $request)
         );
     }
 
