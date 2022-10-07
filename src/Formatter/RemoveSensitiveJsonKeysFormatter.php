@@ -51,10 +51,14 @@ final class RemoveSensitiveJsonKeysFormatter implements HttpFormatter
             return $this->formatResponse($response);
         }
 
-        return $this->removeCredentials(
-            /** @psalm-suppress MixedArgument */
-            $this->formatter->formatResponseForRequest($response, $request)
-        );
+        /**
+         * @psalm-suppress UnnecessaryVarAnnotation
+         *
+         * @psalm-var string $formatted
+         */
+        $formatted = $this->formatter->formatResponseForRequest($response, $request);
+
+        return $this->removeCredentials($formatted);
     }
 
     private function removeCredentials(string $info): string

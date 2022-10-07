@@ -45,7 +45,14 @@ final class RemoveSensitiveQueryStringsFormatter implements HttpFormatter
             return $this->formatResponse($response);
         }
 
-        return $this->formatter->formatResponseForRequest($response, $request);
+        /**
+         * @psalm-suppress UnnecessaryVarAnnotation
+         *
+         * @psalm-var string $formatted
+         */
+        $formatted = $this->formatter->formatResponseForRequest($response, $request);
+
+        return $formatted;
     }
 
     private function removeQueryStrings(RequestInterface $request): string
