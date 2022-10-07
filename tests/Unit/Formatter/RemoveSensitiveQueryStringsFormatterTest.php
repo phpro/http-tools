@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Phpro\HttpTools\Tests\Unit\Formatter;
 
 use Http\Message\Formatter;
-use Http\Message\Formatter\SimpleFormatter;
 use Phpro\HttpTools\Formatter\RemoveSensitiveQueryStringsFormatter;
 use Phpro\HttpTools\Test\UseHttpFactories;
+use Phpro\HttpTools\Tests\Helper\Formatter\SimpleFormatter;
 use PHPUnit\Framework\TestCase;
 
 final class RemoveSensitiveQueryStringsFormatterTest extends TestCase
@@ -86,14 +86,12 @@ final class RemoveSensitiveQueryStringsFormatterTest extends TestCase
         $baseFormatter
             ->method('formatResponse')
             ->with($response)
-            ->willReturn(
-                sprintf(
-                    '%s %s %s',
-                    $response->getStatusCode(),
-                    $response->getReasonPhrase(),
-                    $response->getProtocolVersion()
-                )
-            );
+            ->willReturn(sprintf(
+                '%s %s %s',
+                $response->getStatusCode(),
+                $response->getReasonPhrase(),
+                $response->getProtocolVersion()
+            ));
 
         $formatter = new RemoveSensitiveQueryStringsFormatter(
             $baseFormatter,
