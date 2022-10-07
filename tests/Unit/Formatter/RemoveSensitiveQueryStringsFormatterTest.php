@@ -86,7 +86,14 @@ final class RemoveSensitiveQueryStringsFormatterTest extends TestCase
         $baseFormatter
             ->method('formatResponse')
             ->with($response)
-            ->willReturn($response->getBody()->__toString());
+            ->willReturn(
+                sprintf(
+                    '%s %s %s',
+                    $response->getStatusCode(),
+                    $response->getReasonPhrase(),
+                    $response->getProtocolVersion()
+                )
+            );
 
         $formatter = new RemoveSensitiveQueryStringsFormatter(
             $baseFormatter,
