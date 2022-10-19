@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Phpro\HttpTools\Tests\Unit\Formatter;
 
+use Http\Message\Formatter;
 use Phpro\HttpTools\Formatter\RemoveSensitiveHeadersFormatter;
 use Phpro\HttpTools\Test\UseHttpFactories;
 use Phpro\HttpTools\Tests\Helper\Formatter\CallbackFormatter;
@@ -28,6 +29,7 @@ final class RemoveSensitiveHeaderKeysFormatterTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider provideJsonExpectations
      */
     public function it_can_remove_sensitive_keys_from_request(array $headers, array $expected): void
@@ -45,6 +47,7 @@ final class RemoveSensitiveHeaderKeysFormatterTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider provideJsonExpectations
      */
     public function it_can_remove_sensitive_keys_from_response(array $headers, array $expected): void
@@ -56,6 +59,72 @@ final class RemoveSensitiveHeaderKeysFormatterTest extends TestCase
         }
 
         $formatted = $this->formatter->formatResponse($response);
+
+        self::assertSame($this->formatHeaders($expected), $formatted);
+    }
+
+    /**
+     * @test
+     *
+     * @dataProvider provideJsonExpectations
+     */
+    public function it_can_remove_sensitive_keys_from_response_with_request_context(
+        array $headers,
+        array $expected
+    ): void {
+        $request = $this->createRequest('GET', 'something');
+
+        foreach ($headers as $name => $value) {
+            $request = $request->withAddedHeader($name, $value);
+        }
+
+        $response = $this->createResponse(200);
+
+        foreach ($headers as $name => $value) {
+            $response = $response->withAddedHeader($name, $value);
+        }
+
+        $formatted = $this->formatter->formatResponseForRequest($response, $request);
+
+        self::assertSame($this->formatHeaders($expected), $formatted);
+    }
+
+    /**
+     * @test
+     *
+     * @dataProvider provideJsonExpectations
+     */
+    public function it_can_remove_sensitive_keys_from_response_with_request_context_even_if_base_method_does_not_exist(
+        array $headers,
+        array $expected
+    ): void {
+        $request = $this->createRequest('GET', 'something');
+
+        foreach ($headers as $name => $value) {
+            $request = $request->withAddedHeader($name, $value);
+        }
+
+        $response = $this->createResponse(200);
+
+        foreach ($headers as $name => $value) {
+            $response = $response->withAddedHeader($name, $value);
+        }
+
+        $baseFormatter = $this->getMockBuilder(Formatter::class)
+            ->onlyMethods(['formatResponse', 'formatRequest'])
+            ->getMock();
+
+        $baseFormatter
+            ->method('formatResponse')
+            ->with($response)
+            ->willReturn($this->formatHeaders($expected));
+
+        $formatter = new RemoveSensitiveHeadersFormatter(
+            $baseFormatter,
+            ['X-API-Key', 'X-API_Header']
+        );
+
+        $formatted = $formatter->formatResponseForRequest($response, $request);
 
         self::assertSame($this->formatHeaders($expected), $formatted);
     }

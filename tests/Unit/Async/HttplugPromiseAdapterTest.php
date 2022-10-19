@@ -5,8 +5,11 @@ declare(strict_types=1);
 namespace Phpro\HttpTools\Tests\Unit\Async;
 
 use function Amp\call;
+
 use Amp\Promise;
+
 use function Amp\Promise\wait;
+
 use Http\Promise\FulfilledPromise;
 use Http\Promise\RejectedPromise;
 use Phpro\HttpTools\Async\HttplugPromiseAdapter;

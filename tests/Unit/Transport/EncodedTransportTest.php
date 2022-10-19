@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Phpro\HttpTools\Tests\Unit\Transport;
 
 use function Amp\Promise\wait;
+
 use Http\Mock\Client;
 use Phpro\HttpTools\Encoding\Raw\RawDecoder;
 use Phpro\HttpTools\Encoding\Raw\RawEncoder;

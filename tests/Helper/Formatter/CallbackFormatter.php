@@ -33,4 +33,9 @@ final class CallbackFormatter implements HttpFormatter
     {
         return ($this->callback)($response);
     }
+
+    public function formatResponseForRequest(ResponseInterface $response, RequestInterface $request): string
+    {
+        return ($this->callback)($response, $request);
+    }
 }

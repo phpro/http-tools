@@ -8,6 +8,10 @@
         {
             "name": "Toon Verwerft",
             "email": "toon.verwerft@phpro.be"
+        },
+        {
+            "name": "Jelle Deneweth",
+            "email": "jelle.deneweth@gmail.com"
         }
     ],
     "require": {
@@ -34,7 +38,7 @@
         "php-http/mock-client": "^1.4",
         "php-http/vcr-plugin": "^1.0",
         "phpro/grumphp-shim": "^1.2",
-        "symfony/http-client": "^5.3 || ^6.0",
+        "symfony/http-client": "^5.3 || ~6.0.0",
         "symfony/property-access": "^5.3 || ^6.0",
         "symfony/serializer": "^5.3 || ^6.0"
     },
@@ -46,7 +50,10 @@
         "php-http/vcr-plugin": "For testing HTTP clients through storing and replaying requests and responses."
     },
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "phpro/grumphp-shim": true
+        }
     },
     "autoload": {
         "psr-4": {

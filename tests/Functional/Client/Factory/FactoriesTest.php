@@ -22,6 +22,7 @@ final class FactoriesTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider provideFactories
      */
     public function it_can_use_http_factories(string $factoryName, callable $factory): void

@@ -35,12 +35,14 @@ jobs:
                   key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
                   restore-keys: ${{ runner.os }}-composer-
             - name: Install dependencies
-              run: composer update --prefer-dist --no-progress --no-suggest ${{ matrix.composer-options }} --ignore-platform-reqs
+              run: composer update --prefer-dist --no-progress --no-suggest ${{ matrix.composer-options }}
             - name: Set git variables
               run: |
                   git config --global user.email "you@example.com"
                   git config --global user.name "Your Name"
             - name: Run the tests
-              run: php vendor/bin/grumphp run --no-interaction
+              run: | 
+                  sed -i '4 i phpVersion="${{ matrix.php-versions }}"' psalm.xml
+                  php vendor/bin/grumphp run --no-interaction
               env:
                   PHP_CS_FIXER_IGNORE_ENV: 1

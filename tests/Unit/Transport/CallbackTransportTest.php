@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Phpro\HttpTools\Tests\Unit\Transport;
 
 use function Amp\Promise\wait;
+
 use Http\Promise\FulfilledPromise;
 use Phpro\HttpTools\Test\UseHttpFactories;
 use Phpro\HttpTools\Test\UseHttpToolsFactories;

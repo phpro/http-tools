@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Phpro\HttpTools\Formatter;
 
 use Http\Message\Formatter as HttpFormatter;
+
 use function preg_quote;
+
 use Psl\Regex;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -35,11 +37,28 @@ final class RemoveSensitiveJsonKeysFormatter implements HttpFormatter
         );
     }
 
+    /** @psalm-suppress DeprecatedMethod */
     public function formatResponse(ResponseInterface $response): string
     {
         return $this->removeCredentials(
             $this->formatter->formatResponse($response)
         );
+    }
+
+    public function formatResponseForRequest(ResponseInterface $response, RequestInterface $request): string
+    {
+        if (!method_exists($this->formatter, 'formatResponseForRequest')) {
+            return $this->formatResponse($response);
+        }
+
+        /**
+         * @psalm-suppress UnnecessaryVarAnnotation
+         *
+         * @psalm-var string $formatted
+         */
+        $formatted = $this->formatter->formatResponseForRequest($response, $request);
+
+        return $this->removeCredentials($formatted);
     }
 
     private function removeCredentials(string $info): string

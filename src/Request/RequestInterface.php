@@ -6,6 +6,7 @@ namespace Phpro\HttpTools\Request;
 
 /**
  * @template BodyType
+ *
  * @psalm-immutable
  */
 interface RequestInterface

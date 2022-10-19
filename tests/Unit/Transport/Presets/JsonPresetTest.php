@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Phpro\HttpTools\Tests\Unit\Transport\Presets;
 
 use function Amp\Promise\wait;
+
 use Phpro\HttpTools\Test\UseHttpToolsFactories;
 use Phpro\HttpTools\Test\UseMockClient;
 use Phpro\HttpTools\Transport\Presets\JsonPreset;
@@ -30,8 +31,8 @@ final class JsonPresetTest extends TestCase
         $client->addResponse(
             $this->createResponse(200)
                 ->withBody($this->createStream(
-                     Json\encode($expectedResponse = ['world']))
-                 )
+                    Json\encode($expectedResponse = ['world']))
+                )
         );
 
         $actualResponse = $transport($request);
@@ -54,8 +55,8 @@ final class JsonPresetTest extends TestCase
         $client->addResponse(
             $this->createResponse(200)
                 ->withBody($this->createStream(
-                     Json\encode($expectedResponse = ['world']))
-                 )
+                    Json\encode($expectedResponse = ['world']))
+                )
         );
 
         $actualResponse = wait($transport($request));

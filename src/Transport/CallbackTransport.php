@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Phpro\HttpTools\Transport;
 
 use function Amp\call;
+
 use Amp\Promise as AmpPromise;
 use Generator;
 use Http\Promise\Promise as HttpPromise;
