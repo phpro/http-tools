@@ -90,6 +90,8 @@ You can use the symfony/serializer component or any other serializer you please.
 
 However, you do need to specify what output type the transport will deserialize to. (e.g. inside a request handler)
 
+
+
 ```php
 use Phpro\HttpTools\Serializer\SymfonySerializer;
 use Phpro\HttpTools\Transport\Serializer\SerializerTransport;
@@ -102,7 +104,9 @@ $transport = new SerializerTransport(
 $transport->withOutputType(SomeResponse::class);
 ```
 
-If you want to use symfony/validator, you might need to:
+> **_NOTE:_**  If you have an empty response you can set \stdClass as output type.
+
+If you want to use symfony/serializer, you might need to:
 
 ```bash
 composer require symfony/serializer
