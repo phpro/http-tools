@@ -26,6 +26,8 @@ final class SymfonySerializer implements SerializerInterface
     }
 
     /**
+     * @psalm-suppress UnnecessaryVarAnnotation - It knows $result ... Sometimes it does, sometimes it dont... :')
+     *
      * @template C
      *
      * @param class-string<C> $class
