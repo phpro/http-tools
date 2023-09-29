@@ -304,7 +304,7 @@ use function React\Async\parallel;
 
 $client = new AsyncPsr18Browser(new Browser());
 $transport = JsonPreset::create($client, new TemplatedUriBuilder());
-$handler = new ListHandler($transport);
+$handler = new FetchSomething($transport);
 
 $run = fn($id) => async(fn () => $handler(new FetchRequest($id)));
 $things = await(parallel([
@@ -313,6 +313,9 @@ $things = await(parallel([
     $run(3),
 ]));
 ```
+
+If your client is fiber compatible, this will fetch all requests in parallel.
+If your client is not fiber compatible, this will result in the requests being performed in series.
 
 ## SDK
 
