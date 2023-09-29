@@ -17,10 +17,7 @@ final class SymfonySerializer implements SerializerInterface
         $this->format = $format;
     }
 
-    /**
-     * @param mixed $data
-     */
-    public function serialize($data): string
+    public function serialize(mixed $data): string
     {
         return $this->serializer->serialize($data, $this->format);
     }

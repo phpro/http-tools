@@ -10,9 +10,6 @@ use Psr\Http\Message\ResponseInterface;
 
 final class SimpleFormatter implements HttpFormatter
 {
-    /**
-     * {@inheritdoc}
-     */
     public function formatRequest(RequestInterface $request): string
     {
         return sprintf(
@@ -23,9 +20,6 @@ final class SimpleFormatter implements HttpFormatter
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function formatResponse(ResponseInterface $response): string
     {
         return sprintf(
@@ -36,9 +30,6 @@ final class SimpleFormatter implements HttpFormatter
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function formatResponseForRequest(ResponseInterface $response, RequestInterface $request): string
     {
         return sprintf(

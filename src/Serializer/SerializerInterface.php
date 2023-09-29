@@ -6,10 +6,7 @@ namespace Phpro\HttpTools\Serializer;
 
 interface SerializerInterface
 {
-    /**
-     * @param mixed $data
-     */
-    public function serialize($data): string;
+    public function serialize(mixed $data): string;
 
     /**
      * @template C

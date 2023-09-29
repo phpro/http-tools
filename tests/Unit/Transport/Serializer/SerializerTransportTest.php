@@ -39,7 +39,7 @@ final class SerializerTransportTest extends TestCase
                 new Serializer($normalizers, $encoders),
                 'json'
             ),
-            RawPreset::sync(
+            RawPreset::create(
                 $this->client,
                 RawUriBuilder::createWithAutodiscoveredPsrFactories(),
             )

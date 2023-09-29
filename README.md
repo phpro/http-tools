@@ -136,7 +136,7 @@ use Phpro\HttpTools\Transport\Presets\JsonPreset;
 use Phpro\HttpTools\Uri\TemplatedUriBuilder;
 
 $transport = App\SomeClient\Transport\MyCustomTransportWrapperForDealingWithIsErrorPropertyEg(
-    JsonPreset::sync(
+    JsonPreset::create(
         $httpClient,
         new TemplatedUriBuilder()
     )
@@ -233,50 +233,86 @@ The response models, if crafted carefully, will improve the stability of your in
 
 ## Async request handlers
 
-This package also provides transports for async HTTP clients.
+In order to send async requests, you can use this package in combination with fiber-based PSR-18 clients.
 The architecture can remain as is.
-A request handler can be implemented in a lazy or awaiting state.
 
-We use the Promise component from [Amp](https://amphp.org/), to make it fully integrateable with fully Async codebases.  
+An example client based on ReactPHP might look like this:
+
+```sh
+composer require react/async react/http
+```
+
+You can wrap a PSR-18 client around ReactPHP's Browser:
+
+```php
+final class AsyncPsr18Browser implements ClientInterface
+{
+    public function __construct(
+        private Browser $browser
+    ){
+    }
+
+    public function sendRequest(RequestInterface $request): ResponseInterface
+    {
+        return await(
+            $this->browser->request(
+                $request->getMethod(),
+                (string) $request->getUri(),
+                $request->getHeaders(),
+                (string) $request->getBody()
+            )
+        );
+    }
+}
+```
+
+Since fibers deal with the async part, you can write your Request handlers is if they were synchronous:
 
 ```php
 <?php
 
-use Amp\Promise;
 use Phpro\HttpTools\Transport\TransportInterface;
-use function Amp\call;
-use function Amp\Promise\wait;
 
-class ListSomething
+class FetchSomething
 {
     public function __construct(
         /**
-         * TransportInterface<array, Promise<array>>
+         * TransportInterface<array, array>
          */
         private TransportInterface $transport
     ) {}
 
-    /**
-     * @return Promise<ListResponse>
-     */
-    public function lazy(ListRequest $request): Promise
+    public function __invoke(FetchRequest $request): Something
     {
-        return call(function () use ($request) {
-            $data = yield ($this->transport)($request);
-
-            return ListResponse::fromRawArray($data);  
-        });
-    }
-    
-    public function await(ListRequest $request): ListResponse
-    {
-        return wait($this->lazy($request));
+        return Something::tryParse(
+            ($this->transport)($data)
+        );
     }
 }
-``` 
+```
 
-[More info ...](http://docs.php-http.org/en/latest/components/promise.html)
+In order to fetch multiple simultaneous requests, you can execute these in parallel:
 
+```php
+use Phpro\HttpTools\Transport\Presets\JsonPreset;
+use Phpro\HttpTools\Uri\RawUriBuilder;
+use Phpro\HttpTools\Uri\TemplatedUriBuilder;
+use React\Http\Browser;
+use function React\Async\async;
+use function React\Async\await;
+use function React\Async\parallel;
+
+$client = new AsyncPsr18Browser(new Browser());
+$transport = JsonPreset::create($client, new TemplatedUriBuilder());
+$handler = new ListHandler($transport);
+
+$run = fn($id) => async(fn () => $handler(new FetchRequest($id)));
+$things = await(parallel([
+    $run(1),
+    $run(2),
+    $run(3),
+]));
+```
 
 ## SDK
 

@@ -22,7 +22,7 @@ final class SymfonyClientFactory implements FactoryInterface
     {
         Assert::classExists(
             CurlHttpClient::class,
-            'Could not find symfony HTTP client. Please run: "composer require symfony/http-client:^5.1"'
+            'Could not find symfony HTTP client. Please run: "composer require symfony/http-client:^5.4"'
         );
 
         return PluginsConfigurator::configure(

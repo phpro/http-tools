@@ -22,6 +22,6 @@ final class TemplatedUriBuilder implements UriBuilderInterface
     {
         $uriTemplate = new UriTemplate($request->uri(), $this->defaultVariables);
 
-        return Http::createFromUri($uriTemplate->expand($request->uriParameters()));
+        return Http::new($uriTemplate->expand($request->uriParameters()));
     }
 }
