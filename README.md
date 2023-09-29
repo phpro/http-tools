@@ -236,35 +236,13 @@ The response models, if crafted carefully, will improve the stability of your in
 In order to send async requests, you can use this package in combination with fiber-based PSR-18 clients.
 The architecture can remain as is.
 
-An example client based on ReactPHP might look like this:
+An example client based on ReactPHP might be based on this:
 
 ```sh
-composer require react/async react/http
+composer require react/async veewee/psr18-react-browser
 ```
 
-You can wrap a PSR-18 client around ReactPHP's Browser:
-
-```php
-final class AsyncPsr18Browser implements ClientInterface
-{
-    public function __construct(
-        private Browser $browser
-    ){
-    }
-
-    public function sendRequest(RequestInterface $request): ResponseInterface
-    {
-        return await(
-            $this->browser->request(
-                $request->getMethod(),
-                (string) $request->getUri(),
-                $request->getHeaders(),
-                (string) $request->getBody()
-            )
-        );
-    }
-}
-```
+*(There currently is no official fiber based PSR-18 implementation of either AMP or ReactPHP. Therefore, [a small bridge can be used intermediately](https://github.com/veewee/psr18-react-browser))*
 
 Since fibers deal with the async part, you can write your Request handlers is if they were synchronous:
 
@@ -297,12 +275,12 @@ In order to fetch multiple simultaneous requests, you can execute these in paral
 use Phpro\HttpTools\Transport\Presets\JsonPreset;
 use Phpro\HttpTools\Uri\RawUriBuilder;
 use Phpro\HttpTools\Uri\TemplatedUriBuilder;
-use React\Http\Browser;
+use Veewee\Psr18ReactBrowser\Psr18ReactBrowserClient;
 use function React\Async\async;
 use function React\Async\await;
 use function React\Async\parallel;
 
-$client = new AsyncPsr18Browser(new Browser());
+$client = Psr18ReactBrowserClient::default();
 $transport = JsonPreset::create($client, new TemplatedUriBuilder());
 $handler = new FetchSomething($transport);
 
