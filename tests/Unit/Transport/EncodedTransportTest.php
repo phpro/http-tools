@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Phpro\HttpTools\Tests\Unit\Transport;
 
-use function Amp\Promise\wait;
-
 use Http\Mock\Client;
 use Phpro\HttpTools\Encoding\Raw\RawDecoder;
 use Phpro\HttpTools\Encoding\Raw\RawEncoder;
@@ -30,9 +28,9 @@ final class EncodedTransportTest extends TestCase
     }
 
     /** @test */
-    public function it_can_send_and_receive_encoded_in_sync(): void
+    public function it_can_send_and_receive_encoded(): void
     {
-        $transport = $this->createSyncTransport();
+        $transport = $this->createTransport();
         $request = $this->createToolsRequest('GET', '/some-endpoint', [], 'Hello');
         $this->client->addResponse(
             $this->createResponse(200)
@@ -49,28 +47,9 @@ final class EncodedTransportTest extends TestCase
     }
 
     /** @test */
-    public function it_can_send_and_receive_encoded_in_async(): void
+    public function it_can_handle_failure(): void
     {
-        $transport = $this->createAsyncTransport();
-        $request = $this->createToolsRequest('GET', '/some-endpoint', [], 'Hello');
-        $this->client->addResponse(
-            $this->createResponse(200)
-                ->withBody($this->createStream($expectedResponse = 'World'))
-        );
-
-        $actualResponse = wait($transport($request));
-        $sentRequest = $this->client->getLastRequest();
-
-        self::assertSame($expectedResponse, $actualResponse);
-        self::assertSame($request->method(), $sentRequest->getMethod());
-        self::assertSame($request->uri(), $sentRequest->getUri()->__toString());
-        self::assertSame((string) $request->body(), (string) $sentRequest->getBody());
-    }
-
-    /** @test */
-    public function it_can_handle_failure_in_async(): void
-    {
-        $transport = $this->createAsyncTransport();
+        $transport = $this->createTransport();
         $request = $this->createToolsRequest('GET', '/some-endpoint', [], 'Hello');
         $this->client->addException(
             $exception = $this->createEmptyHttpClientException('could not load endpoint...')
@@ -79,22 +58,12 @@ final class EncodedTransportTest extends TestCase
         $this->expectException(ClientExceptionInterface::class);
         $this->expectExceptionMessage($exception->getMessage());
 
-        wait($transport($request));
+        $transport($request);
     }
 
-    private function createSyncTransport(): TransportInterface
+    private function createTransport(): TransportInterface
     {
-        return EncodedTransportFactory::sync(
-            $this->client,
-            RawUriBuilder::createWithAutodiscoveredPsrFactories(),
-            RawEncoder::createWithAutodiscoveredPsrFactories(),
-            RawDecoder::createWithAutodiscoveredPsrFactories()
-        );
-    }
-
-    private function createAsyncTransport(): TransportInterface
-    {
-        return EncodedTransportFactory::async(
+        return EncodedTransportFactory::create(
             $this->client,
             RawUriBuilder::createWithAutodiscoveredPsrFactories(),
             RawEncoder::createWithAutodiscoveredPsrFactories(),

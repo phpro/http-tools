@@ -45,35 +45,19 @@ We've composed some of the encodings above into pre-configured transports:
 
 | Preset | RequestType | ResponseType |
 | --- | --- | --- |
-| `JsonPreset::sync()` | `?array` | `array` |
-| `JsonPreset::async()` | `?array` | `Promise<array>` |
-| `RawPreset::sync()` | `string` | `string` |
-| `RawPreset::async()` | `string` | `Promise<string>` |
+| `JsonPreset` | `?array` | `array` |
+| `RawPreset` | `string` | `string` |
 
 ## Creating your own configuration
 
-We provide a `EncodedTransport` and an `AsyncEncodedTransport`.
-This transport takes a configurable encoder and decoder. 
+We provide an `EncodedTransport` class that helps you build your own configuration.
+This transport takes a configurable encoder and decoder:
 
-### Sync
-
-```php
-use Phpro\HttpTools\Transport\EncodedTransportFactory;
-
-EncodedTransportFactory::sync(
-    $client,
-    $uriBuilder,
-    $encoder,
-    $decoder
-);
-```
-
-### Async
 
 ```php
 use Phpro\HttpTools\Transport\EncodedTransportFactory;
 
-EncodedTransportFactory::async(
+EncodedTransportFactory::create(
     $client,
     $uriBuilder,
     $encoder,
@@ -92,11 +76,12 @@ However, you do need to specify what output type the transport will deserialize 
 
 ```php
 use Phpro\HttpTools\Serializer\SymfonySerializer;
+use Phpro\HttpTools\Transport\Presets\RawPreset;
 use Phpro\HttpTools\Transport\Serializer\SerializerTransport;
 
 $transport = new SerializerTransport(
     new SymfonySerializer($theSymfonySerializer, 'json'),
-    RawPreset::sync($client, $uriBuilder)
+    RawPreset::create($client, $uriBuilder)
 );
 
 $transport->withOutputType(SomeResponse::class);

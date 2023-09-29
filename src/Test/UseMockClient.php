@@ -12,7 +12,7 @@ trait UseMockClient
     use UseHttpFactories;
 
     /**
-     * @param null|callable(Client $client): Client $configurator
+     * @param callable(Client $client): Client|null $configurator
      */
     private function mockClient(callable $configurator = null): Client
     {

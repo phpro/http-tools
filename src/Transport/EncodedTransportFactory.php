@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Phpro\HttpTools\Transport;
 
-use Amp\Promise;
-use Http\Client\HttpAsyncClient;
 use Phpro\HttpTools\Encoding\DecoderInterface;
 use Phpro\HttpTools\Encoding\EncoderInterface;
 use Phpro\HttpTools\Transport\IO\Input\EncodingRequestConverter;
@@ -25,13 +23,13 @@ final class EncodedTransportFactory
      *
      * @return TransportInterface<RequestType, ResponseType>
      */
-    public static function sync(
+    public static function create(
         ClientInterface $client,
         UriBuilderInterface $uriBuilder,
         EncoderInterface $encoder,
         DecoderInterface $decoder
     ): TransportInterface {
-        /** @var CallbackTransport<RequestType, ResponseType, false> $transport */
+        /** @var CallbackTransport<RequestType, ResponseType> $transport */
         $transport = new CallbackTransport(
             EncodingRequestConverter::createWithAutodiscoveredPsrFactories($uriBuilder, $encoder),
             static fn (PsrRequestInterface $request) => $client->sendRequest($request),
@@ -39,30 +37,5 @@ final class EncodedTransportFactory
         );
 
         return $transport;
-    }
-
-    /**
-     * @template RequestType
-     * @template ResponseType
-     *
-     * @param EncoderInterface<RequestType> $encoder
-     * @param DecoderInterface<ResponseType> $decoder
-     *
-     * @return TransportInterface<RequestType, Promise<ResponseType>>
-     */
-    public static function async(
-        HttpAsyncClient $client,
-        UriBuilderInterface $uriBuilder,
-        EncoderInterface $encoder,
-        DecoderInterface $decoder
-    ): TransportInterface {
-        /** @var CallbackTransport<RequestType, ResponseType, true> $transport */
-        $callback = new CallbackTransport(
-            EncodingRequestConverter::createWithAutodiscoveredPsrFactories($uriBuilder, $encoder),
-            static fn (PsrRequestInterface $request) => $client->sendAsyncRequest($request),
-            static fn (ResponseInterface $response) => $decoder($response)
-        );
-
-        return $callback;
     }
 }

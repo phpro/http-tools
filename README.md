@@ -136,7 +136,7 @@ use Phpro\HttpTools\Transport\Presets\JsonPreset;
 use Phpro\HttpTools\Uri\TemplatedUriBuilder;
 
 $transport = App\SomeClient\Transport\MyCustomTransportWrapperForDealingWithIsErrorPropertyEg(
-    JsonPreset::sync(
+    JsonPreset::create(
         $httpClient,
         new TemplatedUriBuilder()
     )

@@ -25,7 +25,7 @@ final class PatchTest extends TestCase
     protected function setUp(): void
     {
         $this->client = $this->mockClient();
-        $transport = JsonPreset::sync($this->client, RawUriBuilder::createWithAutodiscoveredPsrFactories());
+        $transport = JsonPreset::create($this->client, RawUriBuilder::createWithAutodiscoveredPsrFactories());
         $this->resource = new class($transport) extends HttpResource {
             use PatchTrait;
 

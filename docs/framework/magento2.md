@@ -88,7 +88,7 @@ class Transport implements TransportInterface
         LazyClientLoader $clientLoader,
         TemplatedUriBuilder $uriBuilder
     ) {
-        $this->jsonTransport = JsonPreset::sync(
+        $this->jsonTransport = JsonPreset::create(
             $clientLoader->load(),
             $uriBuilder
         );
