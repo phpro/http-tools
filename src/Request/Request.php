@@ -9,12 +9,14 @@ namespace Phpro\HttpTools\Request;
  *
  * @psalm-immutable
  *
+ * @psalm-import-type Method from RequestInterface
+ *
  * @implements RequestInterface<RequestType>
  */
 final class Request implements RequestInterface
 {
     /**
-     * @var 'DELETE'|'GET'|'PATCH'|'POST'|'PUT'
+     * @var Method
      */
     private string $method;
     private string $uri;
@@ -26,7 +28,7 @@ final class Request implements RequestInterface
     private $body;
 
     /**
-     * @param 'DELETE'|'GET'|'PATCH'|'POST'|'PUT' $method
+     * @param Method $method
      * @param RequestType $body
      */
     public function __construct(string $method, string $uri, array $uriParameters, $body)
@@ -38,7 +40,7 @@ final class Request implements RequestInterface
     }
 
     /**
-     * @return 'DELETE'|'GET'|'PATCH'|'POST'|'PUT'
+     * @return Method
      */
     public function method(): string
     {

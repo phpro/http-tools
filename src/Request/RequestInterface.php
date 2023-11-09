@@ -8,11 +8,13 @@ namespace Phpro\HttpTools\Request;
  * @template BodyType
  *
  * @psalm-immutable
+ *
+ * @psalm-type Method = 'POST'|'GET'|'DELETE'|'PATCH'|'PUT'|'OPTIONS'|'HEAD';
  */
 interface RequestInterface
 {
     /**
-     * @return 'DELETE'|'GET'|'PATCH'|'POST'|'PUT'
+     * @return Method
      */
     public function method(): string;
 
