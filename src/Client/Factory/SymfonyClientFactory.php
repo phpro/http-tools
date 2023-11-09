@@ -6,10 +6,10 @@ namespace Phpro\HttpTools\Client\Factory;
 
 use Http\Client\Common\Plugin;
 use Phpro\HttpTools\Client\Configurator\PluginsConfigurator;
+use Phpro\HttpTools\Dependency\SymfonyClientDependency;
 use Psr\Http\Client\ClientInterface;
 use Symfony\Component\HttpClient\CurlHttpClient;
 use Symfony\Component\HttpClient\HttplugClient;
-use Webmozart\Assert\Assert;
 
 final class SymfonyClientFactory implements FactoryInterface
 {
@@ -20,10 +20,7 @@ final class SymfonyClientFactory implements FactoryInterface
      */
     public static function create(iterable $middlewares, array $options = []): ClientInterface
     {
-        Assert::classExists(
-            CurlHttpClient::class,
-            'Could not find symfony HTTP client. Please run: "composer require symfony/http-client:^5.4"'
-        );
+        SymfonyClientDependency::guard();
 
         return PluginsConfigurator::configure(
             new HttplugClient(
