@@ -27,7 +27,7 @@ final class MultiPartEncoderTest extends TestCase
 
         $actual = $encoder($request, $data);
 
-        $expectedContentType = $data->getPreparedHeaders()->get('Content-Type')->toString();
+        $expectedContentType = $data->getPreparedHeaders()->get('Content-Type')->getBodyAsString();
 
         self::assertSame($request->getMethod(), $actual->getMethod());
         self::assertSame($request->getUri(), $actual->getUri());
@@ -37,5 +37,7 @@ final class MultiPartEncoderTest extends TestCase
             $actual->getHeader('Content-Type')
         );
         self::assertStringContainsString('boundary', $expectedContentType);
+        self::assertStringContainsString('multipart/form-data', $expectedContentType);
+        self::assertStringNotContainsString('content-type:', mb_strtolower($expectedContentType));
     }
 }

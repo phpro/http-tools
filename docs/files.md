@@ -56,7 +56,7 @@ $transport = EncodedTransportFactory::create(
 );
 
 $jsonData = $transport(
-    new Request('GET', '/some/file', [], new FormDataPart([
+    new Request('POST', '/some/file', [], new FormDataPart([
         'name' => 'Jos bos',
         'profile-pic' => DataPart::fromPath('/my-profile-pic.jpg')
     ])),
@@ -83,6 +83,6 @@ $transport = EncodedTransportFactory::create(
 
 $multiPartStream = new MultipartStream($parts)
 $jsonData = $transport(
-    new Request('GET', '/some/file', [], $multiPartStream)),
+    new Request('POST', '/some/file', [], $multiPartStream)),
 );
 ```
