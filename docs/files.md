@@ -32,7 +32,7 @@ This decoder will try to parse some information from the Response headers and st
 * `Content-Disposistion`: could result in guessing the filename, extension and/or mime-type.
 * `Content-Length`: could be used to guess the size in bytes of the response.
 
-The decoder is highly configurable, meaning you can alter the way it guesses specific properties or opt-out on intenser logic like calculating an md5 hash.
+The decoder is highly configurable, meaning you can alter the way it guesses specific properties or opt-out on intenser logic like calculating a md5 hash.
 
 
 ## Upload file(s)
