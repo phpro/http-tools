@@ -71,6 +71,12 @@ EncodedTransportFactory::create(
 
 ## Other transports
 
+### Files
+
+We provide encoders and decoders for uploading and downloading files.
+
+[You can learn more about this on this dedicated page.](./files.md)
+
 ### SerializerTransport
 
 This transport allows you to use an external serializer to handle request serialization and response deserialization.
