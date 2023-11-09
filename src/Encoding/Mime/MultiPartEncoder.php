@@ -43,7 +43,7 @@ final class MultiPartEncoder implements EncoderInterface
         return $request
             ->withAddedHeader(
                 'Content-Type',
-                string()->assert($data->getPreparedHeaders()->get('content-type')?->toString())
+                string()->assert($data->getPreparedHeaders()->get('content-type')?->getBodyAsString())
             )
             ->withBody($this->streamFactory->createStream(
                 $data->bodyToString()
