@@ -7,6 +7,9 @@ namespace Phpro\HttpTools\Encoding\Mime;
 use Http\Discovery\Psr17FactoryDiscovery;
 use Phpro\HttpTools\Dependency\SymfonyMimeDependency;
 use Phpro\HttpTools\Encoding\EncoderInterface;
+
+use function Psl\Type\string;
+
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\StreamFactoryInterface;
 use Symfony\Component\Mime\Part\AbstractMultipartPart as MultiPart;
@@ -40,7 +43,7 @@ final class MultiPartEncoder implements EncoderInterface
         return $request
             ->withAddedHeader(
                 'Content-Type',
-                (string) ($data->getHeaders()->getHeaderBody('Content-Type') ?? 'multipart/form-data')
+                string()->assert($data->getPreparedHeaders()->get('content-type')?->toString())
             )
             ->withBody($this->streamFactory->createStream(
                 $data->bodyToString()
