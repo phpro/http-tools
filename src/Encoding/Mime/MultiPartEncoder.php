@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Phpro\HttpTools\Encoding\Mime;
 
 use Http\Discovery\Psr17FactoryDiscovery;
+use Phpro\HttpTools\Dependency\SymfonyMimeDependency;
 use Phpro\HttpTools\Encoding\EncoderInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\StreamFactoryInterface;
@@ -19,6 +20,8 @@ final class MultiPartEncoder implements EncoderInterface
 
     public function __construct(StreamFactoryInterface $streamFactory)
     {
+        SymfonyMimeDependency::guard();
+
         $this->streamFactory = $streamFactory;
     }
 

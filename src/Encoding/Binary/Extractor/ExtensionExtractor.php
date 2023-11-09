@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Phpro\HttpTools\Encoding\Binary\Extractor;
 
+use Phpro\HttpTools\Dependency\SymfonyMimeDependency;
+
 use function Psl\Iter\first;
 
 use Psr\Http\Message\ResponseInterface;
@@ -14,6 +16,7 @@ final class ExtensionExtractor
     public function __invoke(ResponseInterface $response): ?string
     {
         if ($mimeType = (new MimeTypeExtractor())($response)) {
+            SymfonyMimeDependency::guard();
             $extensions = MimeTypes::getDefault()->getExtensions($mimeType);
             if ($extensions) {
                 return first($extensions);

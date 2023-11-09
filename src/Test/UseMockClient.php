@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Phpro\HttpTools\Test;
 
 use Http\Mock\Client;
-use Webmozart\Assert\Assert;
+use Phpro\HttpTools\Dependency\MockClientDependency;
 
 trait UseMockClient
 {
@@ -16,7 +16,7 @@ trait UseMockClient
      */
     private function mockClient(callable $configurator = null): Client
     {
-        Assert::classExists(Client::class, 'Could not find a mock client. Please run: "composer require --dev php-http/mock-client"');
+        MockClientDependency::guard();
         $configurator ??= fn (Client $client) => $client;
 
         return $configurator(new Client());

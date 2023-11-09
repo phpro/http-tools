@@ -9,6 +9,7 @@ use Http\Client\Plugin\Vcr\NamingStrategy\PathNamingStrategy;
 use Http\Client\Plugin\Vcr\Recorder\FilesystemRecorder;
 use Http\Client\Plugin\Vcr\RecordPlugin;
 use Http\Client\Plugin\Vcr\ReplayPlugin;
+use Phpro\HttpTools\Dependency\VcrPluginDependency;
 use Webmozart\Assert\Assert;
 
 trait UseVcrClient
@@ -20,7 +21,7 @@ trait UseVcrClient
      */
     private function useRecording(string $path, NamingStrategyInterface $namingStrategy = null): array
     {
-        Assert::classExists(RecordPlugin::class, 'Could not find the VCR plugin. Please run: "composer require --dev php-http/vcr-plugin"');
+        VcrPluginDependency::guard();
 
         Assert::directory($path);
         $recorder = new FilesystemRecorder($path);

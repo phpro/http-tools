@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Phpro\HttpTools\Encoding\Binary\Extractor;
 
+use Phpro\HttpTools\Dependency\SymfonyMimeDependency;
+
 use function Psl\Iter\first;
 
 use Psr\Http\Message\ResponseInterface;
@@ -19,6 +21,7 @@ final class MimeTypeExtractor
 
         if ($originalName = (new FilenameExtractor())($response)) {
             if ($extension = pathinfo($originalName, PATHINFO_EXTENSION)) {
+                SymfonyMimeDependency::guard();
                 $mimeTypes = MimeTypes::getDefault()->getMimeTypes($extension);
 
                 return first($mimeTypes);

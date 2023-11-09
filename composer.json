@@ -31,7 +31,6 @@
         "psr/http-message": "^1.0 || ^2.0",
         "psr/http-message-implementation": "^1.0",
         "psr/log": "^3",
-        "symfony/mime": "^6.3",
         "webmozart/assert": "^1.11"
     },
     "require-dev": {
@@ -42,6 +41,7 @@
         "php-http/vcr-plugin": "^1.2",
         "phpro/grumphp-shim": "^2.1",
         "symfony/http-client": "^5.4.26 || ^6.0",
+        "symfony/mime": "^6.0",
         "symfony/property-access": "^5.4 || ^6.0",
         "symfony/options-resolver": "^5.4 || ^6.0",
         "symfony/serializer": "^5.4 || ^6.0"
@@ -49,6 +49,7 @@
     "suggest": {
         "symfony/http-client": "If you want to use the built-in symfony/http-client tools.",
         "symfony/serializer": "If you want to use symfony serializer to handle request serialization and response deserialization.",
+        "symfony/mime": "If you want to use symfony/mime to upload or download binary files.",
         "guzzlehttp/guzzle": "If you want to use the built-in guzzlehttp/guzzle tools.",
         "php-http/mock-client": "For testing HTTP clients through mocking Requests and responses.",
         "php-http/vcr-plugin": "For testing HTTP clients through storing and replaying requests and responses."
