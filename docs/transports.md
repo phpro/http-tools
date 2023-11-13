@@ -45,12 +45,13 @@ This package contains some frequently used encoders / decoders for you:
 We've composed some of the encodings above into pre-configured transports:
 
 
-| Preset                 | RequestType | ResponseType        |
-|------------------------|-------------|---------------------|
-| `BinaryDownloadPreset` | `null`      | `BinaryFile`        |
-| `JsonPreset`           | `?array`    | `array`             |
-| `PsrPreset`            | `string`    | `ResponseInterface` |
-| `RawPreset`            | `string`    | `string`            |
+| Preset                 | RequestType             | ResponseType        | Factory method |
+|------------------------|-------------------------|---------------------|----------------|
+| `BinaryDownloadPreset` | `null`                  | `BinaryFile`        | `create`       |
+| `BinaryDownloadPreset` | `AbstractMultipartPart` | `BinaryFile`        | `fromFormData` |
+| `JsonPreset`           | `?array`                | `array`             | `create`       |
+| `PsrPreset`            | `string`                | `ResponseInterface` | `create`       |
+| `RawPreset`            | `string`                | `string`            | `create`       |
 
 ## Creating your own configuration
 
