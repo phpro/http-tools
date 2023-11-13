@@ -17,6 +17,8 @@ use Symfony\Component\Mime\Part\AbstractMultipartPart as MultiPart;
 final class BinaryDownloadPreset
 {
     /**
+     * @deprecated Will be removed in v3. Use withEmptyRequest instead.
+     *
      * @return TransportInterface<null, BinaryFile>
      */
     public static function create(
