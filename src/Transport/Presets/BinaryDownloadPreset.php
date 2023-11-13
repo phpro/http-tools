@@ -23,6 +23,16 @@ final class BinaryDownloadPreset
         ClientInterface $client,
         UriBuilderInterface $uriBuilder
     ): TransportInterface {
+        return self::withEmptyRequest($client, $uriBuilder);
+    }
+
+    /**
+     * @return TransportInterface<null, BinaryFile>
+     */
+    public static function withEmptyRequest(
+        ClientInterface $client,
+        UriBuilderInterface $uriBuilder
+    ): TransportInterface {
         return EncodedTransportFactory::create(
             $client,
             $uriBuilder,
@@ -34,7 +44,7 @@ final class BinaryDownloadPreset
     /**
      * @return TransportInterface<MultiPart, BinaryFile>
      */
-    public static function fromFormData(
+    public static function withMultiPartRequest(
         ClientInterface $client,
         UriBuilderInterface $uriBuilder
     ): TransportInterface {
