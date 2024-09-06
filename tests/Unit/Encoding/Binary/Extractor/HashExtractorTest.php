@@ -24,7 +24,7 @@ final class HashExtractorTest extends TestCase
      */
     public function it_can_extract_hash(ResponseInterface $response, string $expected, int $endPosition = 0): void
     {
-        $extractor = new HashExtractor(Algorithm::MD5);
+        $extractor = new HashExtractor(Algorithm::Md5);
         $actual = $extractor($response);
 
         self::assertSame($actual, $expected);
@@ -35,7 +35,7 @@ final class HashExtractorTest extends TestCase
     {
         yield 'from-empty-stream-size' => [
             $this->createResponse(),
-            hash('', Algorithm::MD5),
+            hash('', Algorithm::Md5),
         ];
 
         yield 'from-stream-size' => [
@@ -43,7 +43,7 @@ final class HashExtractorTest extends TestCase
                 ->withBody(
                     $this->createStream('12345')
                 ),
-            hash('12345', Algorithm::MD5),
+            hash('12345', Algorithm::Md5),
         ];
 
         $stream = $this->createStream('12345');
@@ -51,7 +51,7 @@ final class HashExtractorTest extends TestCase
         yield 'from-partially-read-stream' => [
             $this->createResponse()
                 ->withBody($stream),
-            hash('12345', Algorithm::MD5),
+            hash('12345', Algorithm::Md5),
             3,
         ];
     }

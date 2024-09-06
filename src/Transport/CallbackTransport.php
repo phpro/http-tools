@@ -39,7 +39,7 @@ final class CallbackTransport implements TransportInterface
     public function __construct(
         callable $requestConverter,
         callable $sender,
-        callable $responseConverter
+        callable $responseConverter,
     ) {
         $this->requestConverter = $requestConverter;
         $this->sender = $sender;

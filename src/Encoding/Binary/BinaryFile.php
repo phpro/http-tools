@@ -14,7 +14,7 @@ final class BinaryFile
         private readonly ?string $mimeType,
         private readonly ?string $fileName,
         private readonly ?string $extension,
-        private readonly ?string $hash
+        private readonly ?string $hash,
     ) {
     }
 

@@ -31,7 +31,7 @@ final class EncodingRequestConverter implements RequestConverterInterface
     public function __construct(
         RequestFactoryInterface $requestFactory,
         UriBuilderInterface $uriBuilder,
-        EncoderInterface $encoder
+        EncoderInterface $encoder,
     ) {
         $this->requestFactory = $requestFactory;
         $this->encoder = $encoder;
@@ -40,7 +40,7 @@ final class EncodingRequestConverter implements RequestConverterInterface
 
     public static function createWithAutodiscoveredPsrFactories(
         UriBuilderInterface $uriBuilder,
-        EncoderInterface $encoder
+        EncoderInterface $encoder,
     ): self {
         return new self(
             Psr17FactoryDiscovery::findRequestFactory(),

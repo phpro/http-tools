@@ -50,7 +50,7 @@ final class BinaryFileDecoder implements DecoderInterface
         callable $mimeTypeExtractor,
         callable $fileNameExtractor,
         callable $extensionExtractor,
-        callable $hashExtractor
+        callable $hashExtractor,
     ) {
         $this->sizeExtractor = $sizeExtractor;
         $this->mimeTypeExtractor = $mimeTypeExtractor;
@@ -66,7 +66,7 @@ final class BinaryFileDecoder implements DecoderInterface
             new Extractor\MimeTypeExtractor(),
             new Extractor\FilenameExtractor(),
             new Extractor\ExtensionExtractor(),
-            new Extractor\HashExtractor(Algorithm::MD5),
+            new Extractor\HashExtractor(Algorithm::Md5),
         );
     }
 

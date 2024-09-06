@@ -33,7 +33,7 @@ final class SerializerTransport implements TransportInterface
      */
     public function __construct(
         SerializerInterface $serializer,
-        TransportInterface $transport
+        TransportInterface $transport,
     ) {
         $this->transport = $transport;
         $this->serializer = $serializer;

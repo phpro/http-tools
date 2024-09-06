@@ -11,7 +11,7 @@ use Psr\Http\Message\ResponseInterface;
 final class HashExtractor
 {
     public function __construct(
-        private readonly Algorithm $algorithm
+        private readonly Algorithm $algorithm,
     ) {
     }
 
