@@ -21,7 +21,7 @@ trait UseHttpToolsFactories
         string $method,
         string $uri,
         array $uriParams = [],
-        $body = null
+        $body = null,
     ): RequestInterface {
         return new Request($method, $uri, $uriParams, $body);
     }

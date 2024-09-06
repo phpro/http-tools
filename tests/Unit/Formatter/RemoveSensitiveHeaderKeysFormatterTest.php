@@ -70,7 +70,7 @@ final class RemoveSensitiveHeaderKeysFormatterTest extends TestCase
      */
     public function it_can_remove_sensitive_keys_from_response_with_request_context(
         array $headers,
-        array $expected
+        array $expected,
     ): void {
         $request = $this->createRequest('GET', 'something');
 
@@ -96,7 +96,7 @@ final class RemoveSensitiveHeaderKeysFormatterTest extends TestCase
      */
     public function it_can_remove_sensitive_keys_from_response_with_request_context_even_if_base_method_does_not_exist(
         array $headers,
-        array $expected
+        array $expected,
     ): void {
         $request = $this->createRequest('GET', 'something');
 

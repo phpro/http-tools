@@ -22,7 +22,7 @@ final class RemoveSensitiveQueryStringsFormatter implements HttpFormatter
      */
     public function __construct(
         HttpFormatter $formatter,
-        array $sensitiveKeys
+        array $sensitiveKeys,
     ) {
         $this->formatter = $formatter;
         $this->sensitiveKeys = $sensitiveKeys;

@@ -18,7 +18,7 @@ final class JsonPreset
      */
     public static function create(
         ClientInterface $client,
-        UriBuilderInterface $uriBuilder
+        UriBuilderInterface $uriBuilder,
     ): TransportInterface {
         return EncodedTransportFactory::create(
             $client,

@@ -14,7 +14,7 @@ trait UseMockClient
     /**
      * @param callable(Client $client): Client|null $configurator
      */
-    private function mockClient(callable $configurator = null): Client
+    private function mockClient(?callable $configurator = null): Client
     {
         MockClientDependency::guard();
         $configurator ??= fn (Client $client) => $client;

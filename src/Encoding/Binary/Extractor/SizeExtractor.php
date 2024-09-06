@@ -19,7 +19,8 @@ final class SizeExtractor
             return $size;
         }
 
-        if ($length = first($response->getHeader('Content-Length'))) {
+        $length = first($response->getHeader('Content-Length'));
+        if (null !== $length) {
             return try_catch(
                 static fn () => int()->coerce($length),
                 static fn () => null

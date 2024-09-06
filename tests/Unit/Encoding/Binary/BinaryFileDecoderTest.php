@@ -22,7 +22,7 @@ final class BinaryFileDecoderTest extends TestCase
     public function it_can_decode_binary_files(
         BinaryFileDecoder $decoder,
         ResponseInterface $response,
-        BinaryFile $expected
+        BinaryFile $expected,
     ): void {
         $actual = $decoder($response);
 

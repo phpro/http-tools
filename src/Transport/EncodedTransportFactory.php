@@ -27,7 +27,7 @@ final class EncodedTransportFactory
         ClientInterface $client,
         UriBuilderInterface $uriBuilder,
         EncoderInterface $encoder,
-        DecoderInterface $decoder
+        DecoderInterface $decoder,
     ): TransportInterface {
         /** @var CallbackTransport<RequestType, ResponseType> $transport */
         $transport = new CallbackTransport(

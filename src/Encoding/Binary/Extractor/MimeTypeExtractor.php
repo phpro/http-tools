@@ -15,11 +15,13 @@ final class MimeTypeExtractor
 {
     public function __invoke(ResponseInterface $response): ?string
     {
-        if ($contentType = first($response->getHeader('Content-Type'))) {
+        $contentType = first($response->getHeader('Content-Type'));
+        if (null !== $contentType && '' !== $contentType) {
             return $contentType;
         }
 
-        if ($originalName = (new FilenameExtractor())($response)) {
+        $originalName = (new FilenameExtractor())($response);
+        if (null !== $originalName) {
             if ($extension = pathinfo($originalName, PATHINFO_EXTENSION)) {
                 SymfonyMimeDependency::guard();
                 $mimeTypes = MimeTypes::getDefault()->getMimeTypes($extension);

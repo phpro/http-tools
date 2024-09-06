@@ -67,7 +67,7 @@ final class RemoveSensitiveJsonKeysFormatterTest extends TestCase
      */
     public function it_can_remove_sensitive_json_keys_from_response_with_request_context(
         array $content,
-        array $expected
+        array $expected,
     ): void {
         $request = $this->createRequest('GET', 'something')
             ->withBody(
@@ -91,7 +91,7 @@ final class RemoveSensitiveJsonKeysFormatterTest extends TestCase
      */
     public function it_can_remove_sensitive_json_keys_from_response_with_request_context_if_base_method_does_not_exist(
         array $content,
-        array $expected
+        array $expected,
     ): void {
         $request = $this->createRequest('GET', 'something')
             ->withBody(

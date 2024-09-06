@@ -31,7 +31,7 @@ final class RemoveSensitiveQueryStringsFormatterTest extends TestCase
      */
     public function it_can_remove_sensitive_query_strings_from_request(
         string $actual,
-        string $expected
+        string $expected,
     ): void {
         $request = $this->createRequest('GET', $actual);
         $formatted = $this->formatter->formatRequest($request);

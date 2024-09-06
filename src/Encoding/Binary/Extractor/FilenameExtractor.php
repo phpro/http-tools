@@ -15,7 +15,8 @@ final class FilenameExtractor
 {
     public function __invoke(ResponseInterface $response): ?string
     {
-        if (!$disposition = first($response->getHeader('Content-Disposition'))) {
+        $disposition = first($response->getHeader('Content-Disposition'));
+        if (null === $disposition) {
             return null;
         }
 

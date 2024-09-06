@@ -19,7 +19,7 @@ trait UseVcrClient
     /**
      * @return array{RecordPlugin, ReplayPlugin}
      */
-    private function useRecording(string $path, NamingStrategyInterface $namingStrategy = null): array
+    private function useRecording(string $path, ?NamingStrategyInterface $namingStrategy = null): array
     {
         VcrPluginDependency::guard();
 

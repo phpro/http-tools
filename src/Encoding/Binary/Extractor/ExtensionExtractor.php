@@ -15,7 +15,8 @@ final class ExtensionExtractor
 {
     public function __invoke(ResponseInterface $response): ?string
     {
-        if ($mimeType = (new MimeTypeExtractor())($response)) {
+        $mimeType = (new MimeTypeExtractor())($response);
+        if (null !== $mimeType) {
             SymfonyMimeDependency::guard();
             $extensions = MimeTypes::getDefault()->getExtensions($mimeType);
             if ($extensions) {
@@ -23,7 +24,8 @@ final class ExtensionExtractor
             }
         }
 
-        if ($originalName = (new FilenameExtractor())($response)) {
+        $originalName = (new FilenameExtractor())($response);
+        if (null !== $originalName) {
             return pathinfo($originalName, PATHINFO_EXTENSION) ?: null;
         }
 
