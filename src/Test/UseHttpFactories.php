@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Phpro\HttpTools\Test;
 
+use Http\Client\Exception;
 use Http\Discovery\Psr17FactoryDiscovery;
 use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Message\RequestInterface;
@@ -28,9 +29,9 @@ trait UseHttpFactories
         return Psr17FactoryDiscovery::findStreamFactory()->createStream($content);
     }
 
-    private function createEmptyHttpClientException(string $message): ClientExceptionInterface
+    private function createEmptyHttpClientException(string $message): ClientExceptionInterface&Exception
     {
-        return new class($message) extends RuntimeException implements ClientExceptionInterface {
+        return new class($message) extends RuntimeException implements ClientExceptionInterface, Exception {
         };
     }
 }
