@@ -33,24 +33,24 @@ final class SizeExtractorTest extends TestCase
     public static function provideCases()
     {
         yield 'from-empty-stream-size' => [
-            static fn(self $testCase) => self::createResponse(),
+            static fn (self $testCase) => self::createResponse(),
             0,
         ];
 
         yield 'from-stream-size' => [
-            static fn(self $testCase) => self::createResponse()
+            static fn (self $testCase) => self::createResponse()
                 ->withBody(self::createStream('12345')),
             5,
         ];
 
         yield 'from-single-content-length' => [
-            static fn(self $testCase) => self::createResponse()
+            static fn (self $testCase) => self::createResponse()
                 ->withBody($testCase->notSizeableStreamMock())
                 ->withHeader('Content-Length', '500'),
             500,
         ];
         yield 'from-multiple-content-length' => [
-            static fn(self $testCase) => self::createResponse()
+            static fn (self $testCase) => self::createResponse()
                 ->withBody($testCase->notSizeableStreamMock())
                 ->withHeader('Content-Length', [
                     '500',
@@ -59,13 +59,13 @@ final class SizeExtractorTest extends TestCase
             500,
         ];
         yield 'from-invalid-content-length' => [
-            static fn(self $testCase) => self::createResponse()
+            static fn (self $testCase) => self::createResponse()
                 ->withBody($testCase->notSizeableStreamMock())
                 ->withHeader('Content-Length', 'thisisnotanint'),
             null,
         ];
         yield 'from-no-info-whatsoever' => [
-            static fn(self $testCase) => self::createResponse()
+            static fn (self $testCase) => self::createResponse()
                 ->withBody($testCase->notSizeableStreamMock()),
             null,
         ];
