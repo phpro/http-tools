@@ -81,7 +81,7 @@ final class BinaryDownloadPresetTest extends TestCase
         self::assertSame(md5($content), $actualResponse->hash());
     }
 
-    public function provideAliasFactoryMethods()
+    public static function provideAliasFactoryMethods(): iterable
     {
         yield 'create' => [
             'create',

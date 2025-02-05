@@ -6,6 +6,7 @@ namespace Phpro\HttpTools\Tests\Unit\Encoding\Binary\Extractor;
 
 use Phpro\HttpTools\Encoding\Binary\Extractor\SizeExtractor;
 use Phpro\HttpTools\Test\UseHttpFactories;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
@@ -17,41 +18,40 @@ final class SizeExtractorTest extends TestCase
     /**
      * @test
      *
+     * @param callable<ResponseInterface> $response
+     *
      * @dataProvider provideCases
      */
-    public function it_can_extract_size(ResponseInterface $response, ?int $expected): void
+    public function it_can_extract_size(callable $response, ?int $expected): void
     {
         $extractor = new SizeExtractor();
-        $actual = $extractor($response);
+        $actual = $extractor($response($this));
 
         self::assertSame($actual, $expected);
     }
 
-    public function provideCases()
+    public static function provideCases()
     {
-        $notSizeableStream = $this->createMock(StreamInterface::class);
-        $notSizeableStream->method('getSize')->willReturn(null);
-
         yield 'from-empty-stream-size' => [
-            $this->createResponse(),
+            static fn(self $testCase) => self::createResponse(),
             0,
         ];
 
         yield 'from-stream-size' => [
-            $this->createResponse()
-                ->withBody($this->createStream('12345')),
+            static fn(self $testCase) => self::createResponse()
+                ->withBody(self::createStream('12345')),
             5,
         ];
 
         yield 'from-single-content-length' => [
-            $this->createResponse()
-                ->withBody($notSizeableStream)
+            static fn(self $testCase) => self::createResponse()
+                ->withBody($testCase->notSizeableStreamMock())
                 ->withHeader('Content-Length', '500'),
             500,
         ];
         yield 'from-multiple-content-length' => [
-            $this->createResponse()
-                ->withBody($notSizeableStream)
+            static fn(self $testCase) => self::createResponse()
+                ->withBody($testCase->notSizeableStreamMock())
                 ->withHeader('Content-Length', [
                     '500',
                     '600',
@@ -59,15 +59,23 @@ final class SizeExtractorTest extends TestCase
             500,
         ];
         yield 'from-invalid-content-length' => [
-            $this->createResponse()
-                ->withBody($notSizeableStream)
+            static fn(self $testCase) => self::createResponse()
+                ->withBody($testCase->notSizeableStreamMock())
                 ->withHeader('Content-Length', 'thisisnotanint'),
             null,
         ];
         yield 'from-no-info-whatsoever' => [
-            $this->createResponse()
-                ->withBody($notSizeableStream),
+            static fn(self $testCase) => self::createResponse()
+                ->withBody($testCase->notSizeableStreamMock()),
             null,
         ];
+    }
+
+    private function notSizeableStreamMock(): MockObject
+    {
+        $notSizeableStream = $this->createMock(StreamInterface::class);
+        $notSizeableStream->method('getSize')->willReturn(null);
+
+        return $notSizeableStream;
     }
 }

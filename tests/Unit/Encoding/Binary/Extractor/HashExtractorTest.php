@@ -31,25 +31,25 @@ final class HashExtractorTest extends TestCase
         self::assertSame($endPosition, $response->getBody()->tell());
     }
 
-    public function provideCases()
+    public static function provideCases(): iterable
     {
         yield 'from-empty-stream-size' => [
-            $this->createResponse(),
+            self::createResponse(),
             hash('', Algorithm::Md5),
         ];
 
         yield 'from-stream-size' => [
-            $this->createResponse()
+            self::createResponse()
                 ->withBody(
-                    $this->createStream('12345')
+                    self::createStream('12345')
                 ),
             hash('12345', Algorithm::Md5),
         ];
 
-        $stream = $this->createStream('12345');
+        $stream = self::createStream('12345');
         $stream->seek(3);
         yield 'from-partially-read-stream' => [
-            $this->createResponse()
+            self::createResponse()
                 ->withBody($stream),
             hash('12345', Algorithm::Md5),
             3,

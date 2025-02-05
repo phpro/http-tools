@@ -42,7 +42,7 @@ final class FactoriesTest extends TestCase
         self::assertSame(['success' => true], Json\decode($response->getBody()->__toString(), true));
     }
 
-    public function provideFactories()
+    public static function provideFactories()
     {
         yield 'autodiscover' => [
             'AutoDiscoveredClientFactory',

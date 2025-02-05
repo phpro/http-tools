@@ -103,7 +103,7 @@ final class RemoveSensitiveQueryStringsFormatterTest extends TestCase
         );
     }
 
-    public function provideJsonExpectations(): iterable
+    public static function provideJsonExpectations(): iterable
     {
         yield 'regular' => [
             'https://testapi.com/api/v1/products?query=string',

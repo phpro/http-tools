@@ -33,21 +33,21 @@ final class BinaryFileDecoderTest extends TestCase
         self::assertSame($actual->extension(), $expected->extension());
     }
 
-    public function provideCases()
+    public static function provideCases(): iterable
     {
         $defaultDecoder = BinaryFileDecoder::createWithAutodiscoveredPsrFactories();
 
         yield 'from-empty-response' => [
             $defaultDecoder,
-            $response = $this->createResponse(),
+            $response = self::createResponse(),
             new BinaryFile(
                 $response->getBody(), 0, null, null, null, md5('')
             ),
         ];
         yield 'from-full-response' => [
             $defaultDecoder,
-            $response = $this->createResponse()
-                ->withBody($this->createStream('12345'))
+            $response = self::createResponse()
+                ->withBody(self::createStream('12345'))
                 ->withHeader('Content-Type', 'image/jpeg')
                 ->withHeader('Content-Disposition', 'inline; filename="hello.jpg"'),
             new BinaryFile(
@@ -62,7 +62,7 @@ final class BinaryFileDecoderTest extends TestCase
                 fn () => 'jpg',
                 fn () => 'md5',
             ),
-            $response = $this->createResponse(),
+            $response = self::createResponse(),
             new BinaryFile(
                 $response->getBody(), 5, 'image/jpeg', 'hello.jpg', 'jpg', 'md5'
             ),

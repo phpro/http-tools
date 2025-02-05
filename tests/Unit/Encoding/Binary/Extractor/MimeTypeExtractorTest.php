@@ -26,15 +26,15 @@ final class MimeTypeExtractorTest extends TestCase
         self::assertSame($actual, $expected);
     }
 
-    public function provideCases()
+    public static function provideCases(): iterable
     {
         yield 'single-content-type' => [
-            $this->createResponse()
+            self::createResponse()
                 ->withHeader('Content-Type', 'image/jpeg'),
             'image/jpeg',
         ];
         yield 'multiple-content-type' => [
-            $this->createResponse()
+            self::createResponse()
                 ->withHeader('Content-Type', [
                     'image/jpeg',
                     'image/png',
@@ -42,22 +42,22 @@ final class MimeTypeExtractorTest extends TestCase
             'image/jpeg',
         ];
         yield 'filename-with-extension-mime-type' => [
-            $this->createResponse()
+            self::createResponse()
                 ->withHeader('Content-Disposition', 'attachment; filename="hello.jpg"'),
             'image/jpeg',
         ];
         yield 'filename-without-extension-mime-type' => [
-            $this->createResponse()
+            self::createResponse()
                 ->withHeader('Content-Disposition', 'attachment; filename="hello"'),
             null,
         ];
         yield 'filename-with-unknown-extension-mime-type' => [
-            $this->createResponse()
+            self::createResponse()
                 ->withHeader('Content-Disposition', 'attachment; filename="hello.thisextensiondoesnotexist";'),
             null,
         ];
         yield 'none' => [
-            $this->createResponse(),
+            self::createResponse(),
             null,
         ];
     }

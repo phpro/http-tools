@@ -26,30 +26,30 @@ final class ExtensionExtractorTest extends TestCase
         self::assertSame($actual, $expected);
     }
 
-    public function provideCases()
+    public static function provideCases(): iterable
     {
         yield 'from-valid-content-type' => [
-            $this->createResponse()
+            self::createResponse()
                 ->withHeader('Content-Type', 'image/jpeg'),
             'jpg',
         ];
         yield 'from-invalid-content-type' => [
-            $this->createResponse()
+            self::createResponse()
                 ->withHeader('Content-Type', ['unknown/unkown']),
             null,
         ];
         yield 'filename-with-extension' => [
-            $this->createResponse()
+            self::createResponse()
                 ->withHeader('Content-Disposition', 'attachment; filename="hello.jpg"'),
             'jpg',
         ];
         yield 'filename-without-extension-mime-type' => [
-            $this->createResponse()
+            self::createResponse()
                 ->withHeader('Content-Disposition', 'attachment; filename="hello"'),
             null,
         ];
         yield 'none' => [
-            $this->createResponse(),
+            self::createResponse(),
             null,
         ];
     }

@@ -122,7 +122,7 @@ final class RemoveSensitiveJsonKeysFormatterTest extends TestCase
         self::assertSame($expected, Json\decode($formatted, true));
     }
 
-    public function provideJsonExpectations()
+    public static function provideJsonExpectations(): iterable
     {
         yield 'sample1' => [
             [
