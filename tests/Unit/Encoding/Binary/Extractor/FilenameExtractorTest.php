@@ -26,15 +26,15 @@ final class FilenameExtractorTest extends TestCase
         self::assertSame($actual, $expected);
     }
 
-    public function provideCases()
+    public static function provideCases(): iterable
     {
         yield 'single-content-disposition' => [
-            $this->createResponse()
+            self::createResponse()
                 ->withHeader('Content-Disposition', 'inline; filename=hello.jpg'),
             'hello.jpg',
         ];
         yield 'multiple-content-disposition' => [
-            $this->createResponse()
+            self::createResponse()
                 ->withHeader('Content-Disposition', [
                     'inline; filename=hello.jpg',
                     'inline; filename=goodbye.jpg',
@@ -42,17 +42,17 @@ final class FilenameExtractorTest extends TestCase
             'hello.jpg',
         ];
         yield 'filename-ext-content-disposition' => [
-            $this->createResponse()
+            self::createResponse()
                 ->withHeader('Content-Disposition', 'attachment; filename="notthis.jpg"; filename*=UTF-8\'\'hello.jpg'),
             'hello.jpg',
         ];
         yield 'invalid-disposition' => [
-            $this->createResponse()
+            self::createResponse()
                 ->withHeader('Content-Disposition', 'qsdfqsdfqsdf'),
             null,
         ];
         yield 'none' => [
-            $this->createResponse(),
+            self::createResponse(),
             null,
         ];
     }

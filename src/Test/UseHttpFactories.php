@@ -14,22 +14,22 @@ use RuntimeException;
 
 trait UseHttpFactories
 {
-    private function createRequest(string $method, string $uri): RequestInterface
+    private static function createRequest(string $method, string $uri): RequestInterface
     {
         return Psr17FactoryDiscovery::findRequestFactory()->createRequest($method, $uri);
     }
 
-    private function createResponse(int $code = 200, string $reasonPhrase = ''): ResponseInterface
+    private static function createResponse(int $code = 200, string $reasonPhrase = ''): ResponseInterface
     {
         return Psr17FactoryDiscovery::findResponseFactory()->createResponse($code, $reasonPhrase);
     }
 
-    private function createStream(string $content): StreamInterface
+    private static function createStream(string $content): StreamInterface
     {
         return Psr17FactoryDiscovery::findStreamFactory()->createStream($content);
     }
 
-    private function createEmptyHttpClientException(string $message): ClientExceptionInterface&Exception
+    private static function createEmptyHttpClientException(string $message): ClientExceptionInterface&Exception
     {
         return new class($message) extends RuntimeException implements ClientExceptionInterface, Exception {
         };

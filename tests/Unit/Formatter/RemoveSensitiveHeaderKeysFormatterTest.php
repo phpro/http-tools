@@ -129,7 +129,7 @@ final class RemoveSensitiveHeaderKeysFormatterTest extends TestCase
         self::assertSame($this->formatHeaders($expected), $formatted);
     }
 
-    public function provideJsonExpectations(): iterable
+    public static function provideJsonExpectations(): iterable
     {
         yield 'sample1' => [
             [
