@@ -27,18 +27,20 @@ Examples:
 
 This package contains some frequently used encoders / decoders for you:
 
-| Class               | EncodingType<DataType>                | Action                                                                              |
-|---------------------|---------------------------------------|-------------------------------------------------------------------------------------|
-| `EmptyBodyEncoder`  | `EncoderInterface<null>`              | Creates epmty request body                                                          | 
-| `BinaryFileDecoder` | `DecoderInterface<BinaryFile>`        | Parses file information from the HTTP response and returns a `BinaryFile` DTO       |
-| `JsonEncoder`       | `EncoderInterface<?array>`            | Adds json body and headers to request                                               |
-| `JsonDecoder`       | `DecoderInterface<array>`             | Converts json response body to array                                                |
-| `MultiPartEncoder`     | `EncoderInterface<AbstractMultipartPart>`   | Adds symfony/mime `AbstractMultipartPart`as HTTP body. Handy for form data + files. |
-| `StreamEncoder`     | `EncoderInterface<StreamInterface>`   | Adds PSR-7 Stream as request body                                                   |
-| `StreamDecoder`     | `DecoderInterface<StreamInterface>`   | Returns the PSR-7 Stream as response result                                         |
-| `RawEncoder`        | `EncoderInterface<string>`            | Adds raw string as request body                                                     |
-| `RawDecoder`        | `DecoderInterface<string>`            | Returns the raw PSR-7 body string as response result                                |
-| `ResponseDecoder`   | `DecoderInterface<ResponseInterface>` | Returns the received PSR-7 response as result                                       |
+| Class                   | EncodingType<DataType>                | Action                                                                              |
+|-------------------------|---------------------------------------|-------------------------------------------------------------------------------------|
+| `EmptyBodyEncoder`      | `EncoderInterface<null>`              | Creates empty request body                                                          | 
+| `BinaryFileDecoder`     | `DecoderInterface<BinaryFile>`        | Parses file information from the HTTP response and returns a `BinaryFile` DTO       |
+| `FormUrlencodedEncoder` | `EncoderInterface<?array>`            | Adds form urlencoded body and headers to request                                    |
+| `FormUrlencodedDecoder` | `DecoderInterface<array>`             | Converts form urlencoded response body to array                                     |
+| `JsonEncoder`           | `EncoderInterface<?array>`            | Adds json body and headers to request                                               |
+| `JsonDecoder`           | `DecoderInterface<array>`             | Converts json response body to array                                                |
+| `MultiPartEncoder`      | `EncoderInterface<AbstractMultipartPart>`   | Adds symfony/mime `AbstractMultipartPart`as HTTP body. Handy for form data + files. |
+| `StreamEncoder`         | `EncoderInterface<StreamInterface>`   | Adds PSR-7 Stream as request body                                                   |
+| `StreamDecoder`         | `DecoderInterface<StreamInterface>`   | Returns the PSR-7 Stream as response result                                         |
+| `RawEncoder`            | `EncoderInterface<string>`            | Adds raw string as request body                                                     |
+| `RawDecoder`            | `DecoderInterface<string>`            | Returns the raw PSR-7 body string as response result                                |
+| `ResponseDecoder`       | `DecoderInterface<ResponseInterface>` | Returns the received PSR-7 response as result                                       |
 
 ## Built-in transport presets:
 
@@ -49,6 +51,7 @@ We've composed some of the encodings above into pre-configured transports:
 |------------------------|-------------------------|---------------------|------------------------|
 | `BinaryDownloadPreset` | `null`                  | `BinaryFile`        | `withEmptyRequest`     |
 | `BinaryDownloadPreset` | `AbstractMultipartPart` | `BinaryFile`        | `withMultiPartRequest` |
+| `FormUrlencodedPreset` | `?array`                | `array`             | `create`               |
 | `JsonPreset`           | `?array`                | `array`             | `create`               |
 | `PsrPreset`            | `string`                | `ResponseInterface` | `create`               |
 | `RawPreset`            | `string`                | `string`            | `create`               |
