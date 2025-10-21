@@ -6,6 +6,8 @@ namespace Phpro\HttpTools\Tests\Unit\Encoding\Binary\Extractor;
 
 use Phpro\HttpTools\Encoding\Binary\Extractor\HashExtractor;
 use Phpro\HttpTools\Test\UseHttpFactories;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Psl\Hash\Algorithm;
 
@@ -17,11 +19,8 @@ final class HashExtractorTest extends TestCase
 {
     use UseHttpFactories;
 
-    /**
-     * @test
-     *
-     * @dataProvider provideCases
-     */
+    #[DataProvider('provideCases')]
+    #[Test]
     public function it_can_extract_hash(ResponseInterface $response, string $expected, int $endPosition = 0): void
     {
         $extractor = new HashExtractor(Algorithm::Md5);

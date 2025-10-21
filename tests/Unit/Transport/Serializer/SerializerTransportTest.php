@@ -13,6 +13,7 @@ use Phpro\HttpTools\Tests\Helper\Model\SomeValueObject;
 use Phpro\HttpTools\Transport\Presets\RawPreset;
 use Phpro\HttpTools\Transport\Serializer\SerializerTransport;
 use Phpro\HttpTools\Uri\RawUriBuilder;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Psl\Json;
 use Psr\Http\Message\RequestInterface;
@@ -46,7 +47,7 @@ final class SerializerTransportTest extends TestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function it_can_serialize_request_and_deserialize_response_body_and_transport_it(): void
     {
         $valueObject = new SomeValueObject('Hello', 'World');
@@ -66,7 +67,7 @@ final class SerializerTransportTest extends TestCase
         self::assertEquals($valueObject, $result);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_handle_requests_without_request_object(): void
     {
         $valueObject = new SomeValueObject('Hello', 'World');
@@ -86,7 +87,7 @@ final class SerializerTransportTest extends TestCase
         self::assertEquals($valueObject, $result);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_handle_requests_without_response_type(): void
     {
         $valueObject = new SomeValueObject('Hello', 'World');

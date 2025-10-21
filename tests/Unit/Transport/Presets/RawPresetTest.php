@@ -8,6 +8,7 @@ use Phpro\HttpTools\Test\UseHttpToolsFactories;
 use Phpro\HttpTools\Test\UseMockClient;
 use Phpro\HttpTools\Transport\Presets\RawPreset;
 use Phpro\HttpTools\Uri\RawUriBuilder;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 final class RawPresetTest extends TestCase
@@ -15,7 +16,7 @@ final class RawPresetTest extends TestCase
     use UseHttpToolsFactories;
     use UseMockClient;
 
-    /** @test */
+    #[Test]
     public function it_can_create_sync_transport(): void
     {
         $transport = RawPreset::create(

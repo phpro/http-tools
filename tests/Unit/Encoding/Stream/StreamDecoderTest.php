@@ -6,13 +6,14 @@ namespace Phpro\HttpTools\Tests\Unit\Encoding\Stream;
 
 use Phpro\HttpTools\Encoding\Stream\StreamDecoder;
 use Phpro\HttpTools\Test\UseHttpFactories;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 final class StreamDecoderTest extends TestCase
 {
     use UseHttpFactories;
 
-    /** @test */
+    #[Test]
     public function it_can_decode_stream_string(): void
     {
         $decoder = StreamDecoder::createWithAutodiscoveredPsrFactories();

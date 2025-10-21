@@ -6,13 +6,14 @@ namespace Phpro\HttpTools\Tests\Unit\Encoding\Binary;
 
 use Phpro\HttpTools\Encoding\Binary\BinaryFile;
 use Phpro\HttpTools\Test\UseHttpFactories;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 final class BinaryFileTest extends TestCase
 {
     use UseHttpFactories;
 
-    /** @test */
+    #[Test]
     public function it_is_a_dto(): void
     {
         $dto = new BinaryFile(

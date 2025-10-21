@@ -8,6 +8,7 @@ use Phpro\HttpTools\Test\UseHttpToolsFactories;
 use Phpro\HttpTools\Test\UseMockClient;
 use Phpro\HttpTools\Transport\Presets\PsrPreset;
 use Phpro\HttpTools\Uri\RawUriBuilder;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 final class PsrPresetTest extends TestCase
@@ -15,7 +16,7 @@ final class PsrPresetTest extends TestCase
     use UseHttpToolsFactories;
     use UseMockClient;
 
-    /** @test */
+    #[Test]
     public function it_can_create_sync_transport(): void
     {
         $transport = PsrPreset::create(

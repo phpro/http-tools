@@ -8,12 +8,13 @@ use InvalidArgumentException;
 use Phpro\HttpTools\Client\Factory\AutoDiscoveredClientFactory;
 use Phpro\HttpTools\Client\Factory\FactoryInterface;
 use Phpro\HttpTools\Client\Factory\LazyClientLoader;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
 final class LazyClientLoaderTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function it_can_not_load_invalid_class(): void
     {
         $this->expectException(InvalidArgumentException::class);
@@ -23,7 +24,7 @@ final class LazyClientLoaderTest extends TestCase
         $loader->load();
     }
 
-    /** @test */
+    #[Test]
     public function it_only_loads_the_client_once(): void
     {
         $loader = new LazyClientLoader(AutoDiscoveredClientFactory::class, [], []);

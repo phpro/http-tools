@@ -8,6 +8,8 @@ use Http\Message\Formatter;
 use Phpro\HttpTools\Formatter\RemoveSensitiveHeadersFormatter;
 use Phpro\HttpTools\Test\UseHttpFactories;
 use Phpro\HttpTools\Tests\Helper\Formatter\CallbackFormatter;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\MessageInterface;
 
@@ -27,11 +29,8 @@ final class RemoveSensitiveHeaderKeysFormatterTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider provideJsonExpectations
-     */
+    #[DataProvider('provideJsonExpectations')]
+    #[Test]
     public function it_can_remove_sensitive_keys_from_request(array $headers, array $expected): void
     {
         $request = $this->createRequest('GET', 'something');
@@ -45,11 +44,8 @@ final class RemoveSensitiveHeaderKeysFormatterTest extends TestCase
         self::assertSame($this->formatHeaders($expected), $formatted);
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider provideJsonExpectations
-     */
+    #[DataProvider('provideJsonExpectations')]
+    #[Test]
     public function it_can_remove_sensitive_keys_from_response(array $headers, array $expected): void
     {
         $response = $this->createResponse(200);
@@ -63,11 +59,8 @@ final class RemoveSensitiveHeaderKeysFormatterTest extends TestCase
         self::assertSame($this->formatHeaders($expected), $formatted);
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider provideJsonExpectations
-     */
+    #[DataProvider('provideJsonExpectations')]
+    #[Test]
     public function it_can_remove_sensitive_keys_from_response_with_request_context(
         array $headers,
         array $expected,
@@ -89,11 +82,8 @@ final class RemoveSensitiveHeaderKeysFormatterTest extends TestCase
         self::assertSame($this->formatHeaders($expected), $formatted);
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider provideJsonExpectations
-     */
+    #[DataProvider('provideJsonExpectations')]
+    #[Test]
     public function it_can_remove_sensitive_keys_from_response_with_request_context_even_if_base_method_does_not_exist(
         array $headers,
         array $expected,

@@ -8,6 +8,7 @@ use Phpro\HttpTools\Test\UseHttpToolsFactories;
 use Phpro\HttpTools\Test\UseMockClient;
 use Phpro\HttpTools\Transport\Presets\JsonPreset;
 use Phpro\HttpTools\Uri\RawUriBuilder;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Psl\Json;
 
@@ -16,7 +17,7 @@ final class JsonPresetTest extends TestCase
     use UseHttpToolsFactories;
     use UseMockClient;
 
-    /** @test */
+    #[Test]
     public function it_can_create_transport(): void
     {
         $transport = JsonPreset::create(

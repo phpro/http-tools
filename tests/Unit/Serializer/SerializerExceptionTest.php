@@ -6,11 +6,12 @@ namespace Phpro\HttpTools\Tests\Unit\Serializer;
 
 use Phpro\HttpTools\Exception\RuntimeException;
 use Phpro\HttpTools\Serializer\SerializerException;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 final class SerializerExceptionTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function it_can_throw_exception_on_unkown_type(): void
     {
         $exception = SerializerException::noDeserializeTypeSpecified();

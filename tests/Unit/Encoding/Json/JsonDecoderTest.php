@@ -6,13 +6,14 @@ namespace Phpro\HttpTools\Tests\Unit\Encoding\Json;
 
 use Phpro\HttpTools\Encoding\Json\JsonDecoder;
 use Phpro\HttpTools\Test\UseHttpFactories;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 final class JsonDecoderTest extends TestCase
 {
     use UseHttpFactories;
 
-    /** @test */
+    #[Test]
     public function it_can_decode_json_to_array(): void
     {
         $decoder = JsonDecoder::createWithAutodiscoveredPsrFactories();
@@ -23,7 +24,7 @@ final class JsonDecoderTest extends TestCase
         self::assertSame(['hello' => 'world'], $decoded);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_decode_empty_body_to_empty_array(): void
     {
         $decoder = JsonDecoder::createWithAutodiscoveredPsrFactories();

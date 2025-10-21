@@ -9,6 +9,7 @@ use Http\Promise\Promise;
 use Phpro\HttpTools\Client\Configurator\PluginsConfigurator;
 use Phpro\HttpTools\Plugin\CallbackPlugin;
 use Phpro\HttpTools\Test\UseMockClient;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestInterface;
@@ -38,7 +39,7 @@ final class CallbackPluginTest extends TestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function it_can_run_a_callback_as_plugin(): void
     {
         $response = $this->client->sendRequest($this->createRequest('GET', '/something'));

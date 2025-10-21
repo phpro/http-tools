@@ -18,7 +18,7 @@ final class FormUrlencodedPresetTest extends TestCase
     use UseHttpToolsFactories;
     use UseMockClient;
 
-    /** @test */
+    #[Test]
     public function it_can_create_transport(): void
     {
         $transport = FormUrlencodedPreset::create(

@@ -12,6 +12,8 @@ use Phpro\HttpTools\Client\Factory\LazyClientLoader;
 use Phpro\HttpTools\Client\Factory\SymfonyClientFactory;
 use Phpro\HttpTools\Test\UseVcrClient;
 use Phpro\HttpTools\Tests\Helper\Vcr\FactoryAwareNamingStrategy;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Psl\Json;
 use Psr\Http\Message\RequestInterface;
@@ -20,11 +22,8 @@ final class FactoriesTest extends TestCase
 {
     use UseVcrClient;
 
-    /**
-     * @test
-     *
-     * @dataProvider provideFactories
-     */
+    #[DataProvider('provideFactories')]
+    #[Test]
     public function it_can_use_http_factories(string $factoryName, callable $factory): void
     {
         $client = PluginsConfigurator::configure($factory(), [
