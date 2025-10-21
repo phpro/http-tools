@@ -6,6 +6,7 @@ namespace Phpro\HttpTools\Tests\Unit\Uri;
 
 use Phpro\HttpTools\Test\UseHttpToolsFactories;
 use Phpro\HttpTools\Uri\TemplatedUriBuilder;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\UriInterface;
 
@@ -20,7 +21,7 @@ final class TemplatedUriBuilderTest extends TestCase
         $this->uriBuilder = new TemplatedUriBuilder(['default' => 'yes']);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_build_a_templated_uri(): void
     {
         $request = $this->createToolsRequest('GET', '/hello/{name}', ['name' => 'world']);
@@ -30,7 +31,7 @@ final class TemplatedUriBuilderTest extends TestCase
         self::assertSame('/hello/world', $uri->__toString());
     }
 
-    /** @test */
+    #[Test]
     public function it_can_build_a_templated_uri_with_default_params(): void
     {
         $request = $this->createToolsRequest('GET', '/hello/{default}', ['name' => 'world']);

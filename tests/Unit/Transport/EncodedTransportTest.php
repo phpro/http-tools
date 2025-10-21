@@ -12,6 +12,7 @@ use Phpro\HttpTools\Test\UseMockClient;
 use Phpro\HttpTools\Transport\EncodedTransportFactory;
 use Phpro\HttpTools\Transport\TransportInterface;
 use Phpro\HttpTools\Uri\RawUriBuilder;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Client\ClientExceptionInterface;
 
@@ -27,7 +28,7 @@ final class EncodedTransportTest extends TestCase
         $this->client = $this->mockClient();
     }
 
-    /** @test */
+    #[Test]
     public function it_can_send_and_receive_encoded(): void
     {
         $transport = $this->createTransport();
@@ -46,7 +47,7 @@ final class EncodedTransportTest extends TestCase
         self::assertSame((string) $request->body(), (string) $sentRequest->getBody());
     }
 
-    /** @test */
+    #[Test]
     public function it_can_handle_failure(): void
     {
         $transport = $this->createTransport();

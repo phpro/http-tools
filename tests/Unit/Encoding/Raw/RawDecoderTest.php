@@ -6,13 +6,14 @@ namespace Phpro\HttpTools\Tests\Unit\Encoding\Raw;
 
 use Phpro\HttpTools\Encoding\Raw\RawDecoder;
 use Phpro\HttpTools\Test\UseHttpFactories;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 final class RawDecoderTest extends TestCase
 {
     use UseHttpFactories;
 
-    /** @test */
+    #[Test]
     public function it_can_decode_raw_string(): void
     {
         $decoder = RawDecoder::createWithAutodiscoveredPsrFactories();

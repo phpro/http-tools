@@ -6,6 +6,7 @@ namespace Phpro\HttpTools\Tests\Unit\Encoding\Json;
 
 use Phpro\HttpTools\Encoding\Json\JsonEncoder;
 use Phpro\HttpTools\Test\UseHttpFactories;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Psl\Json;
 
@@ -13,7 +14,7 @@ final class JsonEncoderTest extends TestCase
 {
     use UseHttpFactories;
 
-    /** @test */
+    #[Test]
     public function it_can_encode_array_to_json(): void
     {
         $data = ['hello' => 'world'];
@@ -29,7 +30,7 @@ final class JsonEncoderTest extends TestCase
         self::assertSame(['application/json'], $actual->getHeader('Content-Type'));
     }
 
-    /** @test */
+    #[Test]
     public function it_can_encode_null_to_empty_body(): void
     {
         $data = null;

@@ -6,6 +6,7 @@ namespace Phpro\HttpTools\Tests\Unit\Encoding\Mime;
 
 use Phpro\HttpTools\Encoding\Mime\MultiPartEncoder;
 use Phpro\HttpTools\Test\UseHttpFactories;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Mime\Part\DataPart;
 use Symfony\Component\Mime\Part\Multipart\FormDataPart;
@@ -14,7 +15,7 @@ final class MultiPartEncoderTest extends TestCase
 {
     use UseHttpFactories;
 
-    /** @test */
+    #[Test]
     public function it_can_encode_multi_part(): void
     {
         $data = new FormDataPart([

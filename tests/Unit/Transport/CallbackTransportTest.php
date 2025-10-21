@@ -7,6 +7,7 @@ namespace Phpro\HttpTools\Tests\Unit\Transport;
 use Phpro\HttpTools\Test\UseHttpFactories;
 use Phpro\HttpTools\Test\UseHttpToolsFactories;
 use Phpro\HttpTools\Transport\CallbackTransport;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 final class CallbackTransportTest extends TestCase
@@ -14,7 +15,7 @@ final class CallbackTransportTest extends TestCase
     use UseHttpFactories;
     use UseHttpToolsFactories;
 
-    /** @test */
+    #[Test]
     public function it_can_send_requests(): void
     {
         $request = $this->createToolsRequest('GET', '/users');

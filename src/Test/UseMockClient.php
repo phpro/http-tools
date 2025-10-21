@@ -17,7 +17,7 @@ trait UseMockClient
     private function mockClient(?callable $configurator = null): Client
     {
         MockClientDependency::guard();
-        $configurator ??= fn (Client $client) => $client;
+        $configurator ??= fn (Client $client): Client => $client;
 
         return $configurator(new Client());
     }

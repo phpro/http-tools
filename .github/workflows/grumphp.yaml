@@ -7,7 +7,7 @@ jobs:
         strategy:
             matrix:
                 operating-system: [ubuntu-latest]
-                php-versions: ['8.2', '8.3']
+                php-versions: ['8.3', '8.4', '8.5']
                 composer-options: ['', '--prefer-lowest']
             fail-fast: false
         name: PHP ${{ matrix.php-versions }} @ ${{ matrix.operating-system }} with ${{ matrix.composer-options }}
@@ -36,12 +36,15 @@ jobs:
                   restore-keys: ${{ runner.os }}-composer-
             - name: Install dependencies
               run: composer update --prefer-dist --no-progress --no-suggest ${{ matrix.composer-options }}
+              env:
+                 COMPOSER_IGNORE_PLATFORM_REQ: php+
             - name: Set git variables
               run: |
                   git config --global user.email "you@example.com"
                   git config --global user.name "Your Name"
             - name: Run the tests
-              run: php vendor/bin/grumphp run --no-interaction
+              run: ./vendor/bin/grumphp run --no-interaction
+              continue-on-error: ${{ matrix.php-versions == '8.5' }}
               env:
                   PHP_CS_FIXER_IGNORE_ENV: 1
                   BOX_REQUIREMENT_CHECKER: 0

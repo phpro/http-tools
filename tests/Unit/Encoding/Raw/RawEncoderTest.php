@@ -6,13 +6,14 @@ namespace Phpro\HttpTools\Tests\Unit\Encoding\Raw;
 
 use Phpro\HttpTools\Encoding\Raw\RawEncoder;
 use Phpro\HttpTools\Test\UseHttpFactories;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 final class RawEncoderTest extends TestCase
 {
     use UseHttpFactories;
 
-    /** @test */
+    #[Test]
     public function it_can_encode_raw_string(): void
     {
         $data = 'Hello world';

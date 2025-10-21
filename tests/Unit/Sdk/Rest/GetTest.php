@@ -11,6 +11,7 @@ use Phpro\HttpTools\Sdk\Rest\GetTrait;
 use Phpro\HttpTools\Test\UseMockClient;
 use Phpro\HttpTools\Transport\Presets\JsonPreset;
 use Phpro\HttpTools\Uri\RawUriBuilder;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Psl\Json;
 use Psr\Http\Message\RequestInterface;
@@ -36,7 +37,7 @@ final class GetTest extends TestCase
         };
     }
 
-    /** @test */
+    #[Test]
     public function it_can_get_a_resource(): void
     {
         $responseData = [['id' => 1], ['id' => 2]];
@@ -58,7 +59,7 @@ final class GetTest extends TestCase
         self::assertSame($responseData, $actual);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_get_a_resource_with_query_params(): void
     {
         $responseData = [['id' => 1], ['id' => 2]];

@@ -6,13 +6,14 @@ namespace Phpro\HttpTools\Tests\Unit\Encoding\FormUrlencoded;
 
 use Phpro\HttpTools\Encoding\FormUrlencoded\FormUrlencodedDecoder;
 use Phpro\HttpTools\Test\UseHttpFactories;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 final class FormUrlencodedDecoderTest extends TestCase
 {
     use UseHttpFactories;
 
-    /** @test */
+    #[Test]
     public function it_can_decode_form_url_encoded_to_array(): void
     {
         $decoder = FormUrlencodedDecoder::createWithAutodiscoveredPsrFactories();
@@ -23,7 +24,7 @@ final class FormUrlencodedDecoderTest extends TestCase
         self::assertSame(['hello' => 'world', 'foo' => 'bar'], $decoded);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_decode_empty_body_to_empty_array(): void
     {
         $decoder = FormUrlencodedDecoder::createWithAutodiscoveredPsrFactories();

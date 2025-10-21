@@ -6,13 +6,14 @@ namespace Phpro\HttpTools\Tests\Unit\Encoding\Stream;
 
 use Phpro\HttpTools\Encoding\Stream\StreamEncoder;
 use Phpro\HttpTools\Test\UseHttpFactories;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 final class StreamEncoderTest extends TestCase
 {
     use UseHttpFactories;
 
-    /** @test */
+    #[Test]
     public function it_can_encode_stream_string(): void
     {
         $data = $this->createStream($content = 'Hello world');

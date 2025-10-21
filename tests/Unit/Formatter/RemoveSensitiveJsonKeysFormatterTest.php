@@ -8,6 +8,8 @@ use Http\Message\Formatter;
 use Phpro\HttpTools\Formatter\RemoveSensitiveJsonKeysFormatter;
 use Phpro\HttpTools\Test\UseHttpFactories;
 use Phpro\HttpTools\Tests\Helper\Formatter\CallbackFormatter;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Psl\Json;
 use Psr\Http\Message\MessageInterface;
@@ -26,11 +28,8 @@ final class RemoveSensitiveJsonKeysFormatterTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider provideJsonExpectations
-     */
+    #[DataProvider('provideJsonExpectations')]
+    #[Test]
     public function it_can_remove_sensitive_json_keys_from_request(array $content, array $expected): void
     {
         $request = $this->createRequest('GET', 'something')
@@ -43,11 +42,8 @@ final class RemoveSensitiveJsonKeysFormatterTest extends TestCase
         self::assertSame($expected, Json\decode($formatted, true));
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider provideJsonExpectations
-     */
+    #[DataProvider('provideJsonExpectations')]
+    #[Test]
     public function it_can_remove_sensitive_json_keys_from_response(array $content, array $expected): void
     {
         $response = $this->createResponse(200)
@@ -60,11 +56,8 @@ final class RemoveSensitiveJsonKeysFormatterTest extends TestCase
         self::assertSame($expected, Json\decode($formatted, true));
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider provideJsonExpectations
-     */
+    #[DataProvider('provideJsonExpectations')]
+    #[Test]
     public function it_can_remove_sensitive_json_keys_from_response_with_request_context(
         array $content,
         array $expected,
@@ -84,11 +77,8 @@ final class RemoveSensitiveJsonKeysFormatterTest extends TestCase
         self::assertSame($expected, Json\decode($formatted, true));
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider provideJsonExpectations
-     */
+    #[DataProvider('provideJsonExpectations')]
+    #[Test]
     public function it_can_remove_sensitive_json_keys_from_response_with_request_context_if_base_method_does_not_exist(
         array $content,
         array $expected,

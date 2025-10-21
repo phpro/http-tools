@@ -11,6 +11,7 @@ use Phpro\HttpTools\Sdk\Rest\UpdateTrait;
 use Phpro\HttpTools\Test\UseMockClient;
 use Phpro\HttpTools\Transport\Presets\JsonPreset;
 use Phpro\HttpTools\Uri\RawUriBuilder;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Psl\Json;
 use Psr\Http\Message\RequestInterface;
@@ -36,7 +37,7 @@ final class UpdateTest extends TestCase
         };
     }
 
-    /** @test */
+    #[Test]
     public function it_can_patch_a_resource(): void
     {
         $requestData = ['user' => 'a'];

@@ -6,6 +6,7 @@ namespace Phpro\HttpTools\Tests\Unit\Uri;
 
 use Phpro\HttpTools\Test\UseHttpToolsFactories;
 use Phpro\HttpTools\Uri\RawUriBuilder;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\UriInterface;
 
@@ -20,7 +21,7 @@ final class RawUriBuilderTest extends TestCase
         $this->uriBuilder = RawUriBuilder::createWithAutodiscoveredPsrFactories();
     }
 
-    /** @test */
+    #[Test]
     public function it_can_build_a_raw_uri(): void
     {
         $request = $this->createToolsRequest('GET', '/hello/world', []);
@@ -30,7 +31,7 @@ final class RawUriBuilderTest extends TestCase
         self::assertSame($request->uri(), $uri->__toString());
     }
 
-    /** @test */
+    #[Test]
     public function it_can_build_a_raw_uri_with_query_params(): void
     {
         $request = $this->createToolsRequest('GET', '/hello/world', ['param1' => 'value1']);

@@ -11,6 +11,7 @@ use Phpro\HttpTools\Sdk\Rest\DeleteTrait;
 use Phpro\HttpTools\Test\UseMockClient;
 use Phpro\HttpTools\Transport\Presets\JsonPreset;
 use Phpro\HttpTools\Uri\RawUriBuilder;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
 
@@ -35,7 +36,7 @@ final class DeleteTest extends TestCase
         };
     }
 
-    /** @test */
+    #[Test]
     public function it_can_delete_a_resource(): void
     {
         $responseData = [];

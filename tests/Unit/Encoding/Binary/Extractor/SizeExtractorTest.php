@@ -6,6 +6,8 @@ namespace Phpro\HttpTools\Tests\Unit\Encoding\Binary\Extractor;
 
 use Phpro\HttpTools\Encoding\Binary\Extractor\SizeExtractor;
 use Phpro\HttpTools\Test\UseHttpFactories;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
@@ -16,12 +18,10 @@ final class SizeExtractorTest extends TestCase
     use UseHttpFactories;
 
     /**
-     * @test
-     *
      * @param callable<ResponseInterface> $response
-     *
-     * @dataProvider provideCases
      */
+    #[DataProvider('provideCases')]
+    #[Test]
     public function it_can_extract_size(callable $response, ?int $expected): void
     {
         $extractor = new SizeExtractor();

@@ -8,6 +8,7 @@ use Http\Mock\Client;
 use Phpro\HttpTools\Client\Configurator\PluginsConfigurator;
 use Phpro\HttpTools\Plugin\AcceptLanguagePlugin;
 use Phpro\HttpTools\Test\UseMockClient;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Client\ClientInterface;
 
@@ -30,7 +31,7 @@ final class AcceptLanguagePluginTest extends TestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function it_can_set_the_accept_language(): void
     {
         $response = $this->client->sendRequest($this->createRequest('GET', '/something'));

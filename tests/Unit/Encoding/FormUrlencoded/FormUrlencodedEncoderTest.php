@@ -6,13 +6,14 @@ namespace Phpro\HttpTools\Tests\Unit\Encoding\FormUrlencoded;
 
 use Phpro\HttpTools\Encoding\FormUrlencoded\FormUrlencodedEncoder;
 use Phpro\HttpTools\Test\UseHttpFactories;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 final class FormUrlencodedEncoderTest extends TestCase
 {
     use UseHttpFactories;
 
-    /** @test */
+    #[Test]
     public function it_can_encode_array_to_url_encoded(): void
     {
         $data = ['hello' => 'world'];
@@ -27,7 +28,7 @@ final class FormUrlencodedEncoderTest extends TestCase
         self::assertSame(['application/x-www-form-urlencoded'], $actual->getHeader('Content-Type'));
     }
 
-    /** @test */
+    #[Test]
     public function it_can_encode_null_to_empty_body(): void
     {
         $data = null;

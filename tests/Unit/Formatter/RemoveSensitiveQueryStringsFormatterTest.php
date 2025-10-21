@@ -8,6 +8,8 @@ use Http\Message\Formatter;
 use Phpro\HttpTools\Formatter\RemoveSensitiveQueryStringsFormatter;
 use Phpro\HttpTools\Test\UseHttpFactories;
 use Phpro\HttpTools\Tests\Helper\Formatter\SimpleFormatter;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 final class RemoveSensitiveQueryStringsFormatterTest extends TestCase
@@ -24,11 +26,8 @@ final class RemoveSensitiveQueryStringsFormatterTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider provideJsonExpectations
-     */
+    #[DataProvider('provideJsonExpectations')]
+    #[Test]
     public function it_can_remove_sensitive_query_strings_from_request(
         string $actual,
         string $expected,
@@ -42,9 +41,7 @@ final class RemoveSensitiveQueryStringsFormatterTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_can_format_a_response(): void
     {
         $response = $this->createResponse();
@@ -54,11 +51,7 @@ final class RemoveSensitiveQueryStringsFormatterTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider provideJsonExpectations
-     */
+    #[Test]
     public function it_can_format_a_response_with_request_context(): void
     {
         $request = $this->createRequest('GET', '/something');
@@ -69,11 +62,7 @@ final class RemoveSensitiveQueryStringsFormatterTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider provideJsonExpectations
-     */
+    #[Test]
     public function it_can_format_a_response_with_request_context_if_base_method_does_not_exist(): void
     {
         $request = $this->createRequest('GET', '/something');

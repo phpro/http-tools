@@ -8,6 +8,7 @@ use Phpro\HttpTools\Encoding\Raw\RawEncoder;
 use Phpro\HttpTools\Test\UseHttpToolsFactories;
 use Phpro\HttpTools\Transport\IO\Input\EncodingRequestConverter;
 use Phpro\HttpTools\Uri\RawUriBuilder;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
 
@@ -15,7 +16,7 @@ final class EncodingRequestConverterTest extends TestCase
 {
     use UseHttpToolsFactories;
 
-    /** @test */
+    #[Test]
     public function it_can_convert_a_request_to_a_psr_request(): void
     {
         $converter = EncodingRequestConverter::createWithAutodiscoveredPsrFactories(

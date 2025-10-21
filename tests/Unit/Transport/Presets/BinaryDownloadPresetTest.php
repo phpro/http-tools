@@ -9,6 +9,8 @@ use Phpro\HttpTools\Test\UseHttpToolsFactories;
 use Phpro\HttpTools\Test\UseMockClient;
 use Phpro\HttpTools\Transport\Presets\BinaryDownloadPreset;
 use Phpro\HttpTools\Uri\RawUriBuilder;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Mime\Part\Multipart\FormDataPart;
 
@@ -17,11 +19,8 @@ final class BinaryDownloadPresetTest extends TestCase
     use UseHttpToolsFactories;
     use UseMockClient;
 
-    /**
-     * @test
-     *
-     * @dataProvider provideAliasFactoryMethods
-     */
+    #[DataProvider('provideAliasFactoryMethods')]
+    #[Test]
     public function it_can_create_a_default_transport(string $factoryMethod): void
     {
         $transport = BinaryDownloadPreset::{$factoryMethod}(
@@ -51,7 +50,7 @@ final class BinaryDownloadPresetTest extends TestCase
         self::assertSame(md5($content), $actualResponse->hash());
     }
 
-    /** @test */
+    #[Test]
     public function it_can_create_from_from_data_transport(): void
     {
         $transport = BinaryDownloadPreset::withMultiPartRequest(
