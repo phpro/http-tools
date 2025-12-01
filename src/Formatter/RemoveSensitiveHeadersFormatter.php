@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Phpro\HttpTools\Formatter;
 
+use Closure;
 use Http\Message\Formatter as HttpFormatter;
 
 use function preg_quote;
@@ -12,6 +13,9 @@ use Psl\Regex;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
+/**
+ * @psalm-import-type Decorator from FormatterBuilder
+ */
 final class RemoveSensitiveHeadersFormatter implements HttpFormatter
 {
     private HttpFormatter $formatter;
@@ -28,6 +32,16 @@ final class RemoveSensitiveHeadersFormatter implements HttpFormatter
     {
         $this->formatter = $formatter;
         $this->sensitiveHeaders = $sensitiveHeaders;
+    }
+
+    /**
+     * @param non-empty-list<string> $sensitiveHeaders
+     *
+     * @return Decorator
+     */
+    public static function createDecorator(array $sensitiveHeaders): Closure
+    {
+        return static fn (HttpFormatter $formatter): HttpFormatter => new self($formatter, $sensitiveHeaders);
     }
 
     public function formatRequest(RequestInterface $request): string

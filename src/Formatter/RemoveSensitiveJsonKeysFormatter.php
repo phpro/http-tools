@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Phpro\HttpTools\Formatter;
 
+use Closure;
 use Http\Message\Formatter as HttpFormatter;
 
 use function preg_quote;
@@ -12,6 +13,9 @@ use Psl\Regex;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
+/**
+ * @psalm-import-type Decorator from FormatterBuilder
+ */
 final class RemoveSensitiveJsonKeysFormatter implements HttpFormatter
 {
     private HttpFormatter $formatter;
@@ -28,6 +32,16 @@ final class RemoveSensitiveJsonKeysFormatter implements HttpFormatter
     {
         $this->formatter = $formatter;
         $this->sensitiveJsonKeys = $sensitiveJsonKeys;
+    }
+
+    /**
+     * @param non-empty-list<string> $sensitiveJsonKeys
+     *
+     * @return Decorator
+     */
+    public static function createDecorator(array $sensitiveJsonKeys): Closure
+    {
+        return static fn (HttpFormatter $formatter): HttpFormatter => new self($formatter, $sensitiveJsonKeys);
     }
 
     public function formatRequest(RequestInterface $request): string

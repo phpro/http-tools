@@ -80,6 +80,55 @@ $middlewares = [
 
 **Remember**: [There are a shitload of HTTPlug middleware available already.](http://docs.php-http.org/en/latest/plugins/) Try on of them before writing your own one!
 
+
+#### Enhance your setup by using a Client Builder
+
+Configuring an HTTP client can be cumbersome if you have a lot of plugins.
+In order to make this easier, we've provided a Client Builder that helps you set-up your client step by step:
+
+```php
+use Http\Message\Authentication\BasicAuth;
+use Phpro\HttpTools\Client\ClientBuilder;
+use Phpro\HttpTools\Client\Factory\AutoDiscoveredClientFactory;
+
+$client = ClientBuilder::default(AutoDiscoveredClientFactory::create([]))
+    ->addBaseUri('https://www.google.com')
+    ->addHeaders([
+        'x-Foo' => 'bar',
+    ])
+    ->addAuthentication(new BasicAuth('user', 'pass'))
+    ->addPlugin(new YourPlugin(), priority: 99)
+    // -> and many more ...
+    ->build();
+```
+
+Our suggested approach is to create a configuration object for all variable client configurations and services.
+This can be used in combination with a PHP factory class that builds your client through this builder:
+
+```php
+final readonly class YourClientConfig {
+    public function __construct(
+        public string $apiUrl,
+        #[\SensitiveParameter] public string $apiKey,
+        public LoggerInterface $logger
+    ) {
+    }
+}
+```
+
+```php
+final readonly class YourClientFactory
+{
+    public static function create(YourClientConfig $config): ClientInterface
+    {
+        return ClientBuilder::default()
+            ->addBaseUri($config->apiUrl)
+            ->addHeaders(['x-Api-Key' => $config->apiKey])
+            ->build();
+    }
+}
+```
+
 ### Logging
 
 This package contains the `php-http/logger-plugin`.
@@ -103,6 +152,37 @@ $middlewares[] = new Http\Client\Common\Plugin\LoggerPlugin(
     )
 ); 
 ```
+
+#### Log formatter builder
+
+Since logging is a common requirement, we've added a formatter builder which can be used directly from the client builder:
+
+```php
+use Http\Message\Formatter;
+use Phpro\HttpTools\Client\ClientBuilder;
+use Phpro\HttpTools\Formatter\FormatterBuilder;
+use Phpro\HttpTools\Formatter\RemoveSensitiveHeadersFormatter;
+use Phpro\HttpTools\Request\Request;
+use Phpro\HttpTools\Transport\Presets\RawPreset;
+use Phpro\HttpTools\Uri\RawUriBuilder;
+use Symfony\Component\Console\Logger\ConsoleLogger;
+use Symfony\Component\Console\Output\ConsoleOutput;
+use Symfony\Component\Console\Output\OutputInterface;
+
+$client = ClientBuilder::default()
+    ->addLogger(
+        new ConsoleLogger(new ConsoleOutput(OutputInterface::VERBOSITY_DEBUG)),
+        FormatterBuilder::default()
+            ->withDebug(true)
+            ->withMaxBodyLength(1000)
+            ->addDecorator(RemoveSensitiveHeadersFormatter::createDecorator([
+                'X-SENSITIVE-HEADER',
+            ]))
+            ->build()
+    )
+    ->build();
+```
+
 
 [More info ...](http://docs.php-http.org/en/latest/plugins/logger.html)
 
