@@ -16,14 +16,24 @@ final class RemoveSensitiveQueryStringsFormatterTest extends TestCase
 {
     use UseHttpFactories;
 
+    private Formatter $decoratedFormatter;
     private RemoveSensitiveQueryStringsFormatter $formatter;
 
     protected function setUp(): void
     {
         $this->formatter = new RemoveSensitiveQueryStringsFormatter(
-            new SimpleFormatter(),
+            $this->decoratedFormatter = new SimpleFormatter(),
             ['apiKey', 'token']
         );
+    }
+
+    #[Test]
+    public function it_can_be_created_as_decorator(): void
+    {
+        self::assertEquals($this->formatter, RemoveSensitiveQueryStringsFormatter::createDecorator([
+            'apiKey',
+            'token',
+        ])($this->decoratedFormatter));
     }
 
     #[DataProvider('provideJsonExpectations')]

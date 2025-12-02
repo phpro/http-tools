@@ -17,16 +17,26 @@ final class RemoveSensitiveHeaderKeysFormatterTest extends TestCase
 {
     use UseHttpFactories;
 
+    private Formatter $decoratedFormatter;
     private RemoveSensitiveHeadersFormatter $formatter;
 
     protected function setUp(): void
     {
         $this->formatter = new RemoveSensitiveHeadersFormatter(
-            new CallbackFormatter(
+            $this->decoratedFormatter = new CallbackFormatter(
                 fn (MessageInterface $message): string => $this->formatHeaders($message->getHeaders())
             ),
             ['X-API-Key', 'X-API-Secret']
         );
+    }
+
+    #[Test]
+    public function it_can_be_created_as_decorator(): void
+    {
+        self::assertEquals($this->formatter, RemoveSensitiveHeadersFormatter::createDecorator([
+            'X-API-Key',
+            'X-API-Secret',
+        ])($this->decoratedFormatter));
     }
 
     #[DataProvider('provideJsonExpectations')]

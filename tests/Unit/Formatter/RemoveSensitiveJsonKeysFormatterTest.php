@@ -18,14 +18,24 @@ final class RemoveSensitiveJsonKeysFormatterTest extends TestCase
 {
     use UseHttpFactories;
 
+    private Formatter $decoratedFormatter;
     private RemoveSensitiveJsonKeysFormatter $formatter;
 
     protected function setUp(): void
     {
         $this->formatter = new RemoveSensitiveJsonKeysFormatter(
-            new CallbackFormatter(fn (MessageInterface $message) => $message->getBody()->__toString()),
+            $this->decoratedFormatter = new CallbackFormatter(fn (MessageInterface $message) => $message->getBody()->__toString()),
             ['password', 'refreshToken']
         );
+    }
+
+    #[Test]
+    public function it_can_be_created_as_decorator(): void
+    {
+        self::assertEquals($this->formatter, RemoveSensitiveJsonKeysFormatter::createDecorator([
+            'password',
+            'refreshToken',
+        ])($this->decoratedFormatter));
     }
 
     #[DataProvider('provideJsonExpectations')]

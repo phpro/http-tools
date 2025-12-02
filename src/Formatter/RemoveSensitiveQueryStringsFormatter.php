@@ -4,10 +4,14 @@ declare(strict_types=1);
 
 namespace Phpro\HttpTools\Formatter;
 
+use Closure;
 use Http\Message\Formatter as HttpFormatter;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
+/**
+ * @psalm-import-type Decorator from FormatterBuilder
+ */
 final class RemoveSensitiveQueryStringsFormatter implements HttpFormatter
 {
     private HttpFormatter $formatter;
@@ -26,6 +30,16 @@ final class RemoveSensitiveQueryStringsFormatter implements HttpFormatter
     ) {
         $this->formatter = $formatter;
         $this->sensitiveKeys = $sensitiveKeys;
+    }
+
+    /**
+     * @param non-empty-list<string> $sensitiveKeys
+     *
+     * @return Decorator
+     */
+    public static function createDecorator(array $sensitiveKeys): Closure
+    {
+        return static fn (HttpFormatter $formatter): HttpFormatter => new self($formatter, $sensitiveKeys);
     }
 
     public function formatRequest(RequestInterface $request): string
