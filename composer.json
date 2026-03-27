@@ -15,9 +15,16 @@
         }
     ],
     "require": {
-        "php": "~8.3.0 || ~8.4.0 || ~8.5.0",
+        "php": "~8.4.0 || ~8.5.0",
         "ext-json": "*",
-        "php-standard-library/php-standard-library": "^3.1 || ^4.0 || ^5.0 || ^6.0",
+        "php-standard-library/foundation": "^6.1",
+        "php-standard-library/fun": "^6.1",
+        "php-standard-library/hash": "^6.1",
+        "php-standard-library/iter": "^6.1",
+        "php-standard-library/json": "^6.1",
+        "php-standard-library/regex": "^6.1",
+        "php-standard-library/result": "^6.1",
+        "php-standard-library/type": "^6.1",
         "cardinalby/content-disposition": "^1.1",
         "league/uri": "^7.3",
         "php-http/client-common": "^2.7",

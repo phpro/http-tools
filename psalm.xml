@@ -8,6 +8,7 @@
     findUnusedBaselineEntry="true"
     findUnusedCode="false"
     ensureOverrideAttribute="false"
+    phpVersion="8.4"
 >
     <projectFiles>
         <directory name="src" />
