@@ -40,6 +40,8 @@ This package contains some frequently used encoders / decoders for you:
 | `StreamDecoder`         | `DecoderInterface<StreamInterface>`   | Returns the PSR-7 Stream as response result                                         |
 | `RawEncoder`            | `EncoderInterface<string>`            | Adds raw string as request body                                                     |
 | `RawDecoder`            | `DecoderInterface<string>`            | Returns the raw PSR-7 body string as response result                                |
+| `ResourceStreamEncoder` | `EncoderInterface<ResourceStream>`    | Adds `phpro/resource-stream` as request body                                        |
+| `ResourceStreamDecoder` | `DecoderInterface<ResourceStream>`    | Returns `phpro/resource-stream` from response body                                  |
 | `ResponseDecoder`       | `DecoderInterface<ResponseInterface>` | Returns the received PSR-7 response as result                                       |
 
 ## Built-in transport presets:
