@@ -29,20 +29,21 @@ This package contains some frequently used encoders / decoders for you:
 
 | Class                   | EncodingType<DataType>                | Action                                                                              |
 |-------------------------|---------------------------------------|-------------------------------------------------------------------------------------|
-| `EmptyBodyEncoder`      | `EncoderInterface<null>`              | Creates empty request body                                                          | 
 | `BinaryFileDecoder`     | `DecoderInterface<BinaryFile>`        | Parses file information from the HTTP response and returns a `BinaryFile` DTO       |
-| `FormUrlencodedEncoder` | `EncoderInterface<?array>`            | Adds form urlencoded body and headers to request                                    |
+| `ContentTypeAwareEncoder` | `EncoderInterface<ContentTypeAwarePayload<T>>` | Decorator that wraps any encoder and sets the Content-Type header from the payload |
+| `EmptyBodyEncoder`      | `EncoderInterface<null>`              | Creates empty request body                                                          |
 | `FormUrlencodedDecoder` | `DecoderInterface<array>`             | Converts form urlencoded response body to array                                     |
-| `JsonEncoder`           | `EncoderInterface<?array>`            | Adds json body and headers to request                                               |
+| `FormUrlencodedEncoder` | `EncoderInterface<?array>`            | Adds form urlencoded body and headers to request                                    |
 | `JsonDecoder`           | `DecoderInterface<array>`             | Converts json response body to array                                                |
+| `JsonEncoder`           | `EncoderInterface<?array>`            | Adds json body and headers to request                                               |
 | `MultiPartEncoder`      | `EncoderInterface<AbstractMultipartPart>`   | Adds symfony/mime `AbstractMultipartPart`as HTTP body. Handy for form data + files. |
-| `StreamEncoder`         | `EncoderInterface<StreamInterface>`   | Adds PSR-7 Stream as request body                                                   |
-| `StreamDecoder`         | `DecoderInterface<StreamInterface>`   | Returns the PSR-7 Stream as response result                                         |
-| `RawEncoder`            | `EncoderInterface<string>`            | Adds raw string as request body                                                     |
 | `RawDecoder`            | `DecoderInterface<string>`            | Returns the raw PSR-7 body string as response result                                |
-| `ResourceStreamEncoder` | `EncoderInterface<ResourceStream>`    | Adds `phpro/resource-stream` as request body                                        |
+| `RawEncoder`            | `EncoderInterface<string>`            | Adds raw string as request body                                                     |
 | `ResourceStreamDecoder` | `DecoderInterface<ResourceStream>`    | Returns `phpro/resource-stream` from response body                                  |
+| `ResourceStreamEncoder` | `EncoderInterface<ResourceStream>`    | Adds `phpro/resource-stream` as request body                                        |
 | `ResponseDecoder`       | `DecoderInterface<ResponseInterface>` | Returns the received PSR-7 response as result                                       |
+| `StreamDecoder`         | `DecoderInterface<StreamInterface>`   | Returns the PSR-7 Stream as response result                                         |
+| `StreamEncoder`         | `EncoderInterface<StreamInterface>`   | Adds PSR-7 Stream as request body                                                   |
 
 ## Built-in transport presets:
 
