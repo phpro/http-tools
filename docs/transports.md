@@ -45,6 +45,10 @@ This package contains some frequently used encoders / decoders for you:
 | `StreamDecoder`         | `DecoderInterface<StreamInterface>`   | Returns the PSR-7 Stream as response result                                         |
 | `StreamEncoder`         | `EncoderInterface<StreamInterface>`   | Adds PSR-7 Stream as request body                                                   |
 
+> **Note:** The `ResourceStreamEncoder` passes the underlying PHP resource to a PSR-7 stream.
+> PSR-7's `StreamInterface::close()` will close this resource, which also closes the original `ResourceStream`.
+> If you need to reuse the resource after sending a request, pass a copy of the stream (e.g. via `$stream->copyTo(MemoryStream::create())`) to the encoder instead.
+
 ## Built-in transport presets:
 
 We've composed some of the encodings above into pre-configured transports:
