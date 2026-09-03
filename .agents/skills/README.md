@@ -7,6 +7,35 @@ read it, some via a `.claude/skills` symlink which is git-ignored here).
 They are written for the **consumer** of this package — someone integrating a third-party API in
 their own application — not for contributors to the library itself.
 
+## Installing
+
+Via [APM](https://microsoft.github.io/apm/), which deploys all six into your harness of choice:
+
+```yaml
+# apm.yml
+dependencies:
+  apm:
+    - git: git@github.com:phpro/http-tools.git
+      ref: v2.x
+```
+
+```bash
+apm install
+```
+
+`apm.yml` and `.apm/skills` (a symlink to this directory) at the repo root are what make the
+package installable; `.agents/skills/` stays the real home, so the skills also work by plain
+checkout without APM. Pass `--target agent-skills` if you want them deployed to `.agents/skills/`
+in the consuming project rather than to a specific harness.
+
+To pull in only some of them, name the skills you want:
+
+```yaml
+    - git: git@github.com:phpro/http-tools.git
+      ref: v2.x
+      skills: [generate-http-response, test-http-integration]
+```
+
 ## Skills
 
 | Skill | Use when |

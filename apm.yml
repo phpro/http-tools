@@ -1,0 +1,8 @@
+name: phpro/http-tools
+description: Agent skills for building HTTP integrations with phpro/http-tools — requests, responses, request handlers, client/transport configuration and tests.
+version: 0.1.0
+author: Toon Verwerft
+dependencies:
+  apm: []
+  mcp: []
+scripts: {}
